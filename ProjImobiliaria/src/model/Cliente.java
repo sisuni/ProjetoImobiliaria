@@ -11,6 +11,8 @@ public abstract class Cliente extends Pessoa {
 	private String logradouro;
 	private int numero;
 	private String complemento;
+	
+	// TODO: Falta implementar o array de Telefones (modelos implementados em Proprietário e Imóvel)
 
 	public Cliente(int cod, String nome, String cpf, String rg, String email,
 			String uf, String cidade, String bairro, String logradouro,
