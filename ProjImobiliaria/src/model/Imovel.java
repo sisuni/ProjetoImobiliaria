@@ -147,80 +147,18 @@ public class Imovel {
 		return proprietario;
 	}
 
-	/**
-	 * Método que garante o relacionamento entre o Imovel e o Proprietario
-	 * seguindo as probilidades eventuais:
-	 * @param proprietario
-	 */
 	public void setProprietario(Proprietario proprietario) {
-		// Se a situação atual já estiver igual, não precisa fazer nada
-		if(this.proprietario == proprietario)
-			return;
-
-		if(proprietario != null){
-			
-			// Se já pertencer a outro departamento remover primeiro
-			if(this.proprietario != null){
-				this.proprietario.removeImovel(this);
-				this.proprietario = proprietario;
-			}else{
-				if(this.proprietario == null){
-					this.proprietario = proprietario;
-					this.proprietario.inserirImovel(this);
-				}
-			}
-
-		}else{
-			
-			// Somente nulifica se possuir algum proprietario
-			if(this.proprietario != null){
-				Proprietario antigo = this.proprietario;
-				this.proprietario = null;
-				antigo.removeImovel(this);
-			}
-	
-		}
+		this.proprietario = proprietario;
 	}
 
 	public Tipo getTipo() {
 		return tipo;
 	}
-
 	
-	/**
-	 * Método que garante o relacionamento entre o Imovel e o Tipo
-	 * seguindo as probilidades eventuais:
-	 * @param proprietario
-	 */
 	public void setTipo(Tipo tipo) {
-		// Se a situação atual já estiver igual, não precisa fazer nada
-		if(this.tipo == tipo)
-			return;
-
-		if(tipo != null){
-			
-			// Se já pertencer a outro departamento remover primeiro
-			if(this.tipo != null){
-				this.tipo.removeImovel(this);
-				this.tipo = tipo;
-			}else{
-				if(this.tipo == null){
-					this.tipo = tipo;
-					this.tipo.inserirImovel(this);
-				}
-			}
-
-		}else{
-			
-			// Somente nulifica se possuir algum proprietario
-			if(this.tipo != null){
-				Tipo antigo = this.tipo;
-				this.proprietario = null;
-				antigo.removeImovel(this);
-			}
-	
-		}
+		this.tipo = tipo;
 	}
+	
 	
 
 }
