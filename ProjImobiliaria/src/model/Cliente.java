@@ -12,8 +12,10 @@ public abstract class Cliente extends Pessoa {
 	private int numero;
 	private String complemento;
 	private Telefone[] listaTelefones;
+	private int numTel;
+
 	public static final int NUM_MAX_TELEFONES = 5;
-	
+
 	public Cliente(int cod, String nome, String cpf, String rg, String email,
 			String uf, String cidade, String bairro, String logradouro,
 			int numero, String complemento) {
@@ -109,7 +111,34 @@ public abstract class Cliente extends Pessoa {
 	public static int getNumMaxTelefones() {
 		return NUM_MAX_TELEFONES;
 	}
-	
-	
-	
+
+	public void addTelefone(Telefone novoTel) {
+
+		if (this.numTel == this.NUM_MAX_TELEFONES)
+			return;
+		else {
+			for(int i = 0; i < this.numTel; i++){
+				if(this.listaTelefones[i] == novoTel)
+					return;
+			}
+			
+			this.listaTelefones[numTel] = novoTel;
+			novoTel.setCliente(this);
+			this.numTel++;
+		}
+	}
+
+	public void removeTelefone(Telefone antigoTel) {
+		for (int i=0;i<=this.numTel;i++){
+			if(listaTelefones[i]==antigoTel){
+				this.listaTelefones[i]=this.listaTelefones[this.numTel-1];
+				this.listaTelefones[this.numTel -1]=null;
+				antigoTel.setCliente(this);
+				this.numTel--;
+				
+				return;
+			}
+		}
+	}
+
 }

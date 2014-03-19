@@ -33,7 +33,29 @@ public class Telefone {
 	}
 
 	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+		
+		if (this.cliente == cliente)
+			return;
+		
+		if(cliente != null){
+			
+			if(this.cliente != null){
+				this.cliente.removeTelefone(this);
+				this.cliente = cliente;
+			}else{
+				if(this.cliente==null){
+					this.cliente = cliente;
+					this.cliente.addTelefone(this);
+				}
+			}
+			
+		}else{
+			if(this.cliente !=null){
+				Cliente antigoCliente = this.cliente;
+				this.cliente = null;
+				antigoCliente.removeTelefone(this);
+			}
+		}
 	}
 	
 	
