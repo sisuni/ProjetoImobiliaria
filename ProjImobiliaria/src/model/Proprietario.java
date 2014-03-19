@@ -78,7 +78,7 @@ public class Proprietario extends Cliente {
 	}
 
 	/**
-	 * Método para inclusão de imoveis no array listaImoveis.
+	 * Método para inclusão de imoveis no array listaImoveis
 	 * @param imovel
 	 */
 	public void addImovel(Imovel imovel){
@@ -98,7 +98,7 @@ public class Proprietario extends Cliente {
 	}
 	
 	/**
-	 * Método para exclusão de imoveis do array listaImoveis.
+	 * Método para exclusão de imoveis do array listaImoveis
 	 * @param exImovel
 	 */
 	public void removeImovel(Imovel exImovel){

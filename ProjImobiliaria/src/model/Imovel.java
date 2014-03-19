@@ -187,7 +187,7 @@ public class Imovel {
 	}
 	
 	/**
-	 * Método que garante o relacionamento entre o Imovel e Proprietario
+	 * Método que garante o relacionamento entre o Imovel e Tipo
 	 * seguindo as probilidades eventuais:
 	 * @param proprietario
 	 */
