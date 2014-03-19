@@ -36,7 +36,7 @@ public class Imovel {
 		this.finalidade = finalidade;
 		this.status = status;
 		this.setProprietario(proprietario);
-		this.tipo = tipo;
+		this.setTipo(tipo);
 	}
 
 	public int getCod() {

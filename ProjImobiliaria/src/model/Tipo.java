@@ -10,7 +10,6 @@ public class Tipo {
 	// Este gargalo desaparece quando implementa-se o uso das Collections ao invés de Arrays
 	// porém o professor solicitou somente o uso de Arrays.
 	public Tipo(String nome) {
-		super();
 		this.nome = nome;
 		this.listaImoveis = new Imovel[NUM_MAX_IMOVEIS];
 	}

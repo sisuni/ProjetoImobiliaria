@@ -9,7 +9,7 @@ public class Telefone {
 	public Telefone(String tipo, String numero, Cliente cliente) {
 		this.tipo = tipo;
 		this.numero = numero;
-		this.cliente = cliente;
+		this.setCliente(cliente);
 	}
 
 	public String getTipo() {

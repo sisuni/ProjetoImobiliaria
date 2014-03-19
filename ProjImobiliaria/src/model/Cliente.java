@@ -11,6 +11,8 @@ public abstract class Cliente extends Pessoa {
 	private String logradouro;
 	private int numero;
 	private String complemento;
+	private Telefone[] listaTelefones;
+	public static final int NUM_MAX_TELEFONES = 5;
 	
 	public Cliente(int cod, String nome, String cpf, String rg, String email,
 			String uf, String cidade, String bairro, String logradouro,
@@ -25,7 +27,7 @@ public abstract class Cliente extends Pessoa {
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
-
+		this.listaTelefones = new Telefone[NUM_MAX_TELEFONES];
 	}
 
 	public String getCpf() {
@@ -99,5 +101,15 @@ public abstract class Cliente extends Pessoa {
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
+
+	public Telefone[] getListaTelefones() {
+		return listaTelefones;
+	}
+
+	public static int getNumMaxTelefones() {
+		return NUM_MAX_TELEFONES;
+	}
+	
+	
 	
 }
