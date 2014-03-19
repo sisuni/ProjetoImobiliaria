@@ -9,6 +9,7 @@ public class Proprietario extends Cliente {
 	private String cpfTitular;
 	private Imovel[] listaImoveis;
 	public static final int NUM_MAX_IMOVEIS = 10;
+	private int numImoveis;
 	
 	public Proprietario(int cod, String nome, String cpf, String rg,
 			String email, String uf, String cidade, String bairro,
@@ -72,6 +73,48 @@ public class Proprietario extends Cliente {
 		return NUM_MAX_IMOVEIS;
 	}
 
+	public int getNumImoveis() {
+		return numImoveis;
+	}
+
+	/**
+	 * Método para inclusão de imoveis no array listaImoveis.
+	 * @param imovel
+	 */
+	public void addImovel(Imovel imovel){
+		if(this.numImoveis == this.NUM_MAX_IMOVEIS)
+			return;
+		else{
+			// Caso já exista na lista não fazer nada
+			for(int i=0; i < this.numImoveis; i++)
+				if(this.listaImoveis[i] == imovel)
+					return;
+			
+			this.listaImoveis[this.numImoveis] = imovel;
+			imovel.setProprietario(this);
+			this.numImoveis++;
+		}
+		
+	}
+	
+	/**
+	 * Método para exclusão de imoveis do array listaImoveis.
+	 * @param exImovel
+	 */
+	public void removeImovel(Imovel exImovel){
+		
+		for(int i=0; i < this.numImoveis; i++)
+			if(this.listaImoveis[i] == exImovel){
+				this.listaImoveis[i] = this.listaImoveis[this.numImoveis-1];
+				this.listaImoveis[this.numImoveis-1] = null;
+				exImovel.setProprietario(null);
+				this.numImoveis--;
+				
+				return;
+			}
+
+	}
+	
 	
 
 }

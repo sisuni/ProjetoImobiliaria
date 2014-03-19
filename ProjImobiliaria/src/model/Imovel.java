@@ -147,16 +147,78 @@ public class Imovel {
 		return proprietario;
 	}
 
+	/**
+	 * Método que garante o relacionamento entre o Imovel e Proprietario
+	 * seguindo as probilidades eventuais:
+	 * @param proprietario
+	 */
 	public void setProprietario(Proprietario proprietario) {
-		this.proprietario = proprietario;
+		// Se a situação atual já estiver igual, não precisa fazer nada
+		if(this.proprietario == proprietario)
+			return;
+
+		if(proprietario != null){
+			
+			// Se já pertencer a outro Proprietario remover primeiro
+			if(this.proprietario != null){
+				this.proprietario.removeImovel(this);
+				this.proprietario = proprietario;
+			}else{
+				if(this.proprietario == null){
+					this.proprietario = proprietario;
+					this.proprietario.addImovel(this);
+				}
+			}
+
+		}else{
+			
+			// Somente nulifica se possuir algum Proprietario
+			if(this.proprietario != null){
+				Proprietario antigo = this.proprietario;
+				this.proprietario = null;
+				antigo.removeImovel(this);
+			}
+	
+		}
 	}
 
 	public Tipo getTipo() {
 		return tipo;
 	}
 	
+	/**
+	 * Método que garante o relacionamento entre o Imovel e Proprietario
+	 * seguindo as probilidades eventuais:
+	 * @param proprietario
+	 */
 	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
+		// Se a situação atual já estiver igual, não precisa fazer nada
+		if(this.tipo == tipo)
+			return;
+
+		if(tipo != null){
+			
+			// Se já pertencer a outro Tipo remover primeiro
+			if(this.tipo != null){
+				this.tipo.removeImovel(this);
+				this.tipo = tipo;
+			}else{
+				if(this.tipo == null){
+					this.tipo = tipo;
+					this.tipo.addImovel(this);
+				}
+			}
+
+		}else{
+			
+			// Somente nulifica se possuir algum Tipo
+			if(this.tipo != null){
+				Tipo antigo = this.tipo;
+				this.tipo = null;
+				antigo.removeImovel(this);
+			}
+	
+		}
 	}
 	
 	
