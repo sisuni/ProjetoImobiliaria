@@ -36,5 +36,4 @@ public class Exerce {
 		this.funcionario = funcionario;
 	}
 	
-	
 }

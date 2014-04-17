@@ -148,18 +148,18 @@ public class Imovel {
 	}
 
 	/**
-	 * MÈtodo que garante o relacionamento entre o Imovel e Proprietario
+	 * M√©todo que garante o relacionamento entre o Imovel e Proprietario
 	 * seguindo as probilidades eventuais:
 	 * @param proprietario
 	 */
 	public void setProprietario(Proprietario proprietario) {
-		// Se a situaÁ„o atual j· estiver igual, n„o precisa fazer nada
+		// Se a situa√ß√£o atual j√° estiver igual, n√£o precisa fazer nada
 		if(this.proprietario == proprietario)
 			return;
 
 		if(proprietario != null){
 			
-			// Se j· pertencer a outro Proprietario remover primeiro
+			// Se j√° pertencer a outro Proprietario remover primeiro
 			if(this.proprietario != null){
 				this.proprietario.removeImovel(this);
 				this.proprietario = proprietario;
@@ -187,18 +187,18 @@ public class Imovel {
 	}
 	
 	/**
-	 * MÈtodo que garante o relacionamento entre o Imovel e Tipo
+	 * M√©todo que garante o relacionamento entre o Imovel e Tipo
 	 * seguindo as probilidades eventuais:
 	 * @param proprietario
 	 */
 	public void setTipo(Tipo tipo) {
-		// Se a situaÁ„o atual j· estiver igual, n„o precisa fazer nada
+		// Se a situa√ß√£o atual j√° estiver igual, n√£o precisa fazer nada
 		if(this.tipo == tipo)
 			return;
 
 		if(tipo != null){
 			
-			// Se j· pertencer a outro Tipo remover primeiro
+			// Se j√° pertencer a outro Tipo remover primeiro
 			if(this.tipo != null){
 				this.tipo.removeImovel(this);
 				this.tipo = tipo;
@@ -220,7 +220,5 @@ public class Imovel {
 	
 		}
 	}
-	
-	
 
 }

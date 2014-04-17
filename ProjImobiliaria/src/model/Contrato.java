@@ -11,8 +11,7 @@ public class Contrato {
 	private Inquilino inquilino;
 	private Imovel imovel;
 
-	public Contrato(int duracao, Date dataInicio, int percentProprietario,
-			String modelo, float valorAluguel) {
+	public Contrato(int duracao, Date dataInicio, int percentProprietario, String modelo, float valorAluguel) {
 		this.duracao = duracao;
 		this.dataInicio = dataInicio;
 		this.percentProprietario = percentProprietario;
@@ -77,8 +76,6 @@ public class Contrato {
 
 	public int getduracao() {
 		return duracao;
-	}
-	
-	
+	}	
 
 }

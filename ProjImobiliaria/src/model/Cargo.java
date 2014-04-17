@@ -24,7 +24,6 @@ public class Cargo {
 
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
-	}
-	
+	}	
 	
 }

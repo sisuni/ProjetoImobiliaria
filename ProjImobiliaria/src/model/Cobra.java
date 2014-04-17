@@ -34,7 +34,5 @@ public class Cobra {
 	public void setContrato(Contrato contrato) {
 		this.contrato = contrato;
 	}
-
-	
 	
 }

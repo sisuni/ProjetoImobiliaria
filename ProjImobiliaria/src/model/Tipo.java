@@ -7,9 +7,9 @@ public class Tipo {
 	public static final int NUM_MAX_IMOVEIS = 1000;
 	private int numImoveis;
 	
-	// Por questıes de desempenho defini que no sistema poder· existir no m·ximo 100 imÛveis de cada tipo definido. 
-	// Este gargalo desaparece quando implementa-se o uso das Collections ao invÈs de Arrays
-	// porÈm o professor solicitou somente o uso de Arrays.
+	// Por quest√µes de desempenho defini que no sistema poder√° existir no m√°ximo 100 im√≥veis de cada tipo definido. 
+	// Este gargalo desaparece quando implementa-se o uso das Collections ao inv√©s de Arrays
+	// por√©m o professor solicitou somente o uso de Arrays.
 	public Tipo(String nome) {
 		this.nome = nome;
 		this.listaImoveis = new Imovel[NUM_MAX_IMOVEIS];
@@ -23,7 +23,7 @@ public class Tipo {
 		this.nome = nome;
 	}
 
-	// Somente deve existir o get para esta lista pq o set È pelo mÈtodo inserirImovel();
+	// Somente deve existir o get para esta lista pq o set √© pelo m√©todo inserirImovel();
 	public Imovel[] getListaImoveis() {
 		return listaImoveis;
 	}
@@ -37,14 +37,14 @@ public class Tipo {
 	}
 		
 	/**
-	 * MÈtodo para inclus„o de imoveis no array listaImoveis
+	 * M√©todo para inclus√£o de imoveis no array listaImoveis
 	 * @param imovel
 	 */
 	public void addImovel(Imovel imovel){
 		if(this.numImoveis == this.NUM_MAX_IMOVEIS)
 			return;
 		else{
-			// Caso j· exista na lista n„o fazer nada
+			// Caso j√° exista na lista n√£o fazer nada
 			for(int i=0; i < this.numImoveis; i++)
 				if(this.listaImoveis[i] == imovel)
 					return;
@@ -57,7 +57,7 @@ public class Tipo {
 	}
 	
 	/**
-	 * MÈtodo para exclus„o de imoveis do array listaImoveis
+	 * M√©todo para exclus√£o de imoveis do array listaImoveis
 	 * @param exImovel
 	 */
 	public void removeImovel(Imovel exImovel){
@@ -73,7 +73,5 @@ public class Tipo {
 			}
 
 	}
-	
-	
 	
 }

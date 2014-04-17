@@ -17,8 +17,6 @@ public class Inquilino extends Cliente {
 
 	public void setEndAnteriorCompleto(String endAnteriorCompleto) {
 		this.endAnteriorCompleto = endAnteriorCompleto;
-	}
-	
-	
+	}	
 
 }

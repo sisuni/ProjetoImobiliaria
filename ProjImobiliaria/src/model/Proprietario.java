@@ -64,7 +64,7 @@ public class Proprietario extends Cliente {
 		this.cpfTitular = cpfTitular;
 	}
 	
-	// Somente deve existir o get para esta lista pq o set È pelo mÈtodo inserirImovel();
+	// Somente deve existir o get para esta lista pq o set √© pelo m√©todo inserirImovel();
 	public Imovel[] getListaImoveis() {
 		return listaImoveis;
 	}
@@ -78,14 +78,14 @@ public class Proprietario extends Cliente {
 	}
 
 	/**
-	 * MÈtodo para inclus„o de imoveis no array listaImoveis
+	 * M√©todo para inclus√£o de imoveis no array listaImoveis
 	 * @param imovel
 	 */
 	public void addImovel(Imovel imovel){
 		if(this.numImoveis == this.NUM_MAX_IMOVEIS)
 			return;
 		else{
-			// Caso j· exista na lista n„o fazer nada
+			// Caso j√° exista na lista n√£o fazer nada
 			for(int i=0; i < this.numImoveis; i++)
 				if(this.listaImoveis[i] == imovel)
 					return;
@@ -98,7 +98,7 @@ public class Proprietario extends Cliente {
 	}
 	
 	/**
-	 * MÈtodo para exclus„o de imoveis do array listaImoveis
+	 * M√©todo para exclus√£o de imoveis do array listaImoveis
 	 * @param exImovel
 	 */
 	public void removeImovel(Imovel exImovel){
@@ -114,7 +114,5 @@ public class Proprietario extends Cliente {
 			}
 
 	}
-	
-	
 
 }

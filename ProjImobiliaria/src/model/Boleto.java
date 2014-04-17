@@ -24,8 +24,6 @@ public class Boleto {
 	public void setContrato(Contrato contrato) {
 		this.contrato = contrato;
 	}
-
-	
 	
 }
 
