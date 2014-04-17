@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class Contrato {
-	private int duração;
+	private int duracao;
 	private Date dataInicio;
 	private int percentProprietario;
 	private String modelo;
@@ -11,9 +11,9 @@ public class Contrato {
 	private Inquilino inquilino;
 	private Imovel imovel;
 
-	public Contrato(int duração, Date dataInicio, int percentProprietario,
+	public Contrato(int duracao, Date dataInicio, int percentProprietario,
 			String modelo, float valorAluguel) {
-		this.duração = duração;
+		this.duracao = duracao;
 		this.dataInicio = dataInicio;
 		this.percentProprietario = percentProprietario;
 		this.modelo = modelo;
@@ -23,8 +23,8 @@ public class Contrato {
 
 	}
 
-	public void setDuração(int duração) {
-		this.duração = duração;
+	public void setduracao(int duracao) {
+		this.duracao = duracao;
 	}
 
 	public Date getDataInicio() {
@@ -75,8 +75,8 @@ public class Contrato {
 		this.imovel = imovel;
 	}
 
-	public int getDuração() {
-		return duração;
+	public int getduracao() {
+		return duracao;
 	}
 	
 	

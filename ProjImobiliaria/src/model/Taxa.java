@@ -2,10 +2,10 @@ package model;
 
 public class Taxa {
 	private String nome;
-	private String descrição;
+	private String descricao;
 	
-	public Taxa(String nome,String descrição){
-		this.descrição = descrição;
+	public Taxa(String nome,String descricao){
+		this.descricao = descricao;
 		this.nome = nome;
 	}
 
@@ -17,12 +17,12 @@ public class Taxa {
 		this.nome = nome;
 	}
 
-	public String getDescrição() {
-		return descrição;
+	public String getdescricao() {
+		return descricao;
 	}
 
-	public void setDescrição(String descrição) {
-		this.descrição = descrição;
+	public void setdescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 }
