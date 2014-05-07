@@ -83,7 +83,18 @@ public class Contrato {
 	}
 
 	public void setImovel(Imovel imovel) {
-		this.imovel = imovel;
+		if(this.imovel==imovel)
+			return;
+		if(imovel==null){
+			Imovel antigo = this.imovel;
+			this.imovel = null;
+			antigo.removeContrato(this);
+		}else{
+			if(this.imovel!=null)
+				this.imovel.removeContrato(this);
+			this.imovel = imovel;
+			imovel.removeContrato(this);
+		}
 	}
 
 	public int getduracao() {

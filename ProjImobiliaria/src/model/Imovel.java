@@ -1,5 +1,8 @@
 package model;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Imovel {
 	
 	private int cod;
@@ -17,6 +20,7 @@ public class Imovel {
 	private String tipo;
 	private boolean status;
 	private Proprietario proprietario;
+	private Set<Contrato> listaContratos;
 		
 	public Imovel(int cod, String uf, String cidade, String bairro,
 			String logradouro, int numero, String complemento, float valorBase,
@@ -37,6 +41,7 @@ public class Imovel {
 		this.setStatus(status);
 		this.setProprietario(proprietario);
 		this.setTipo(tipo);
+		this.listaContratos = new TreeSet<Contrato>();
 	}
 
 	public int getCod() {
@@ -175,5 +180,23 @@ public class Imovel {
 			proprietario.addImovel(this);
 		}
 	}
+	
+	public void addContrato(Contrato novoContrato){
+		if(this.listaContratos.contains(novoContrato))
+			return;
+		
+		this.listaContratos.add(novoContrato);
+		novoContrato.setImovel(this);
+	}
+	
+	public void removeContrato(Contrato exContrato){
+		if(! this.listaContratos.contains(exContrato))
+			return;
+		this.listaContratos.remove(exContrato);
+		exContrato.setImovel(null);
+	}
 
+	public Set<Contrato> getListaContrato(){
+		return this.listaContratos;
+	}
 }
