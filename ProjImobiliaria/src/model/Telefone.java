@@ -37,24 +37,15 @@ public class Telefone {
 		if (this.cliente == cliente)
 			return;
 		
-		if(cliente != null){
-			
-			if(this.cliente != null){
-				this.cliente.removeTelefone(this);
-				this.cliente = cliente;
-			}else{
-				if(this.cliente==null){
-					this.cliente = cliente;
-					this.cliente.addTelefone(this);
-				}
-			}
-			
+		if(cliente == null){
+			Cliente antigo = this.cliente;
+			this.cliente = null;
+			antigo.removeTelefone(this);				
 		}else{
-			if(this.cliente !=null){
-				Cliente antigoCliente = this.cliente;
-				this.cliente = null;
-				antigoCliente.removeTelefone(this);
-			}
+			if(this.cliente != null)
+				this.cliente.removeTelefone(this);
+			this.cliente = cliente;
+			cliente.addTelefone(this);
 		}
 	}
 

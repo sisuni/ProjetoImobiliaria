@@ -14,14 +14,14 @@ public class Imovel {
 	private int qtdQuartos;
 	private String descricao;
 	private String finalidade;
+	private String tipo;
 	private boolean status;
 	private Proprietario proprietario;
-	private Tipo tipo;
-	
+		
 	public Imovel(int cod, String uf, String cidade, String bairro,
 			String logradouro, int numero, String complemento, float valorBase,
 			String dimensoes, int qtdQuartos, String descricao,
-			String finalidade, boolean status, Proprietario proprietario, Tipo tipo) {
+			String finalidade, String tipo, boolean status, Proprietario proprietario) {
 		this.setCod(cod);
 		this.setUf(uf);
 		this.setCidade(cidade);
@@ -135,6 +135,14 @@ public class Imovel {
 		this.finalidade = finalidade;
 	}
 
+	public String getTipo() {
+		return this.tipo;
+	}
+	
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
 	public boolean isStatus() {
 		return status;
 	}
@@ -176,45 +184,6 @@ public class Imovel {
 			if(this.proprietario != null){
 				Proprietario antigo = this.proprietario;
 				this.proprietario = null;
-				antigo.removeImovel(this);
-			}
-	
-		}
-	}
-
-	public Tipo getTipo() {
-		return tipo;
-	}
-	
-	/**
-	 * Método que garante o relacionamento entre o Imovel e Tipo
-	 * seguindo as probilidades eventuais:
-	 * @param proprietario
-	 */
-	public void setTipo(Tipo tipo) {
-		// Se a situação atual já estiver igual, não precisa fazer nada
-		if(this.tipo == tipo)
-			return;
-
-		if(tipo != null){
-			
-			// Se já pertencer a outro Tipo remover primeiro
-			if(this.tipo != null){
-				this.tipo.removeImovel(this);
-				this.tipo = tipo;
-			}else{
-				if(this.tipo == null){
-					this.tipo = tipo;
-					this.tipo.addImovel(this);
-				}
-			}
-
-		}else{
-			
-			// Somente nulifica se possuir algum Tipo
-			if(this.tipo != null){
-				Tipo antigo = this.tipo;
-				this.tipo = null;
 				antigo.removeImovel(this);
 			}
 	

@@ -1,5 +1,8 @@
 package model;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 public abstract class Cliente extends Pessoa {
 
 	private String cpf;
@@ -11,11 +14,8 @@ public abstract class Cliente extends Pessoa {
 	private String logradouro;
 	private int numero;
 	private String complemento;
-	private Telefone[] listaTelefones;
-	private int numTel;
-
-	public static final int NUM_MAX_TELEFONES = 5;
-
+	private Set<Telefone> listaTelefones;
+	
 	public Cliente(int cod, String nome, String cpf, String rg, String email,
 			String uf, String cidade, String bairro, String logradouro,
 			int numero, String complemento) {
@@ -29,7 +29,7 @@ public abstract class Cliente extends Pessoa {
 		this.setLogradouro(logradouro);
 		this.setNumero(numero);
 		this.setComplemento(complemento);
-		this.listaTelefones = new Telefone[NUM_MAX_TELEFONES];
+		this.listaTelefones = new TreeSet<Telefone>();
 	}
 
 	public String getCpf() {
@@ -104,41 +104,19 @@ public abstract class Cliente extends Pessoa {
 		this.complemento = complemento;
 	}
 
-	public Telefone[] getListaTelefones() {
-		return listaTelefones;
-	}
-
-	public static int getNumMaxTelefones() {
-		return NUM_MAX_TELEFONES;
-	}
-
 	public void addTelefone(Telefone novoTel) {
-
-		if (this.numTel == this.NUM_MAX_TELEFONES)
+		if (this.listaTelefones.contains(novoTel))
 			return;
-		else {
-			for(int i = 0; i < this.numTel; i++){
-				if(this.listaTelefones[i] == novoTel)
-					return;
-			}
-			
-			this.listaTelefones[numTel] = novoTel;
-			novoTel.setCliente(this);
-			this.numTel++;
-		}
+		this.listaTelefones.add(novoTel);
+		novoTel.setCliente(this);
+		
 	}
 
 	public void removeTelefone(Telefone antigoTel) {
-		for (int i=0;i<=this.numTel;i++){
-			if(listaTelefones[i]==antigoTel){
-				this.listaTelefones[i]=this.listaTelefones[this.numTel-1];
-				this.listaTelefones[this.numTel -1]=null;
-				antigoTel.setCliente(this);
-				this.numTel--;
-				
-				return;
-			}
-		}
+		if(! this.listaTelefones.contains(antigoTel))
+			return;
+		this.listaTelefones.remove(antigoTel);
+		antigoTel.setCliente(null);
 	}
 
 }

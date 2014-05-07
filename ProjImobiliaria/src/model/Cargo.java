@@ -1,13 +1,18 @@
 package model;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Cargo {
 
 	private String nome;
 	private int nivel;
-	
+	private Set<Funcionario> listaFuncionarios;
+		
 	public Cargo (String nome, int nivel){
 		this.setNome(nome);
 		this.setNivel(nivel);
+		this.listaFuncionarios = new TreeSet<Funcionario>();
 	}
 
 	public String getNome() {
@@ -26,4 +31,19 @@ public class Cargo {
 		this.nivel = nivel;
 	}	
 	
+	public void addFuncionario(Funcionario novoFunc){
+		if(this.listaFuncionarios.contains(novoFunc))
+			return;
+		
+		this.listaFuncionarios.add(novoFunc);
+		novoFunc.setCargo(this);
+	}
+	
+	public void removerFuncionario(Funcionario exFunc){
+		if(! this.listaFuncionarios.contains(exFunc))
+			return;
+		
+		this.listaFuncionarios.remove(exFunc);
+		exFunc.setCargo(null);
+	}
 }
