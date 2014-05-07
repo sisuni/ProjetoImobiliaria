@@ -5,8 +5,6 @@ public class Proprietario extends Cliente {
 	private String banco;
 	private int agencia;
 	private String conta;
-	private String nomeTitular;
-	private String cpfTitular;
 	private Imovel[] listaImoveis;
 	public static final int NUM_MAX_IMOVEIS = 10;
 	private int numImoveis;
@@ -14,13 +12,11 @@ public class Proprietario extends Cliente {
 	public Proprietario(int cod, String nome, String cpf, String rg,
 			String email, String uf, String cidade, String bairro,
 			String logradouro, int numero, String complemento, String banco,
-			int agencia, String conta, String nomeTitular, String cpfTitular) {
+			int agencia, String conta) {
 		super(cod, nome, cpf, rg, email, uf, cidade, bairro, logradouro, numero, complemento);
 		this.setBanco(banco);
 		this.setAgencia(agencia);
 		this.setConta(conta);
-		this.setNomeTitular(nomeTitular);
-		this.setCpfTitular(cpfTitular);
 		this.listaImoveis = new Imovel[NUM_MAX_IMOVEIS];
 	}
 
@@ -48,22 +44,6 @@ public class Proprietario extends Cliente {
 		this.conta = conta;
 	}
 
-	public String getNomeTitular() {
-		return nomeTitular;
-	}
-
-	public void setNomeTitular(String nomeTitular) {
-		this.nomeTitular = nomeTitular;
-	}
-
-	public String getCpfTitular() {
-		return cpfTitular;
-	}
-
-	public void setCpfTitular(String cpfTitular) {
-		this.cpfTitular = cpfTitular;
-	}
-	
 	// Somente deve existir o get para esta lista pq o set é pelo método inserirImovel();
 	public Imovel[] getListaImoveis() {
 		return listaImoveis;
