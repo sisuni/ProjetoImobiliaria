@@ -63,7 +63,19 @@ public class Contrato {
 	}
 
 	public void setInquilino(Inquilino inquilino) {
-		this.inquilino = inquilino;
+		if(this.inquilino==inquilino)
+			return;
+		
+		if(inquilino==null){
+			Inquilino antigo = this.inquilino;
+			this.inquilino = null;
+			antigo.removeContrato(this);
+		}else{
+			if(this.inquilino!=null)
+				this.inquilino.removeContrato(this);
+			this.inquilino = inquilino;
+			inquilino.removeContrato(this);
+		}
 	}
 
 	public Imovel getImovel() {
