@@ -12,17 +12,17 @@ public class Contrato {
 	private Imovel imovel;
 
 	public Contrato(int duracao, Date dataInicio, int percentProprietario, String modelo, float valorAluguel) {
-		this.duracao = duracao;
-		this.dataInicio = dataInicio;
-		this.percentProprietario = percentProprietario;
-		this.modelo = modelo;
-		this.valorAluguel = valorAluguel;
+		this.setDuracao(duracao);
+		this.setDataInicio(dataInicio);
+		this.setPercentProprietario(percentProprietario);
+		this.setModelo(modelo);
+		this.setValorAluguel(valorAluguel);
 		this.setInquilino(inquilino);
 		this.setImovel(imovel);
 
 	}
 
-	public void setduracao(int duracao) {
+	public void setDuracao(int duracao) {
 		this.duracao = duracao;
 	}
 

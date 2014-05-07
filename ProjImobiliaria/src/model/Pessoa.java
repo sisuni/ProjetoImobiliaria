@@ -6,8 +6,8 @@ public abstract class Pessoa {
 	private String nome;
 
 	public Pessoa(int cod, String nome) {
-		this.cod = cod;
-		this.nome = nome;
+		this.setCod(cod);
+		this.setNome(nome);
 	}
 
 	public int getCod() {

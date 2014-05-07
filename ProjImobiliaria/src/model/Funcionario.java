@@ -7,8 +7,8 @@ public class Funcionario extends Pessoa {
 
 	public Funcionario(int cod, String nome, String login, String senha) {
 		super(cod, nome);
-		this.login = login;
-		this.senha = senha;
+		this.setLogin(login);
+		this.setSenha(senha);
 	}
 
 	public String getLogin() {

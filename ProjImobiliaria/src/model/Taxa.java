@@ -5,8 +5,8 @@ public class Taxa {
 	private String descricao;
 	
 	public Taxa(String nome,String descricao){
-		this.descricao = descricao;
-		this.nome = nome;
+		this.setDescricao(descricao);
+		this.setNome(nome);
 	}
 
 	public String getNome() {
@@ -17,11 +17,11 @@ public class Taxa {
 		this.nome = nome;
 	}
 
-	public String getdescricao() {
+	public String getDescricao() {
 		return descricao;
 	}
 
-	public void setdescricao(String descricao) {
+	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 

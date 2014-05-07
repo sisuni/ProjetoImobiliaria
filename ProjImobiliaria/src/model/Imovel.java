@@ -22,19 +22,19 @@ public class Imovel {
 			String logradouro, int numero, String complemento, float valorBase,
 			String dimensoes, int qtdQuartos, String descricao,
 			String finalidade, boolean status, Proprietario proprietario, Tipo tipo) {
-		this.cod = cod;
-		this.uf = uf;
-		this.cidade = cidade;
-		this.bairro = bairro;
-		this.logradouro = logradouro;
-		this.numero = numero;
-		this.complemento = complemento;
-		this.valorBase = valorBase;
-		this.dimensoes = dimensoes;
-		this.qtdQuartos = qtdQuartos;
-		this.descricao = descricao;
-		this.finalidade = finalidade;
-		this.status = status;
+		this.setCod(cod);
+		this.setUf(uf);
+		this.setCidade(cidade);
+		this.setBairro(bairro);
+		this.setLogradouro(logradouro);
+		this.setNumero(numero);
+		this.setComplemento(complemento);
+		this.setValorBase(valorBase);
+		this.setDimensoes(dimensoes);
+		this.setQtdQuartos(qtdQuartos);
+		this.setDescricao(descricao);
+		this.setFinalidade(finalidade);
+		this.setStatus(status);
 		this.setProprietario(proprietario);
 		this.setTipo(tipo);
 	}

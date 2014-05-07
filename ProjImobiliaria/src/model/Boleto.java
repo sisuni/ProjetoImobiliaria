@@ -5,7 +5,7 @@ public class Boleto {
 	private Contrato contrato;
 	
 	public Boleto(int dataVencimento){
-		this.dataVencimento = dataVencimento ;
+		this.setDataVencimento(dataVencimento);
 		this.setContrato(contrato);
 	}
 

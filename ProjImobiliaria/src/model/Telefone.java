@@ -7,8 +7,8 @@ public class Telefone {
 	private Cliente cliente;
 
 	public Telefone(String tipo, String numero, Cliente cliente) {
-		this.tipo = tipo;
-		this.numero = numero;
+		this.setTipo(tipo);
+		this.setNumero(numero);
 		this.setCliente(cliente);
 	}
 

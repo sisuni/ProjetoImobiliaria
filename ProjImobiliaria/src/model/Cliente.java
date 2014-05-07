@@ -20,15 +20,15 @@ public abstract class Cliente extends Pessoa {
 			String uf, String cidade, String bairro, String logradouro,
 			int numero, String complemento) {
 		super(cod, nome);
-		this.cpf = cpf;
-		this.rg = rg;
-		this.email = email;
-		this.uf = uf;
-		this.cidade = cidade;
-		this.bairro = bairro;
-		this.logradouro = logradouro;
-		this.numero = numero;
-		this.complemento = complemento;
+		this.setCpf(cpf);
+		this.setRg(rg);
+		this.setEmail(email);
+		this.setUf(uf);
+		this.setCidade(cidade);
+		this.setBairro(bairro);
+		this.setLogradouro(logradouro);
+		this.setNumero(numero);
+		this.setComplemento(complemento);
 		this.listaTelefones = new Telefone[NUM_MAX_TELEFONES];
 	}
 

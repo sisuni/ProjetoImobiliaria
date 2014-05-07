@@ -8,7 +8,7 @@ public class Inquilino extends Cliente {
 			String uf, String cidade, String bairro, String logradouro,
 			int numero, String complemento, String endAnteriorCompleto) {
 		super(cod, nome, cpf, rg, email, uf, cidade, bairro, logradouro, numero, complemento);
-		this.endAnteriorCompleto = endAnteriorCompleto;
+		this.setEndAnteriorCompleto(endAnteriorCompleto);
 	}
 
 	public String getEndAnteriorCompleto() {

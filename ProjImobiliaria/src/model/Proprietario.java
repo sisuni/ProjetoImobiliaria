@@ -16,11 +16,11 @@ public class Proprietario extends Cliente {
 			String logradouro, int numero, String complemento, String banco,
 			int agencia, String conta, String nomeTitular, String cpfTitular) {
 		super(cod, nome, cpf, rg, email, uf, cidade, bairro, logradouro, numero, complemento);
-		this.banco = banco;
-		this.agencia = agencia;
-		this.conta = conta;
-		this.nomeTitular = nomeTitular;
-		this.cpfTitular = cpfTitular;
+		this.setBanco(banco);
+		this.setAgencia(agencia);
+		this.setConta(conta);
+		this.setNomeTitular(nomeTitular);
+		this.setCpfTitular(cpfTitular);
 		this.listaImoveis = new Imovel[NUM_MAX_IMOVEIS];
 	}
 

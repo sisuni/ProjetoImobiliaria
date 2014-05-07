@@ -6,8 +6,8 @@ public class Cargo {
 	private int nivel;
 	
 	public Cargo (String nome, int nivel){
-		this.nome = nome;
-		this.nivel = nivel;
+		this.setNome(nome);
+		this.setNivel(nivel);
 	}
 
 	public String getNome() {
