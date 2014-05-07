@@ -1,12 +1,14 @@
 package model;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Proprietario extends Cliente {
 	
 	private String banco;
 	private int agencia;
 	private String conta;
-	private Imovel[] listaImoveis;
-	public static final int NUM_MAX_IMOVEIS = 10;
+	private Set<Imovel> listaImoveis;
 	private int numImoveis;
 	
 	public Proprietario(int cod, String nome, String cpf, String rg,
@@ -17,7 +19,7 @@ public class Proprietario extends Cliente {
 		this.setBanco(banco);
 		this.setAgencia(agencia);
 		this.setConta(conta);
-		this.listaImoveis = new Imovel[NUM_MAX_IMOVEIS];
+		this.listaImoveis = new TreeSet<Imovel>();
 	}
 
 	public String getBanco() {
@@ -45,12 +47,8 @@ public class Proprietario extends Cliente {
 	}
 
 	// Somente deve existir o get para esta lista pq o set é pelo método inserirImovel();
-	public Imovel[] getListaImoveis() {
+	public Set<Imovel> getListaImoveis() {
 		return listaImoveis;
-	}
-
-	public static int getNumMaxImoveis() {
-		return NUM_MAX_IMOVEIS;
 	}
 
 	public int getNumImoveis() {
@@ -61,19 +59,11 @@ public class Proprietario extends Cliente {
 	 * Método para inclusão de imoveis no array listaImoveis
 	 * @param imovel
 	 */
-	public void addImovel(Imovel imovel){
-		if(this.numImoveis == this.NUM_MAX_IMOVEIS)
+	public void addImovel(Imovel novoImovel){
+		if (this.listaImoveis.contains(novoImovel))
 			return;
-		else{
-			// Caso já exista na lista não fazer nada
-			for(int i=0; i < this.numImoveis; i++)
-				if(this.listaImoveis[i] == imovel)
-					return;
-			
-			this.listaImoveis[this.numImoveis] = imovel;
-			imovel.setProprietario(this);
-			this.numImoveis++;
-		}
+		this.listaImoveis.add(novoImovel);
+		novoImovel.setProprietario(this);
 		
 	}
 	
@@ -82,16 +72,10 @@ public class Proprietario extends Cliente {
 	 * @param exImovel
 	 */
 	public void removeImovel(Imovel exImovel){
-		
-		for(int i=0; i < this.numImoveis; i++)
-			if(this.listaImoveis[i] == exImovel){
-				this.listaImoveis[i] = this.listaImoveis[this.numImoveis-1];
-				this.listaImoveis[this.numImoveis-1] = null;
-				exImovel.setProprietario(null);
-				this.numImoveis--;
-				
-				return;
-			}
+		if (! this.listaImoveis.contains(exImovel))
+			return;
+		this.listaImoveis.remove(exImovel);
+		exImovel.setProprietario(null);
 
 	}
 

@@ -161,32 +161,18 @@ public class Imovel {
 	 * @param proprietario
 	 */
 	public void setProprietario(Proprietario proprietario) {
-		// Se a situação atual já estiver igual, não precisa fazer nada
 		if(this.proprietario == proprietario)
 			return;
-
-		if(proprietario != null){
-			
-			// Se já pertencer a outro Proprietario remover primeiro
-			if(this.proprietario != null){
-				this.proprietario.removeImovel(this);
-				this.proprietario = proprietario;
-			}else{
-				if(this.proprietario == null){
-					this.proprietario = proprietario;
-					this.proprietario.addImovel(this);
-				}
-			}
-
+		
+		if(proprietario == null){
+			Proprietario antigo = this.proprietario;
+			this.proprietario = null;
+			antigo.removeImovel(this);
 		}else{
-			
-			// Somente nulifica se possuir algum Proprietario
-			if(this.proprietario != null){
-				Proprietario antigo = this.proprietario;
-				this.proprietario = null;
-				antigo.removeImovel(this);
-			}
-	
+			if(this.proprietario !=null)
+				this.proprietario.removeImovel(this);
+			this.proprietario = proprietario;
+			proprietario.addImovel(this);
 		}
 	}
 
