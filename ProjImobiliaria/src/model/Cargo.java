@@ -29,7 +29,11 @@ public class Cargo {
 
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
-	}	
+	}
+	
+	public Set<Funcionario> getListaFuncionarios(){
+		return listaFuncionarios;
+	}
 	
 	public void addFuncionario(Funcionario novoFunc){
 		if(this.listaFuncionarios.contains(novoFunc))

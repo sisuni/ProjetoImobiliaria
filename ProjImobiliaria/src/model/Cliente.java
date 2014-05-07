@@ -103,6 +103,10 @@ public abstract class Cliente extends Pessoa {
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
+	
+	public Set<Telefone> getListaTelefone(){
+		return listaTelefones;
+	}
 
 	public void addTelefone(Telefone novoTel) {
 		if (this.listaTelefones.contains(novoTel))
