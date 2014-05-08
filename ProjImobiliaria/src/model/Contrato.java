@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Contrato {
 	private int duracao;
@@ -10,6 +12,7 @@ public class Contrato {
 	private float valorAluguel;
 	private Inquilino inquilino;
 	private Imovel imovel;
+	private Set<Boleto> listaBoletos;
 
 	public Contrato(int duracao, Date dataInicio, int percentProprietario, String modelo, float valorAluguel) {
 		this.setDuracao(duracao);
@@ -19,7 +22,7 @@ public class Contrato {
 		this.setValorAluguel(valorAluguel);
 		this.setInquilino(inquilino);
 		this.setImovel(imovel);
-
+		this.listaBoletos = new TreeSet<Boleto>();
 	}
 
 	public void setDuracao(int duracao) {
@@ -59,7 +62,7 @@ public class Contrato {
 	}
 
 	public Inquilino getInquilino() {
-		return inquilino;
+		return this.inquilino;
 	}
 
 	public void setInquilino(Inquilino inquilino) {
@@ -79,7 +82,7 @@ public class Contrato {
 	}
 
 	public Imovel getImovel() {
-		return imovel;
+		return this.imovel;
 	}
 
 	public void setImovel(Imovel imovel) {
@@ -100,5 +103,19 @@ public class Contrato {
 	public int getduracao() {
 		return duracao;
 	}	
+	
+	public void addBoleto(Boleto novoBoleto){
+		if (this.listaBoletos.contains(novoBoleto))
+			return;
+		this.listaBoletos.add(novoBoleto);
+		novoBoleto.setContrato(this);
+	}
+	
+	public void removeBoleto(Boleto exBoleto){
+		if(! this.listaBoletos.contains(exBoleto))
+			return;
+		this.listaBoletos.remove(exBoleto);
+		exBoleto.setContrato(null);
+	}
 
 }

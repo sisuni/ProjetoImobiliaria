@@ -22,7 +22,19 @@ public class Boleto {
 	}
 
 	public void setContrato(Contrato contrato) {
-		this.contrato = contrato;
+		if (this.contrato == contrato)
+			return;
+		if(contrato==null){
+			Contrato antigo = this.contrato;
+			this.contrato= null;
+			antigo.removeBoleto(this);
+		}else{
+			if(this.contrato !=null)
+				this.contrato.removeBoleto(this);
+			this.contrato = contrato;
+			contrato.addBoleto(this);
+			
+		}
 	}
 	
 }
