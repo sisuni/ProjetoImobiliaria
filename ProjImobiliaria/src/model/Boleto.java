@@ -1,16 +1,21 @@
 package model;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Boleto {
 	private int dataVencimento;
 	private Contrato contrato;
+	private Set<Cobra> listaCobrancas;
 	
-	public Boleto(int dataVencimento){
+	public Boleto(int dataVencimento, Contrato contrato){
 		this.setDataVencimento(dataVencimento);
 		this.setContrato(contrato);
+		this.listaCobrancas = new TreeSet<Cobra>();
 	}
 
 	public int getDataVencimento() {
-		return dataVencimento;
+		return this.dataVencimento;
 	}
 
 	public void setDataVencimento(int dataVencimento) {
@@ -18,7 +23,7 @@ public class Boleto {
 	}
 	
 	public Contrato getContrato() {
-		return contrato;
+		return this.contrato;
 	}
 
 	public void setContrato(Contrato contrato) {
@@ -35,6 +40,20 @@ public class Boleto {
 			contrato.addBoleto(this);
 			
 		}
+	}
+	
+	public void addCobranca(Cobra novaCobranca){
+		if(this.listaCobrancas.contains(novaCobranca))
+			return;
+		this.listaCobrancas.add(novaCobranca);
+		novaCobranca.setBoleto(this);
+	}
+	
+	public void removeCobranca(Cobra exCobranca){
+		if(! this.listaCobrancas.contains(exCobranca))
+			return;
+		this.listaCobrancas.remove(exCobranca);
+		exCobranca.setBoleto(null);
 	}
 	
 }
