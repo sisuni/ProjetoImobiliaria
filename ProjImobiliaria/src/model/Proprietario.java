@@ -14,7 +14,7 @@ public class Proprietario extends Cliente {
 	public Proprietario(int cod, String nome, String cpf, String rg,
 			String email, String uf, String cidade, String bairro,
 			String logradouro, int numero, String complemento, String banco,
-			int agencia, String conta) {
+			int agencia, String conta) throws ModelException{
 		super(cod, nome, cpf, rg, email, uf, cidade, bairro, logradouro, numero, complemento);
 		this.setBanco(banco);
 		this.setAgencia(agencia);

@@ -18,7 +18,7 @@ public abstract class Cliente extends Pessoa {
 	
 	public Cliente(int cod, String nome, String cpf, String rg, String email,
 			String uf, String cidade, String bairro, String logradouro,
-			int numero, String complemento) {
+			int numero, String complemento) throws ModelException{
 		super(cod, nome);
 		this.setCpf(cpf);
 		this.setRg(rg);
@@ -32,12 +32,48 @@ public abstract class Cliente extends Pessoa {
 		this.listaTelefones = new TreeSet<Telefone>();
 	}
 
+	public static boolean validarCPF(String cpf) {
+		if (cpf == null)
+			return false;
+
+		int c1 = 0, c2 = 0, dv1, dv2, i, j = 0;
+
+		for (i = 1; i <= 9; i++) {
+			c1 += i * Integer.parseInt(String.valueOf(cpf.charAt(j)));
+			j++;
+		}
+
+		dv1 = c1 % 11;
+		if (dv1 == 10)
+			dv1 = 0;
+
+		j = 0;
+
+		for (i = 0; i <= 9; i++) {
+			c2 += i * Integer.parseInt(String.valueOf(cpf.charAt(j)));
+			j++;
+		}
+
+		dv2 = c2 % 11;
+		if (dv2 == 10)
+			dv2 = 0;
+
+		if ((dv1 == Integer.parseInt(String.valueOf(cpf.charAt(9))) && (dv2 == Integer
+				.parseInt(String.valueOf(cpf.charAt(10))))))
+			return true;
+		else
+			return false;
+	}
+	
 	public String getCpf() {
 		return this.cpf;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setCpf(String cpf) throws ModelException{
+		if(validarCPF(cpf))
+			this.cpf = cpf;
+		else
+			throw new ModelException("CPF inválido: " + cpf);
 	}
 
 	public String getRg() {
@@ -116,11 +152,11 @@ public abstract class Cliente extends Pessoa {
 		
 	}
 
-	public void removeTelefone(Telefone antigoTel) {
-		if(! this.listaTelefones.contains(antigoTel))
+	public void removeTelefone(Telefone exTel) {
+		if(! this.listaTelefones.contains(exTel))
 			return;
-		this.listaTelefones.remove(antigoTel);
-		antigoTel.setCliente(null);
+		this.listaTelefones.remove(exTel);
+		exTel.setCliente(null);
 	}
 
 }

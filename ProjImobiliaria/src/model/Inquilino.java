@@ -10,7 +10,7 @@ public class Inquilino extends Cliente {
 	
 	public Inquilino(int cod, String nome, String cpf, String rg, String email,
 			String uf, String cidade, String bairro, String logradouro,
-			int numero, String complemento, String endAnteriorCompleto) {
+			int numero, String complemento, String endAnteriorCompleto) throws ModelException{
 		super(cod, nome, cpf, rg, email, uf, cidade, bairro, logradouro, numero, complemento);
 		this.setEndAnteriorCompleto(endAnteriorCompleto);
 		this.listaContratos = new TreeSet<Contrato>();
