@@ -16,7 +16,7 @@ public class Cargo {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
@@ -24,15 +24,15 @@ public class Cargo {
 	}
 
 	public int getNivel() {
-		return nivel;
+		return this.nivel;
 	}
 
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
 	}
 	
-	public Set<Funcionario> getListaFuncionarios(){
-		return listaFuncionarios;
+	public Set<Funcionario> getFuncionarios(){
+		return this.listaFuncionarios;
 	}
 	
 	public void addFuncionario(Funcionario novoFunc){

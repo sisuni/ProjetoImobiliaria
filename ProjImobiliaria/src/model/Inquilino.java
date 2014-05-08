@@ -17,14 +17,14 @@ public class Inquilino extends Cliente {
 	}
 
 	public String getEndAnteriorCompleto() {
-		return endAnteriorCompleto;
+		return this.endAnteriorCompleto;
 	}
 
 	public void setEndAnteriorCompleto(String endAnteriorCompleto) {
 		this.endAnteriorCompleto = endAnteriorCompleto;
 	}
 	
-	public Set<Contrato> getListaContrato(){
+	public Set<Contrato> getContratos(){
 		return this.listaContratos;
 	}
 	

@@ -33,7 +33,7 @@ public abstract class Cliente extends Pessoa {
 	}
 
 	public String getCpf() {
-		return cpf;
+		return this.cpf;
 	}
 
 	public void setCpf(String cpf) {
@@ -41,7 +41,7 @@ public abstract class Cliente extends Pessoa {
 	}
 
 	public String getRg() {
-		return rg;
+		return this.rg;
 	}
 
 	public void setRg(String rg) {
@@ -49,7 +49,7 @@ public abstract class Cliente extends Pessoa {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -57,7 +57,7 @@ public abstract class Cliente extends Pessoa {
 	}
 
 	public String getUf() {
-		return uf;
+		return this.uf;
 	}
 
 	public void setUf(String uf) {
@@ -65,7 +65,7 @@ public abstract class Cliente extends Pessoa {
 	}
 
 	public String getCidade() {
-		return cidade;
+		return this.cidade;
 	}
 
 	public void setCidade(String cidade) {
@@ -73,7 +73,7 @@ public abstract class Cliente extends Pessoa {
 	}
 
 	public String getBairro() {
-		return bairro;
+		return this.bairro;
 	}
 
 	public void setBairro(String bairro) {
@@ -81,7 +81,7 @@ public abstract class Cliente extends Pessoa {
 	}
 
 	public String getLogradouro() {
-		return logradouro;
+		return this.logradouro;
 	}
 
 	public void setLogradouro(String logradouro) {
@@ -89,7 +89,7 @@ public abstract class Cliente extends Pessoa {
 	}
 
 	public int getNumero() {
-		return numero;
+		return this.numero;
 	}
 
 	public void setNumero(int numero) {
@@ -97,15 +97,15 @@ public abstract class Cliente extends Pessoa {
 	}
 
 	public String getComplemento() {
-		return complemento;
+		return this.complemento;
 	}
 
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
 	
-	public Set<Telefone> getListaTelefone(){
-		return listaTelefones;
+	public Set<Telefone> getTelefones(){
+		return this.listaTelefones;
 	}
 
 	public void addTelefone(Telefone novoTel) {

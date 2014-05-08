@@ -42,6 +42,10 @@ public class Boleto {
 		}
 	}
 	
+	public Set<Cobra> getCobrancas(){
+		return this.listaCobrancas;
+	}
+	
 	public void addCobranca(Cobra novaCobranca){
 		if(this.listaCobrancas.contains(novaCobranca))
 			return;

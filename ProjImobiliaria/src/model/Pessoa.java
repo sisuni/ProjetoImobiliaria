@@ -11,7 +11,7 @@ public abstract class Pessoa {
 	}
 
 	public int getCod() {
-		return cod;
+		return this.cod;
 	}
 
 	public void setCod(int cod) {
@@ -19,7 +19,7 @@ public abstract class Pessoa {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {

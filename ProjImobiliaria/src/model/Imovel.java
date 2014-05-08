@@ -45,7 +45,7 @@ public class Imovel {
 	}
 
 	public int getCod() {
-		return cod;
+		return this.cod;
 	}
 
 	public void setCod(int cod) {
@@ -53,7 +53,7 @@ public class Imovel {
 	}
 
 	public String getUf() {
-		return uf;
+		return this.uf;
 	}
 
 	public void setUf(String uf) {
@@ -61,7 +61,7 @@ public class Imovel {
 	}
 
 	public String getCidade() {
-		return cidade;
+		return this.cidade;
 	}
 
 	public void setCidade(String cidade) {
@@ -69,7 +69,7 @@ public class Imovel {
 	}
 
 	public String getBairro() {
-		return bairro;
+		return this.bairro;
 	}
 
 	public void setBairro(String bairro) {
@@ -77,7 +77,7 @@ public class Imovel {
 	}
 
 	public String getLogradouro() {
-		return logradouro;
+		return this.logradouro;
 	}
 
 	public void setLogradouro(String logradouro) {
@@ -85,7 +85,7 @@ public class Imovel {
 	}
 
 	public int getNumero() {
-		return numero;
+		return this.numero;
 	}
 
 	public void setNumero(int numero) {
@@ -93,7 +93,7 @@ public class Imovel {
 	}
 
 	public String getComplemento() {
-		return complemento;
+		return this.complemento;
 	}
 
 	public void setComplemento(String complemento) {
@@ -101,7 +101,7 @@ public class Imovel {
 	}
 
 	public float getValorBase() {
-		return valorBase;
+		return this.valorBase;
 	}
 
 	public void setValorBase(float valorBase) {
@@ -109,7 +109,7 @@ public class Imovel {
 	}
 
 	public String getDimensoes() {
-		return dimensoes;
+		return this.dimensoes;
 	}
 
 	public void setDimensoes(String dimensoes) {
@@ -117,7 +117,7 @@ public class Imovel {
 	}
 
 	public int getQtdQuartos() {
-		return qtdQuartos;
+		return this.qtdQuartos;
 	}
 
 	public void setQtdQuartos(int qtdQuartos) {
@@ -125,7 +125,7 @@ public class Imovel {
 	}
 
 	public String getDescricao() {
-		return descricao;
+		return this.descricao;
 	}
 
 	public void setDescricao(String descricao) {
@@ -133,7 +133,7 @@ public class Imovel {
 	}
 
 	public String getFinalidade() {
-		return finalidade;
+		return this.finalidade;
 	}
 
 	public void setFinalidade(String finalidade) {
@@ -149,7 +149,7 @@ public class Imovel {
 	}
 	
 	public boolean isStatus() {
-		return status;
+		return this.status;
 	}
 
 	public void setStatus(boolean status) {
@@ -157,7 +157,7 @@ public class Imovel {
 	}
 
 	public Proprietario getProprietario() {
-		return proprietario;
+		return this.proprietario;
 	}
 
 	/**
@@ -196,7 +196,7 @@ public class Imovel {
 		exContrato.setImovel(null);
 	}
 
-	public Set<Contrato> getListaContrato(){
+	public Set<Contrato> getContratos(){
 		return this.listaContratos;
 	}
 }

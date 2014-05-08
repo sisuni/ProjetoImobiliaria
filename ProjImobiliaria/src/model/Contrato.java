@@ -30,7 +30,7 @@ public class Contrato {
 	}
 
 	public Date getDataInicio() {
-		return dataInicio;
+		return this.dataInicio;
 	}
 
 	public void setDataInicio(Date dataInicio) {
@@ -38,7 +38,7 @@ public class Contrato {
 	}
 
 	public int getPercentProprietario() {
-		return percentProprietario;
+		return this.percentProprietario;
 	}
 
 	public void setPercentProprietario(int percentProprietario) {
@@ -46,7 +46,7 @@ public class Contrato {
 	}
 
 	public String getModelo() {
-		return modelo;
+		return this.modelo;
 	}
 
 	public void setModelo(String modelo) {
@@ -54,7 +54,7 @@ public class Contrato {
 	}
 
 	public float getValorAluguel() {
-		return valorAluguel;
+		return this.valorAluguel;
 	}
 
 	public void setValorAluguel(float valorAluguel) {
@@ -103,6 +103,10 @@ public class Contrato {
 	public int getduracao() {
 		return duracao;
 	}	
+	
+	public Set<Boleto> getBoletos(){
+		return this.listaBoletos;
+	}
 	
 	public void addBoleto(Boleto novoBoleto){
 		if (this.listaBoletos.contains(novoBoleto))

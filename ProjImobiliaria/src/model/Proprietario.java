@@ -9,7 +9,7 @@ public class Proprietario extends Cliente {
 	private int agencia;
 	private String conta;
 	private Set<Imovel> listaImoveis;
-	private int numImoveis;
+	private int numImoveis; //Ainda não sei pra que server esse atributo
 	
 	public Proprietario(int cod, String nome, String cpf, String rg,
 			String email, String uf, String cidade, String bairro,
@@ -23,7 +23,7 @@ public class Proprietario extends Cliente {
 	}
 
 	public String getBanco() {
-		return banco;
+		return this.banco;
 	}
 
 	public void setBanco(String banco) {
@@ -31,7 +31,7 @@ public class Proprietario extends Cliente {
 	}
 
 	public int getAgencia() {
-		return agencia;
+		return this.agencia;
 	}
 
 	public void setAgencia(int agencia) {
@@ -39,26 +39,21 @@ public class Proprietario extends Cliente {
 	}
 
 	public String getConta() {
-		return conta;
+		return this.conta;
 	}
 
 	public void setConta(String conta) {
 		this.conta = conta;
 	}
 
-	// Somente deve existir o get para esta lista pq o set é pelo método inserirImovel();
-	public Set<Imovel> getListaImoveis() {
-		return listaImoveis;
+	public Set<Imovel> getImoveis() {
+		return this.listaImoveis;
 	}
 
 	public int getNumImoveis() {
-		return numImoveis;
+		return this.numImoveis;
 	}
 
-	/**
-	 * Método para inclusão de imoveis no array listaImoveis
-	 * @param imovel
-	 */
 	public void addImovel(Imovel novoImovel){
 		if (this.listaImoveis.contains(novoImovel))
 			return;
@@ -67,10 +62,6 @@ public class Proprietario extends Cliente {
 		
 	}
 	
-	/**
-	 * Método para exclusão de imoveis do array listaImoveis
-	 * @param exImovel
-	 */
 	public void removeImovel(Imovel exImovel){
 		if (! this.listaImoveis.contains(exImovel))
 			return;

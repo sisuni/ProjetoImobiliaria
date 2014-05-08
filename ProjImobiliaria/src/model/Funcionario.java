@@ -14,7 +14,7 @@ public class Funcionario extends Pessoa {
 	}
 
 	public String getLogin() {
-		return login;
+		return this.login;
 	}
 
 	public void setLogin(String login) {
@@ -22,7 +22,7 @@ public class Funcionario extends Pessoa {
 	}
 
 	public String getSenha() {
-		return senha;
+		return this.senha;
 	}
 
 	public void setSenha(String senha) {
