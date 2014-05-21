@@ -7,6 +7,8 @@ import model.ModelException;
 import view.IViewerCargos;
 import view.IViewerSalvaCargo;
 import view.JanelaCargos;
+import view.JanelaExcluirCargo;
+import view.JanelaSalvaCargo;
 
 public class CtrlManterCargo implements ICtrlManterCargo{
 	//
@@ -16,47 +18,25 @@ public class CtrlManterCargo implements ICtrlManterCargo{
 		INCLUSAO, EXCLUSAO, ALTERACAO, DISPONIVEL;
 	}
 	
-	/**
-	 * Referência para o controlador do programa.
-	 */
 	private ICtrlPrograma ctrlPrg;
 	
-	/**
-	 * Referência para a janela do cadastro de Cargos
-	 */
 	private IViewerCargos jCadastro;
 	
-	/**
-	 * Referência para a janela Cargo que permitirá a 
-	 * inclusão e alteração do Cargo
-	 */
 	private IViewerSalvaCargo jCargo;
 	
-	/**
-	 * Referência para o objeto Cargo sendo manipulado
-	 */
 	private Cargo cargoAtual;
 	
-	/**
-	 * Referência para o objeto DaoCargo 
-	 */
 	private IDAO<Cargo> dao = DAOCargo.getSingleton();
 
-	/**
-	 * Atributo indicando se o caso de uso está ou não em execução
-	 */
 	private boolean emExecucao;
 	
-	/**
-	 * Atributo que indica qual operação está em curso
-	 */
 	private Operacao operacao;
 	
 	//
 	// MÉTODOS
 	//
 	/**
-	 * Construtor da classe CtrlManterPrograma
+	 * Construtor da classe
 	 */
 	public CtrlManterCargo(ICtrlPrograma p) {
 		this.ctrlPrg = p;
@@ -64,89 +44,137 @@ public class CtrlManterCargo implements ICtrlManterCargo{
 	
 	@Override
 	public boolean iniciar() {
-		// Se já está em execução, não é necessário solicitar novamente a execução do caso de uso
 		if(this.emExecucao)
 			return false;
-		// Crio e abro a janela de cadastro
+
 		this.jCadastro = new JanelaCargos(this);
-		// Atualizo a interface
 		this.atualizarInterface();
-		// Guardo a informação que o caso de uso está em execuão
 		this.emExecucao = true;
-		// Indico que o controlador de caso de uso está disponível
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
 
 	@Override
 	public boolean terminar() {
-		// TODO Auto-generated method stub
-		return false;
+		if(!this.emExecucao)
+			return false;
+
+		this.jCadastro.setVisible(false);
+		this.ctrlPrg.terminarCasoDeUsoManterCargo();
+		this.emExecucao = false;
+		this.operacao = Operacao.DISPONIVEL;
+		return true;
 	}
 
 	@Override
 	public boolean iniciarIncluir() {
-		// TODO Auto-generated method stub
-		return false;
+		if(this.operacao != Operacao.DISPONIVEL)
+			return false;
+
+		this.operacao = Operacao.INCLUSAO;
+		this.jCargo = new JanelaSalvaCargo(this);
+		return true;
 	}
 
 	@Override
 	public void cancelarIncluir() {
-		// TODO Auto-generated method stub
-		
+		if(this.operacao == Operacao.INCLUSAO) {
+			this.jCargo.setVisible(false);
+			this.operacao = Operacao.DISPONIVEL;
+		}
 	}
 
 	@Override
-	public boolean incluir(int Nivel, String nome) throws ModelException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean incluir(int nivel, String nome) throws ModelException {
+		if(this.operacao != Operacao.INCLUSAO)
+			return false;
+
+		Cargo novo = new Cargo(nome, nivel);
+
+		dao.salvar(novo);
+
+		this.jCargo.setVisible(false);
+		this.atualizarInterface();
+		this.operacao = Operacao.DISPONIVEL;
+		return true;
 	}
 
 	@Override
 	public boolean iniciarAlterar(int pos) {
-		// TODO Auto-generated method stub
-		return false;
+		if(this.operacao != Operacao.DISPONIVEL)
+			return false;
+
+		this.operacao = Operacao.ALTERACAO;
+		this.cargoAtual = dao.recuperar(pos);
+		this.jCargo = new JanelaSalvaCargo(this);
+		this.jCargo.atualizarCampos(this.cargoAtual.getNivel(), this.cargoAtual.getNome());
+		return true;
 	}
 
 	@Override
 	public void cancelarAlterar() {
-		// TODO Auto-generated method stub
-		
+		if(this.operacao == Operacao.ALTERACAO) {
+			this.jCargo.setVisible(false);
+			this.cargoAtual = null;
+			this.operacao = Operacao.DISPONIVEL;
+		}
 	}
 
 	@Override
-	public boolean alterar(int Nivel, String nome) throws ModelException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean alterar(int nivel, String nome) throws ModelException {
+		if(this.operacao != Operacao.ALTERACAO)
+			return false;
+
+		this.cargoAtual.setNivel(nivel);
+		this.cargoAtual.setNome(nome);
+
+		dao.atualizar(this.cargoAtual);
+
+		this.jCargo.setVisible(false);
+		this.atualizarInterface();
+		this.cargoAtual = null;
+		this.operacao = Operacao.DISPONIVEL;
+		return true;
 	}
 
 	@Override
 	public boolean iniciarExcluir(int pos) {
-		// TODO Auto-generated method stub
-		return false;
+		if(this.operacao != Operacao.DISPONIVEL)
+			return false;
+
+		this.operacao = Operacao.EXCLUSAO;
+		this.cargoAtual = dao.recuperar(pos);
+		new JanelaExcluirCargo(this, this.cargoAtual);
+		return true;
 	}
 
 	@Override
 	public void cancelarExcluir() {
-		// TODO Auto-generated method stub
-		
+		if(this.operacao == Operacao.EXCLUSAO) {
+			this.cargoAtual = null;
+			this.operacao = Operacao.DISPONIVEL;
+		}
 	}
 
 	@Override
 	public boolean excluir() throws ModelException {
-		// TODO Auto-generated method stub
-		return false;
+		if(this.operacao != Operacao.EXCLUSAO)
+			return false;
+
+		dao.remover(this.cargoAtual);
+
+		this.atualizarInterface();
+		this.cargoAtual = null;
+		this.operacao = Operacao.DISPONIVEL;
+		return true;
 	}
 
 	@Override
 	public void atualizarInterface() {
-		// Limpa a tabela da janela
 		this.jCadastro.limpar();
-		// Para cada objeto Cargo presente no DAO
+
 		for(int i = 0; i < dao.getNumObjs(); i++) {
-			// Recupero um objeto Departamento
 			Cargo cargo = dao.recuperar(i);
-			// Coloco uma linha na tabela
 			this.jCadastro.incluirLinha(cargo);
 		}
 	}

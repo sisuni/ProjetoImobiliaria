@@ -70,13 +70,7 @@ public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
 	}
 	
 	@Override
-	public void atualizarCampos(int Nivel, String nome) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setVisible(boolean flag) {
+	public void atualizarCampos(int nivel, String nome) {
 		// TODO Auto-generated method stub
 		
 	}
