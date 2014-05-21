@@ -9,16 +9,19 @@ import java.io.ObjectOutputStream;
 
 import model.DAOProprietario;
 import model.IDAOSerializavel;
+import view.IViewerPrincipal;
 import view.JanelaPrincipal;
 
 
-public class CtrlPrograma {
+public class CtrlPrograma implements ICtrlPrograma{
 	
-	private CtrlManterProprietarios ctrlProprietario;
-	private JanelaPrincipal jPrincipal;
+	private ICtrlManterProprietario ctrlProprietario;
+	private ICtrlManterCargo ctrlCargo;
+	private IViewerPrincipal jPrincipal;
 	
 	public CtrlPrograma() {
-		this.ctrlProprietario = new CtrlManterProprietarios();
+		//this.ctrlProprietario = new CtrlManterProprietarios(this);
+		//this.ctrlCargo = new CtrlManterCargo(this);
 	}
 	
 	public void iniciar(){
@@ -72,6 +75,102 @@ public class CtrlPrograma {
 		CtrlPrograma prg = new CtrlPrograma();
 		prg.iniciar();
 
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterCargo() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterCargo() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterFuncionario() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterFuncionario() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterProprietarios() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterProprietarios() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterImovel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterImovel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterInquilino() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterInquilino() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterContrato() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterContrato() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterTaxas() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterTaxas() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterBoleto() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterBoleto() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

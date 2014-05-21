@@ -7,28 +7,11 @@ import javax.swing.border.EmptyBorder;
 
 import control.CtrlPrograma;
 
-public class JanelaPrincipal extends JFrame {
+public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 
 	private JPanel contentPane;
 	
 	private CtrlPrograma ctrlPrg;
-
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					JanelaPrincipal frame = new JanelaPrincipal();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-	
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the frame.

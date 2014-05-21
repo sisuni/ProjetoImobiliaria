@@ -18,7 +18,7 @@ import control.CtrlManterCargo;
 import control.ICtrlManterCargo;
 import control.ITabelavel;
 
-public class JanelaCargo extends JFrame{
+public class JanelaCargo extends JFrame implements IViewerCargo{
 	private JPanel contentPane;
 	private ICtrlManterCargo ctrl;
 	private JTable table;
