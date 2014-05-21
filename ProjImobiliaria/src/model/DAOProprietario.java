@@ -11,28 +11,28 @@ public class DAOProprietario implements IDAO<Proprietario>, IDAOSerializavel {
 	// ATRIBUTOS
 	//
 	/**
-	 * Refer�ncia para a �nica inst�ncia da classe que dever� existir
+	 * Refer�ncia para a única instância da classe que deverá existir
 	 */
 	private static IDAO<Proprietario> 	singleton;
 	/**
-	 * Refer�ncia para o Set que apontar� para todos os objetos 
+	 * Refer�ncia para o Set que apontará para todos os objetos 
 	 * guardados pelo DAO
 	 */
 	private Set<Proprietario> 			listaObjs;
 	
 	//
-	// M�TODOS
+	// MétodoS
 	//
 	/**
 	 * Construtor privado do DAO
 	 */
 	private DAOProprietario() {
-		// Aloco mem�ria para o array
+		// Aloco memória para o array
 		this.listaObjs = new TreeSet<Proprietario>();
 	}
 	
 	/**
-	 * M�todo para retornar a �nica inst�ncia existente do DAO
+	 * Método para retornar a única instância existente do DAO
 	 * @return
 	 */
 	public static IDAO<Proprietario> getSingleton() {
