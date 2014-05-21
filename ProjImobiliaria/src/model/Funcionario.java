@@ -6,8 +6,8 @@ public class Funcionario extends Pessoa {
 	private String senha;
 	private Cargo cargo;
 	
-	public Funcionario(int cod, String nome, String login, String senha, Cargo cargo) {
-		super(cod, nome);
+	public Funcionario(String nome, String login, String senha, Cargo cargo) {
+		super(nome);
 		this.setLogin(login);
 		this.setSenha(senha);
 		this.setCargo(cargo);

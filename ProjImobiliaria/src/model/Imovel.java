@@ -5,7 +5,6 @@ import java.util.TreeSet;
 
 public class Imovel {
 	
-	private int cod;
 	private String uf;
 	private String cidade;
 	private String bairro;
@@ -22,11 +21,10 @@ public class Imovel {
 	private Proprietario proprietario;
 	private Set<Contrato> listaContratos;
 		
-	public Imovel(int cod, String uf, String cidade, String bairro,
+	public Imovel(String uf, String cidade, String bairro,
 			String logradouro, int numero, String complemento, float valorBase,
 			String dimensoes, int qtdQuartos, String descricao,
 			String finalidade, String tipo, boolean status, Proprietario proprietario) {
-		this.setCod(cod);
 		this.setUf(uf);
 		this.setCidade(cidade);
 		this.setBairro(bairro);
@@ -42,14 +40,6 @@ public class Imovel {
 		this.setProprietario(proprietario);
 		this.setTipo(tipo);
 		this.listaContratos = new TreeSet<Contrato>();
-	}
-
-	public int getCod() {
-		return this.cod;
-	}
-
-	public void setCod(int cod) {
-		this.cod = cod;
 	}
 
 	public String getUf() {

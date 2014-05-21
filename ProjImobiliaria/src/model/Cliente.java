@@ -16,10 +16,10 @@ public abstract class Cliente extends Pessoa {
 	private String complemento;
 	private Set<Telefone> listaTelefones;
 	
-	public Cliente(int cod, String nome, String cpf, String rg, String email,
+	public Cliente(String nome, String cpf, String rg, String email,
 			String uf, String cidade, String bairro, String logradouro,
 			int numero, String complemento) throws ModelException{
-		super(cod, nome);
+		super(nome);
 		this.setCpf(cpf);
 		this.setRg(rg);
 		this.setEmail(email);
