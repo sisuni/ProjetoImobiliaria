@@ -42,7 +42,7 @@ public class JanelaPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton button = new JButton("? ? ? ?");
+		JButton button = new JButton("Cargo");
 		button.setBounds(47, 44, 89, 49);
 		contentPane.add(button);
 		
