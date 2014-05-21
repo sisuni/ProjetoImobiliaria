@@ -9,7 +9,6 @@ public class Proprietario extends Cliente {
 	private int agencia;
 	private String conta;
 	private Set<Imovel> listaImoveis;
-	private int numImoveis; //Ainda não sei pra que server esse atributo
 	
 	public Proprietario(int cod, String nome, String cpf, String rg,
 			String email, String uf, String cidade, String bairro,
@@ -48,10 +47,6 @@ public class Proprietario extends Cliente {
 
 	public Set<Imovel> getImoveis() {
 		return this.listaImoveis;
-	}
-
-	public int getNumImoveis() {
-		return this.numImoveis;
 	}
 
 	public void addImovel(Imovel novoImovel){
