@@ -1,9 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Cargo {
+import control.ITabelavel;
+
+public class Cargo implements Serializable, ITabelavel, Comparable<Cargo> {
 
 	private String nome;
 	private int nivel;
@@ -50,4 +53,23 @@ public class Cargo {
 		this.listaFuncionarios.remove(exFunc);
 		exFunc.setCargo(null);
 	}
+
+	@Override
+	public int compareTo(Cargo c) {
+		return this.nome.compareTo(c.nome);
+	}
+
+	@Override
+	public Object[] getData() {
+		return new Object[]{this.nivel, this.nome, this.listaFuncionarios.size()};
+	}
+	
+	/** 
+	 * Implementação do método toString que retorna uma String
+	 * que descreve o objeto Cargo
+	 */
+	public String toString() {
+		return this.nome;
+	}
+
 }

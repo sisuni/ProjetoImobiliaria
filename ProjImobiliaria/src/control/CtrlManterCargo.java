@@ -6,6 +6,7 @@ import model.IDAO;
 import model.ModelException;
 import view.IViewerCargos;
 import view.IViewerSalvaCargo;
+import view.JanelaCargos;
 
 public class CtrlManterCargo implements ICtrlManterCargo{
 	//
@@ -18,7 +19,7 @@ public class CtrlManterCargo implements ICtrlManterCargo{
 	/**
 	 * Referência para o controlador do programa.
 	 */
-	private CtrlPrograma ctrlPrg;
+	private ICtrlPrograma ctrlPrg;
 	
 	/**
 	 * Referência para a janela do cadastro de Cargos
@@ -26,20 +27,20 @@ public class CtrlManterCargo implements ICtrlManterCargo{
 	private IViewerCargos jCadastro;
 	
 	/**
-	 * Referência para a janela Departamento que permitirá a 
-	 * inclusão e alteração do Departamento
+	 * Referência para a janela Cargo que permitirá a 
+	 * inclusão e alteração do Cargo
 	 */
-	private IViewerSalvaCargo jDepartamento;
+	private IViewerSalvaCargo jCargo;
 	
 	/**
-	 * Referência para o objeto Departamento sendo manipulado
+	 * Referência para o objeto Cargo sendo manipulado
 	 */
 	private Cargo cargoAtual;
 	
 	/**
-	 * Referência para o objeto DaoDepartamento 
+	 * Referência para o objeto DaoCargo 
 	 */
-	private IDAO dao = DAOCargo.getSingleton();
+	private IDAO<Cargo> dao = DAOCargo.getSingleton();
 
 	/**
 	 * Atributo indicando se o caso de uso está ou não em execução
@@ -54,11 +55,27 @@ public class CtrlManterCargo implements ICtrlManterCargo{
 	//
 	// MÉTODOS
 	//
-
+	/**
+	 * Construtor da classe CtrlManterPrograma
+	 */
+	public CtrlManterCargo(ICtrlPrograma p) {
+		this.ctrlPrg = p;
+	}
+	
 	@Override
 	public boolean iniciar() {
-		// TODO Auto-generated method stub
-		return false;
+		// Se já está em execução, não é necessário solicitar novamente a execução do caso de uso
+		if(this.emExecucao)
+			return false;
+		// Crio e abro a janela de cadastro
+		this.jCadastro = new JanelaCargos(this);
+		// Atualizo a interface
+		this.atualizarInterface();
+		// Guardo a informação que o caso de uso está em execuão
+		this.emExecucao = true;
+		// Indico que o controlador de caso de uso está disponível
+		this.operacao = Operacao.DISPONIVEL;
+		return true;
 	}
 
 	@Override
@@ -123,8 +140,15 @@ public class CtrlManterCargo implements ICtrlManterCargo{
 
 	@Override
 	public void atualizarInterface() {
-		// TODO Auto-generated method stub
-		
+		// Limpa a tabela da janela
+		this.jCadastro.limpar();
+		// Para cada objeto Cargo presente no DAO
+		for(int i = 0; i < dao.getNumObjs(); i++) {
+			// Recupero um objeto Departamento
+			Cargo cargo = dao.recuperar(i);
+			// Coloco uma linha na tabela
+			this.jCadastro.incluirLinha(cargo);
+		}
 	}
 
 }

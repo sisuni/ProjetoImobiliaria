@@ -21,7 +21,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 	
 	public CtrlPrograma() {
 		//this.ctrlProprietario = new CtrlManterProprietarios(this);
-		//this.ctrlCargo = new CtrlManterCargo(this);
+		this.ctrlCargo = new CtrlManterCargo(this);
 	}
 	
 	public void iniciar(){
