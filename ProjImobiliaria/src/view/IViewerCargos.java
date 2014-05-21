@@ -2,7 +2,7 @@ package view;
 
 import control.ITabelavel;
 
-public interface IViewerCargo {
+public interface IViewerCargos {
 	public abstract void limpar();
 
 	public abstract void incluirLinha(ITabelavel objeto);

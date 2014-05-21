@@ -18,13 +18,13 @@ import control.CtrlManterCargo;
 import control.ICtrlManterCargo;
 import control.ITabelavel;
 
-public class JanelaCargo extends JFrame implements IViewerCargo{
+public class JanelaCargos extends JFrame implements IViewerCargos{
 	private JPanel contentPane;
 	private ICtrlManterCargo ctrl;
 	private JTable table;
 	
 	
-	public JanelaCargo(ICtrlManterCargo c){
+	public JanelaCargos(ICtrlManterCargo c){
 		this.ctrl = c;
 		setTitle("Cargo");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
