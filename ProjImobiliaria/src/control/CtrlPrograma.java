@@ -30,18 +30,18 @@ public class CtrlPrograma implements ICtrlPrograma{
 		IDAOSerializavel daoProprietario = (IDAOSerializavel) DAOProprietario.getSingleton();
 		
 		//
-		// Recuperação dos objetos serializados no arquivo c:/dados.dat
+		// Recuperação dos objetos serializados no arquivo c:/base.bin
 		//
 		try {
 			// Abrindo o arquivo para leitura binária
-			FileInputStream fis = new FileInputStream("dados.dat");
+			FileInputStream fis = new FileInputStream("base.bin");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			// Solicitação para os DAOs gerenciarem os objetos recuperados do arquivo
 			daoProprietario.recuperarObjetos(ois);
 			// Fechando o arquivo 
 			ois.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("Arquivo dados.dat não encontrado");
+			System.out.println("Arquivo base.bin não encontrado");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -54,8 +54,8 @@ public class CtrlPrograma implements ICtrlPrograma{
 		IDAOSerializavel daoProprietario = (IDAOSerializavel)DAOProprietario.getSingleton();
 
 		try {
-			// Abrindo o arquivo c:/dados.dat para escrita
-			FileOutputStream fos = new FileOutputStream("dados.dat");
+			// Abrindo o arquivo c:/base.bin para escrita
+			FileOutputStream fos = new FileOutputStream("base.bin");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			// Salvando os objetos gerenciados pelos DAOs
 			daoProprietario.salvarObjetos(oos);
