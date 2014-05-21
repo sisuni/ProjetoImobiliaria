@@ -173,4 +173,16 @@ public class CtrlPrograma implements ICtrlPrograma{
 		return false;
 	}
 
+	@Override
+	public boolean iniciarCasoDeUsoManterTelefone() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterTelefone() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

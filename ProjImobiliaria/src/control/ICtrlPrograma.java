@@ -37,4 +37,8 @@ public interface ICtrlPrograma {
 	public abstract boolean iniciarCasoDeUsoManterBoleto();
 	
 	public abstract boolean terminarCasoDeUsoManterBoleto();
+
+	public abstract boolean iniciarCasoDeUsoManterTelefone();
+	
+	public abstract boolean terminarCasoDeUsoManterTelefone();
 }
