@@ -1,20 +1,20 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Proprietario extends Cliente {
+import control.ITabelavel;
+
+public class Proprietario extends Cliente implements Serializable, ITabelavel, Comparable<Proprietario> {
 	
 	private String banco;
 	private int agencia;
 	private String conta;
 	private Set<Imovel> listaImoveis;
 	
-	public Proprietario(String nome, String cpf, String rg,
-			String email, String uf, String cidade, String bairro,
-			String logradouro, int numero, String complemento, String banco,
-			int agencia, String conta) throws ModelException{
-		super(nome, cpf, rg, email, uf, cidade, bairro, logradouro, numero, complemento);
+	public Proprietario(String nome, String cpf, String email, String endereco, String banco, int agencia, String conta) throws ModelException{
+		super(nome, cpf, email, endereco);
 		this.setBanco(banco);
 		this.setAgencia(agencia);
 		this.setConta(conta);
@@ -63,6 +63,33 @@ public class Proprietario extends Cliente {
 		this.listaImoveis.remove(exImovel);
 		exImovel.setProprietario(null);
 
+	}
+
+	@Override
+	public int compareTo(Proprietario p) {
+		return this.getCpf().compareTo(p.getCpf());
+	}
+
+	@Override
+	public Object[] getData() {
+		return new Object[]{
+				this.getNome(), 
+				this.getCpf(), 
+				this.getEmail(), 
+				this.getEndereco(), 
+				this.banco, 
+				this.agencia, 
+				this.conta,
+				this.listaImoveis.size()
+		};
+	}
+
+	/** 
+	 * Implementação do método toString que retorna uma String
+	 * que descreve o objeto Proprietario
+	 */
+	public String toString() {
+		return this.getNome() + " - " + this.getCpf();
 	}
 
 }

@@ -3,18 +3,18 @@ package view;
 import javax.swing.JOptionPane;
 
 import model.ModelException;
-import control.ICtrlManterCargos;
+import control.ICtrlManterProprietarios;
 
 /**
- * Implementação da janela de confirmação de exclusão do Cargo
+ * Implementação da janela de confirmação de exclusão do Proprietario
  * @author Valdecir
  *
  */
-public class JanelaExcluirCargo {
+public class JanelaExcluirProprietario {
 	/**
 	 * Referência para o controlador do caso de uso
 	 */
-	private ICtrlManterCargos ctrl;
+	private ICtrlManterProprietarios ctrl;
 	
 	/**
 	 * Opçãoo escolhida pelo usuário
@@ -27,11 +27,11 @@ public class JanelaExcluirCargo {
 	 * se o usuário deseja ou não excluir o departamento
 	 * @param nome
 	 */
-	public JanelaExcluirCargo(ICtrlManterCargos ct, Object selecionado){
+	public JanelaExcluirProprietario(ICtrlManterProprietarios ct, Object selecionado){
 		// Guardo a referência para o controlador de caso de uso
 		this.ctrl = ct;
 		// Pergunto ao usuário o que ele deseja fazer
-		this.opcao = JOptionPane.showConfirmDialog(null, "Deseja remover o Cargo " + selecionado);
+		this.opcao = JOptionPane.showConfirmDialog(null, "Deseja remover o Proprietario " + selecionado);
 		// Verifica o que o usuário indicou para ser feito
 		if(this.opcao == JOptionPane.YES_OPTION)
 			try {

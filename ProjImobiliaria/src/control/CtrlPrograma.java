@@ -15,13 +15,13 @@ import view.JanelaPrincipal;
 
 public class CtrlPrograma implements ICtrlPrograma{
 	
-	private ICtrlManterProprietario ctrlProprietario;
-	private ICtrlManterCargo ctrlCargo;
+	private ICtrlManterProprietarios ctrlProprietario;
+	private ICtrlManterCargos ctrlCargo;
 	private IViewerPrincipal jPrincipal;
 	
 	public CtrlPrograma() {
-		//this.ctrlProprietario = new CtrlManterProprietarios(this);
-		this.ctrlCargo = new CtrlManterCargo(this);
+		this.ctrlProprietario = new CtrlManterProprietarios(this);
+		this.ctrlCargo = new CtrlManterCargos(this);
 	}
 	
 	public void iniciar(){

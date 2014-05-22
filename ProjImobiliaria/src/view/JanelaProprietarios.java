@@ -14,19 +14,18 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import control.CtrlManterCargos;
-import control.ICtrlManterCargos;
+import control.ICtrlManterProprietarios;
 import control.ITabelavel;
 
-public class JanelaCargos extends JFrame implements IViewerCargos{
+public class JanelaProprietarios extends JFrame implements IViewerProprietarios{
 	private JPanel contentPane;
-	private ICtrlManterCargos ctrl;
+	private ICtrlManterProprietarios ctrl;
 	private JTable table;
 	
 	
-	public JanelaCargos(ICtrlManterCargos c){
+	public JanelaProprietarios(ICtrlManterProprietarios c){
 		this.ctrl = c;
-		setTitle("Cargo");
+		setTitle("Proprietario");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 419, 300);
 		contentPane = new JPanel();

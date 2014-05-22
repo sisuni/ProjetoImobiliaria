@@ -2,7 +2,7 @@ package control;
 
 import model.ModelException;
 
-public interface ICtrlManterProprietario {
+public interface ICtrlManterProprietarios {
 	public abstract boolean iniciar();
 
 	public abstract boolean terminar();
@@ -11,13 +11,13 @@ public interface ICtrlManterProprietario {
 
 	public abstract void cancelarIncluir();
 
-	public abstract boolean incluir(int Nivel, String nome) throws ModelException;
+	public abstract boolean incluir(String nome, String cpf, String email, String endereco, String banco, int agencia, String conta) throws ModelException;
 
 	public abstract boolean iniciarAlterar(int pos);
 
 	public abstract void cancelarAlterar();
 
-	public abstract boolean alterar(int Nivel, String nome) throws ModelException;
+	public abstract boolean alterar(String nome, String cpf, String email, String endereco, String banco, int agencia, String conta) throws ModelException;
 
 	public abstract boolean iniciarExcluir(int pos);
 

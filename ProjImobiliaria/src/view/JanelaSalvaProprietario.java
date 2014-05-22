@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import control.ICtrlManterCargos;
+import control.ICtrlManterProprietarios;
 
-public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
+public class JanelaSalvaProprietario extends JFrame implements IViewerSalvaProprietario{
 	
-	private ICtrlManterCargos ctrl;
+	private ICtrlManterProprietarios ctrl;
 
 	private boolean ehAlteração;
 	
@@ -23,9 +23,9 @@ public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
 	private JComboBox cmbNivel;
 	private JTextField txtNome;
 	
-	public JanelaSalvaCargo(ICtrlManterCargos sc){
+	public JanelaSalvaProprietario(ICtrlManterProprietarios sc){
 		this.ctrl = sc;
-		setTitle("Cargo");
+		setTitle("Proprietario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 178);
 		contentPane = new JPanel();
@@ -67,13 +67,13 @@ public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
 		contentPane.add(btnCancelar);
 		
 		this.setVisible(true);
-		
 	}
 
 	@Override
-	public void atualizarCampos(int nivel, String nome) {
+	public void atualizarCampos(String nome, String cpf, String email,
+			String endereco, String banco, int agencia, String conta) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

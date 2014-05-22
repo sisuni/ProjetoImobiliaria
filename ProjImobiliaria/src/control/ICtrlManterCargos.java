@@ -2,7 +2,7 @@ package control;
 
 import model.ModelException;
 
-public interface ICtrlManterCargo {
+public interface ICtrlManterCargos {
 	public abstract boolean iniciar();
 
 	public abstract boolean terminar();

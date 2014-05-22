@@ -6,29 +6,15 @@ import java.util.TreeSet;
 public abstract class Cliente extends Pessoa {
 
 	private String cpf;
-	private String rg;
 	private String email;
-	private String uf;
-	private String cidade;
-	private String bairro;
-	private String logradouro;
-	private int numero;
-	private String complemento;
+	private String endereco;
 	private Set<Telefone> listaTelefones;
 	
-	public Cliente(String nome, String cpf, String rg, String email,
-			String uf, String cidade, String bairro, String logradouro,
-			int numero, String complemento) throws ModelException{
+	public Cliente(String nome, String cpf, String email, String endereco) throws ModelException{
 		super(nome);
 		this.setCpf(cpf);
-		this.setRg(rg);
 		this.setEmail(email);
-		this.setUf(uf);
-		this.setCidade(cidade);
-		this.setBairro(bairro);
-		this.setLogradouro(logradouro);
-		this.setNumero(numero);
-		this.setComplemento(complemento);
+		this.setEndereco(endereco);
 		this.listaTelefones = new TreeSet<Telefone>();
 	}
 
@@ -58,8 +44,7 @@ public abstract class Cliente extends Pessoa {
 		if (dv2 == 10)
 			dv2 = 0;
 
-		if ((dv1 == Integer.parseInt(String.valueOf(cpf.charAt(9))) && (dv2 == Integer
-				.parseInt(String.valueOf(cpf.charAt(10))))))
+		if ((dv1 == Integer.parseInt(String.valueOf(cpf.charAt(9))) && (dv2 == Integer.parseInt(String.valueOf(cpf.charAt(10))))))
 			return true;
 		else
 			return false;
@@ -76,14 +61,6 @@ public abstract class Cliente extends Pessoa {
 			throw new ModelException("CPF inválido: " + cpf);
 	}
 
-	public String getRg() {
-		return this.rg;
-	}
-
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
-
 	public String getEmail() {
 		return this.email;
 	}
@@ -92,54 +69,14 @@ public abstract class Cliente extends Pessoa {
 		this.email = email;
 	}
 
-	public String getUf() {
-		return this.uf;
+	public String getEndereco() {
+		return this.endereco;
 	}
 
-	public void setUf(String uf) {
-		this.uf = uf;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
-	public String getCidade() {
-		return this.cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getBairro() {
-		return this.bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getLogradouro() {
-		return this.logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public int getNumero() {
-		return this.numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return this.complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-	
 	public Set<Telefone> getTelefones(){
 		return this.listaTelefones;
 	}
@@ -147,6 +84,7 @@ public abstract class Cliente extends Pessoa {
 	public void addTelefone(Telefone novoTel) {
 		if (this.listaTelefones.contains(novoTel))
 			return;
+		
 		this.listaTelefones.add(novoTel);
 		novoTel.setCliente(this);
 		
@@ -155,6 +93,7 @@ public abstract class Cliente extends Pessoa {
 	public void removeTelefone(Telefone exTel) {
 		if(! this.listaTelefones.contains(exTel))
 			return;
+		
 		this.listaTelefones.remove(exTel);
 		exTel.setCliente(null);
 	}
