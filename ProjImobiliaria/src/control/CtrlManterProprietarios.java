@@ -4,7 +4,7 @@ import model.DAOProprietario;
 import model.IDAO;
 import model.ModelException;
 import model.Proprietario;
-import view.IViewerProprietarios;
+import view.IViewer;
 import view.IViewerSalvaProprietario;
 import view.JanelaExcluirProprietario;
 import view.JanelaProprietarios;
@@ -20,7 +20,7 @@ public class CtrlManterProprietarios implements ICtrlManter{
 	
 	private ICtrlPrograma ctrlPrg;
 	
-	private IViewerProprietarios jCadastro;
+	private IViewer jCadastro;
 	
 	private IViewerSalvaProprietario jProprietario;
 	
