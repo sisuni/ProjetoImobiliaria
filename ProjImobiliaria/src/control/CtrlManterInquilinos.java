@@ -1,14 +1,16 @@
 package control;
 
 import model.Cargo;
-import model.DAOCargo;
+import model.DAOInquilino;
 import model.IDAO;
+import model.Inquilino;
 import model.ModelException;
 import view.IViewer;
-import view.IViewerSalvaCargo;
-import view.JanelaCargos;
+import view.IViewerSalvaInquilino;
 import view.JanelaExcluirCargo;
+import view.JanelaInquilinos;
 import view.JanelaSalvaCargo;
+import view.JanelaSalvaInquilino;
 
 public class CtrlManterInquilinos implements ICtrlManter{
 	//
@@ -22,11 +24,11 @@ public class CtrlManterInquilinos implements ICtrlManter{
 	
 	private IViewer jCadastro;
 	
-	private IViewerSalvaCargo jCargo;
+	private IViewerSalvaInquilino jInquilino;
 	
-	private Cargo cargoAtual;
+	private Inquilino inquilinoAtual;
 	
-	private IDAO<Cargo> dao = DAOCargo.getSingleton();
+	private IDAO<Inquilino> dao = DAOInquilino.getSingleton();
 
 	private boolean emExecucao;
 	
@@ -47,7 +49,7 @@ public class CtrlManterInquilinos implements ICtrlManter{
 		if(this.emExecucao)
 			return false;
 
-		this.jCadastro = new JanelaCargos(this);
+		this.jCadastro = new JanelaInquilinos(this);
 		this.atualizarInterface();
 		this.emExecucao = true;
 		this.operacao = Operacao.DISPONIVEL;
@@ -60,7 +62,7 @@ public class CtrlManterInquilinos implements ICtrlManter{
 			return false;
 
 		this.jCadastro.setVisible(false);
-		this.ctrlPrg.terminarCasoDeUsoManterCargo();
+		this.ctrlPrg.terminarCasoDeUsoManterInquilino();
 		this.emExecucao = false;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
@@ -72,27 +74,27 @@ public class CtrlManterInquilinos implements ICtrlManter{
 			return false;
 
 		this.operacao = Operacao.INCLUSAO;
-		this.jCargo = new JanelaSalvaCargo(this);
+		this.jInquilino = new JanelaSalvaInquilino(this);
 		return true;
 	}
 
 	@Override
 	public void cancelarIncluir() {
 		if(this.operacao == Operacao.INCLUSAO) {
-			this.jCargo.setVisible(false);
+			this.jInquilino.setVisible(false);
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
 
-	public boolean incluir(int nivel, String nome) throws ModelException {
+	public boolean incluir(String nome, String cpf, String email, String endereco, String endAnteriorCompleto) throws ModelException {
 		if(this.operacao != Operacao.INCLUSAO)
 			return false;
 
-		Cargo novo = new Cargo(nome, nivel);
+		Inquilino novo = new Inquilino(nome, cpf, email, endereco, endAnteriorCompleto);
 
 		dao.salvar(novo);
 
-		this.jCargo.setVisible(false);
+		this.jInquilino.setVisible(false);
 		this.atualizarInterface();
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
@@ -104,33 +106,42 @@ public class CtrlManterInquilinos implements ICtrlManter{
 			return false;
 
 		this.operacao = Operacao.ALTERACAO;
-		this.cargoAtual = dao.recuperar(pos);
-		this.jCargo = new JanelaSalvaCargo(this);
-		this.jCargo.atualizarCampos(this.cargoAtual.getNivel(), this.cargoAtual.getNome());
+		this.inquilinoAtual = dao.recuperar(pos);
+		this.jInquilino = new JanelaSalvaInquilino(this);
+		this.jInquilino.atualizarCampos(
+				this.inquilinoAtual.getNome(),
+				this.inquilinoAtual.getCpf(),
+				this.inquilinoAtual.getEmail(),
+				this.inquilinoAtual.getEndereco(),
+				this.inquilinoAtual.getEndAnteriorCompleto()
+				);
 		return true;
 	}
 
 	@Override
 	public void cancelarAlterar() {
 		if(this.operacao == Operacao.ALTERACAO) {
-			this.jCargo.setVisible(false);
-			this.cargoAtual = null;
+			this.jInquilino.setVisible(false);
+			this.inquilinoAtual = null;
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
 
-	public boolean alterar(int nivel, String nome) throws ModelException {
+	public boolean alterar(String nome, String cpf, String email, String endereco, String endAnteriorCompleto) throws ModelException {
 		if(this.operacao != Operacao.ALTERACAO)
 			return false;
 
-		this.cargoAtual.setNivel(nivel);
-		this.cargoAtual.setNome(nome);
+		this.inquilinoAtual.setNome(nome);
+		this.inquilinoAtual.setCpf(cpf);
+		this.inquilinoAtual.setEmail(email);
+		this.inquilinoAtual.setEndereco(endereco);
+		this.inquilinoAtual.setEndAnteriorCompleto(endAnteriorCompleto);
 
-		dao.atualizar(this.cargoAtual);
+		dao.atualizar(this.inquilinoAtual);
 
-		this.jCargo.setVisible(false);
+		this.jInquilino.setVisible(false);
 		this.atualizarInterface();
-		this.cargoAtual = null;
+		this.inquilinoAtual = null;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
@@ -141,15 +152,15 @@ public class CtrlManterInquilinos implements ICtrlManter{
 			return false;
 
 		this.operacao = Operacao.EXCLUSAO;
-		this.cargoAtual = dao.recuperar(pos);
-		new JanelaExcluirCargo(this, this.cargoAtual);
+		this.inquilinoAtual = dao.recuperar(pos);
+		new JanelaExcluirCargo(this, this.inquilinoAtual);
 		return true;
 	}
 
 	@Override
 	public void cancelarExcluir() {
 		if(this.operacao == Operacao.EXCLUSAO) {
-			this.cargoAtual = null;
+			this.inquilinoAtual = null;
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
@@ -159,10 +170,10 @@ public class CtrlManterInquilinos implements ICtrlManter{
 		if(this.operacao != Operacao.EXCLUSAO)
 			return false;
 
-		dao.remover(this.cargoAtual);
+		dao.remover(this.inquilinoAtual);
 
 		this.atualizarInterface();
-		this.cargoAtual = null;
+		this.inquilinoAtual = null;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
@@ -172,8 +183,8 @@ public class CtrlManterInquilinos implements ICtrlManter{
 		this.jCadastro.limpar();
 
 		for(int i = 0; i < dao.getNumObjs(); i++) {
-			Cargo cargo = dao.recuperar(i);
-			this.jCadastro.incluirLinha(cargo);
+			Inquilino inquilino = dao.recuperar(i);
+			this.jCadastro.incluirLinha(inquilino);
 		}
 	}
 
