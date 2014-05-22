@@ -7,18 +7,16 @@ import java.util.TreeSet;
 public class Contrato {
 	private int duracao;
 	private Date dataInicio;
-	private int percentProprietario;
-	private String modelo;
+	private int percentImobiliaria;
 	private float valorAluguel;
 	private Inquilino inquilino;
 	private Imovel imovel;
 	private Set<Boleto> listaBoletos;
 
-	public Contrato(int duracao, Date dataInicio, int percentProprietario, String modelo, float valorAluguel) {
+	public Contrato(int duracao, Date dataInicio, int percentProprietario, float valorAluguel) {
 		this.setDuracao(duracao);
 		this.setDataInicio(dataInicio);
 		this.setPercentProprietario(percentProprietario);
-		this.setModelo(modelo);
 		this.setValorAluguel(valorAluguel);
 		this.setInquilino(inquilino);
 		this.setImovel(imovel);
@@ -38,19 +36,11 @@ public class Contrato {
 	}
 
 	public int getPercentProprietario() {
-		return this.percentProprietario;
+		return this.percentImobiliaria;
 	}
 
 	public void setPercentProprietario(int percentProprietario) {
-		this.percentProprietario = percentProprietario;
-	}
-
-	public String getModelo() {
-		return this.modelo;
-	}
-
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
+		this.percentImobiliaria = percentProprietario;
 	}
 
 	public float getValorAluguel() {
