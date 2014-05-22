@@ -40,10 +40,21 @@ public class Inquilino extends Cliente {
 		exContrato.setInquilino(null);
 	}
 
+	/**
+	 * Dados para serem exibidos no data grid
+	 */
 	@Override
 	public Object[] getData() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	/** 
+	 * Implementação do método toString que retorna uma String
+	 * que descreve o objeto Cargo
+	 */
+	public String toString() {
+		return this.getNome() + " - " + this.getCpf();
 	}
 
 }

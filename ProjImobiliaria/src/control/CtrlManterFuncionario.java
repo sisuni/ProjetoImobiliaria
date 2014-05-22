@@ -5,7 +5,7 @@ import model.DAOFuncionario;
 import model.Funcionario;
 import model.IDAO;
 import model.ModelException;
-import view.IViewerFuncionario;
+import view.IViewer;
 import view.IViewerSalvaFuncionario;
 import view.JanelaExcluirFuncionario;
 import view.JanelaFuncionario;
@@ -21,7 +21,7 @@ public class CtrlManterFuncionario implements ICtrlManter{
 	
 	private ICtrlPrograma ctrlPrg;
 	
-	private IViewerFuncionario jCadastro;
+	private IViewer jCadastro;
 	
 	private IViewerSalvaFuncionario jFuncionario;
 	

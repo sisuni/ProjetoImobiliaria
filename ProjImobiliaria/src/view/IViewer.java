@@ -2,7 +2,7 @@ package view;
 
 import control.ITabelavel;
 
-public interface IViewerFuncionario {
+public interface IViewer {
 	
 	public abstract void limpar();
 

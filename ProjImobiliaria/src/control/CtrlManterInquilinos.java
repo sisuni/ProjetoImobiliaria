@@ -10,7 +10,7 @@ import view.JanelaCargos;
 import view.JanelaExcluirCargo;
 import view.JanelaSalvaCargo;
 
-public class CtrlManterCargos implements ICtrlManter{
+public class CtrlManterInquilinos implements ICtrlManter{
 	//
 	// ATRIBUTOS
 	//
@@ -38,7 +38,7 @@ public class CtrlManterCargos implements ICtrlManter{
 	/**
 	 * Construtor da classe
 	 */
-	public CtrlManterCargos(ICtrlPrograma p) {
+	public CtrlManterInquilinos(ICtrlPrograma p) {
 		this.ctrlPrg = p;
 	}
 	
