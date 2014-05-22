@@ -7,11 +7,19 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class DAOTelefone implements IDAO<Telefone>, IDAOSerializavel{
-
+	//
+	// ATRIBUTOS
+	//
 	private static IDAO<Telefone> singleton;
 	
 	private Set<Telefone> listaObjs;
 	
+	//
+	// MétodoS
+	//
+	/**
+	 * Construtor privado do DAO
+	 */
 	private DAOTelefone(){
 		this.listaObjs = new TreeSet<Telefone>();
 	}
@@ -22,18 +30,6 @@ public class DAOTelefone implements IDAO<Telefone>, IDAOSerializavel{
 		return DAOTelefone.singleton;
 	}
 	
-	@Override
-	public void recuperarObjetos(ObjectInputStream ois) 
-			throws IOException,	ClassNotFoundException {
-		this.listaObjs = (Set<Telefone>)ois.readObject();
-	}
-
-	@Override
-	public void salvarObjetos(ObjectOutputStream oos) 
-			throws IOException {
-		oos.writeObject(this.listaObjs);		
-	}
-
 	@Override
 	public boolean salvar(Telefone novo) {
 		return this.listaObjs.add(novo);
@@ -74,6 +70,16 @@ public class DAOTelefone implements IDAO<Telefone>, IDAOSerializavel{
 	@Override
 	public Telefone[] getListaObjs() {
 		return (Telefone[])this.listaObjs.toArray();
+	}
+
+	@Override
+	public void recuperarObjetos(ObjectInputStream ois) throws IOException,	ClassNotFoundException {
+		this.listaObjs = (Set<Telefone>)ois.readObject();
+	}
+
+	@Override
+	public void salvarObjetos(ObjectOutputStream oos) throws IOException {
+		oos.writeObject(this.listaObjs);		
 	}
 
 }

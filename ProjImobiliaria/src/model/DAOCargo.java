@@ -10,14 +10,8 @@ public class DAOCargo implements IDAO<Cargo>, IDAOSerializavel {
 	//
 	// ATRIBUTOS
 	//
-	/**
-	 * Referência para a única instância da classe que deverá existir
-	 */
 	private static IDAO<Cargo> 	singleton;
-	/**
-	 * Referência para o Set que apontará para todos os objetos 
-	 * guardados pelo DAO
-	 */
+
 	private Set<Cargo> 			listaObjs;
 	
 	//
@@ -27,14 +21,9 @@ public class DAOCargo implements IDAO<Cargo>, IDAOSerializavel {
 	 * Construtor privado do DAO
 	 */
 	private DAOCargo() {
-		// Aloco memória para o array
 		this.listaObjs = new TreeSet<Cargo>();
 	}
 	
-	/**
-	 * Método para retornar a única instância existente do DAO
-	 * @return
-	 */
 	public static IDAO<Cargo> getSingleton() {
 		if(DAOCargo.singleton == null)
 			DAOCargo.singleton = new DAOCargo();
@@ -84,16 +73,12 @@ public class DAOCargo implements IDAO<Cargo>, IDAOSerializavel {
 	}
 
 	@Override
-	public void recuperarObjetos(ObjectInputStream ois) 
-			throws IOException, ClassNotFoundException {
-		// Recupera o array de objetos
+	public void recuperarObjetos(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		this.listaObjs = (Set<Cargo>)ois.readObject();
 	}
 
 	@Override
-	public void salvarObjetos(ObjectOutputStream oos) 
-			throws IOException {
-		// Salva o array de objetos
+	public void salvarObjetos(ObjectOutputStream oos) throws IOException {
 		oos.writeObject(this.listaObjs);
 	}
 }

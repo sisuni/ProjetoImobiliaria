@@ -9,14 +9,12 @@ public interface IDAOSerializavel {
 	 * Recupera os objetos 
 	 * @return
 	 */
-	public abstract void recuperarObjetos(ObjectInputStream ois)
-			throws IOException, ClassNotFoundException;
+	public abstract void recuperarObjetos(ObjectInputStream ois) throws IOException, ClassNotFoundException;
 
 	/**
 	 * Salva os objetos 
 	 * @return
 	 */
-	public abstract void salvarObjetos(ObjectOutputStream oos)
-			throws IOException;
+	public abstract void salvarObjetos(ObjectOutputStream oos) throws IOException;
 
 }
