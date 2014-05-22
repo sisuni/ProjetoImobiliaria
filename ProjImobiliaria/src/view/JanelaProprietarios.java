@@ -17,7 +17,7 @@ import javax.swing.table.TableModel;
 import control.ICtrlManter;
 import control.ITabelavel;
 
-public class JanelaProprietarios extends JFrame implements IViewerProprietarios{
+public class JanelaProprietarios extends JFrame implements IViewer{
 	private JPanel contentPane;
 	private ICtrlManter ctrl;
 	private JTable table;
