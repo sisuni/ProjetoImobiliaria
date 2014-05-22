@@ -1,6 +1,10 @@
 package model;
 
-public abstract class Pessoa {
+import java.io.Serializable;
+
+import control.ITabelavel;
+
+public abstract class Pessoa implements Serializable, ITabelavel {
 
 	private String nome;
 

@@ -40,4 +40,10 @@ public class Inquilino extends Cliente {
 		exContrato.setInquilino(null);
 	}
 
+	@Override
+	public Object[] getData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

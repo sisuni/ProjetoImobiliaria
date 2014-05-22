@@ -49,4 +49,10 @@ public class Funcionario extends Pessoa {
 		}
 	}
 
+	@Override
+	public Object[] getData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

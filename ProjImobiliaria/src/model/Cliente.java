@@ -104,4 +104,6 @@ public abstract class Cliente extends Pessoa implements Comparable<Cliente> {
 	@Override
 	public int compareTo(Cliente c) {
 		return this.getCpf().compareTo(c.getCpf());
-	}}
+	}
+
+}
