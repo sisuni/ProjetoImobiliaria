@@ -10,7 +10,7 @@ import view.JanelaCargos;
 import view.JanelaExcluirCargo;
 import view.JanelaSalvaCargo;
 
-public class CtrlManterCargos implements ICtrlManterCargos{
+public class CtrlManterCargos implements ICtrlManter{
 	//
 	// ATRIBUTOS
 	//
@@ -84,7 +84,6 @@ public class CtrlManterCargos implements ICtrlManterCargos{
 		}
 	}
 
-	@Override
 	public boolean incluir(int nivel, String nome) throws ModelException {
 		if(this.operacao != Operacao.INCLUSAO)
 			return false;
@@ -120,7 +119,6 @@ public class CtrlManterCargos implements ICtrlManterCargos{
 		}
 	}
 
-	@Override
 	public boolean alterar(int nivel, String nome) throws ModelException {
 		if(this.operacao != Operacao.ALTERACAO)
 			return false;

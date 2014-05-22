@@ -3,7 +3,7 @@ package view;
 import javax.swing.JOptionPane;
 
 import model.ModelException;
-import control.ICtrlManterProprietarios;
+import control.ICtrlManter;
 
 /**
  * Implementação da janela de confirmação de exclusão do Proprietario
@@ -14,7 +14,7 @@ public class JanelaExcluirProprietario {
 	/**
 	 * Referência para o controlador do caso de uso
 	 */
-	private ICtrlManterProprietarios ctrl;
+	private ICtrlManter ctrl;
 	
 	/**
 	 * Opçãoo escolhida pelo usuário
@@ -27,7 +27,7 @@ public class JanelaExcluirProprietario {
 	 * se o usuário deseja ou não excluir o departamento
 	 * @param nome
 	 */
-	public JanelaExcluirProprietario(ICtrlManterProprietarios ct, Object selecionado){
+	public JanelaExcluirProprietario(ICtrlManter ct, Object selecionado){
 		// Guardo a referência para o controlador de caso de uso
 		this.ctrl = ct;
 		// Pergunto ao usuário o que ele deseja fazer

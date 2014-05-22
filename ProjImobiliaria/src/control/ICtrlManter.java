@@ -2,7 +2,7 @@ package control;
 
 import model.ModelException;
 
-public interface ICtrlManterCargos {
+public interface ICtrlManter {
 	public abstract boolean iniciar();
 
 	public abstract boolean terminar();
@@ -11,13 +11,23 @@ public interface ICtrlManterCargos {
 
 	public abstract void cancelarIncluir();
 
-	public abstract boolean incluir(int Nivel, String nome) throws ModelException;
+	/**
+	 * Lembrar de implementar manualmente esses métodos
+	 * public abstract boolean incluir(int Nivel, String nome) throws ModelException;
+	 * @param pos
+	 * @return
+	 */
 
 	public abstract boolean iniciarAlterar(int pos);
 
 	public abstract void cancelarAlterar();
 
-	public abstract boolean alterar(int Nivel, String nome) throws ModelException;
+	/**
+	 * Lembrar de implementar manualmente esses métodos
+	 * public abstract boolean alterar(int Nivel, String nome) throws ModelException;
+	 * @param pos
+	 * @return
+	 */
 
 	public abstract boolean iniciarExcluir(int pos);
 

@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import control.ICtrlManterProprietarios;
+import control.ICtrlManter;
 
 public class JanelaSalvaProprietario extends JFrame implements IViewerSalvaProprietario{
 	
-	private ICtrlManterProprietarios ctrl;
+	private ICtrlManter ctrl;
 
 	private boolean ehAlteração;
 	
@@ -23,7 +23,7 @@ public class JanelaSalvaProprietario extends JFrame implements IViewerSalvaPropr
 	private JComboBox cmbNivel;
 	private JTextField txtNome;
 	
-	public JanelaSalvaProprietario(ICtrlManterProprietarios sc){
+	public JanelaSalvaProprietario(ICtrlManter sc){
 		this.ctrl = sc;
 		setTitle("Proprietario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

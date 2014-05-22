@@ -14,16 +14,16 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import control.ICtrlManterProprietarios;
+import control.ICtrlManter;
 import control.ITabelavel;
 
 public class JanelaProprietarios extends JFrame implements IViewerProprietarios{
 	private JPanel contentPane;
-	private ICtrlManterProprietarios ctrl;
+	private ICtrlManter ctrl;
 	private JTable table;
 	
 	
-	public JanelaProprietarios(ICtrlManterProprietarios c){
+	public JanelaProprietarios(ICtrlManter c){
 		this.ctrl = c;
 		setTitle("Proprietario");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

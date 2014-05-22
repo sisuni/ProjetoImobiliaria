@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 import control.ITabelavel;
 
-public class Proprietario extends Cliente implements Serializable, ITabelavel, Comparable<Proprietario> {
+public class Proprietario extends Cliente implements Serializable, ITabelavel{
 	
 	private String banco;
 	private int agencia;
@@ -63,11 +63,6 @@ public class Proprietario extends Cliente implements Serializable, ITabelavel, C
 		this.listaImoveis.remove(exImovel);
 		exImovel.setProprietario(null);
 
-	}
-
-	@Override
-	public int compareTo(Proprietario p) {
-		return this.getCpf().compareTo(p.getCpf());
 	}
 
 	@Override

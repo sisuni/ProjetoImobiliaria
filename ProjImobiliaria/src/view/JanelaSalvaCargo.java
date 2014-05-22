@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import control.ICtrlManterCargos;
+import control.ICtrlManter;
 
 public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
 	
-	private ICtrlManterCargos ctrl;
+	private ICtrlManter ctrl;
 
 	private boolean ehAlteração;
 	
@@ -23,7 +23,7 @@ public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
 	private JComboBox cmbNivel;
 	private JTextField txtNome;
 	
-	public JanelaSalvaCargo(ICtrlManterCargos sc){
+	public JanelaSalvaCargo(ICtrlManter sc){
 		this.ctrl = sc;
 		setTitle("Cargo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

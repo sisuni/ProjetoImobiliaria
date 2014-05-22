@@ -15,8 +15,8 @@ import view.JanelaPrincipal;
 
 public class CtrlPrograma implements ICtrlPrograma{
 	
-	private ICtrlManterProprietarios ctrlProprietario;
-	private ICtrlManterCargos ctrlCargo;
+	private ICtrlManter ctrlProprietario;
+	private ICtrlManter ctrlCargo;
 	private IViewerPrincipal jPrincipal;
 	
 	public CtrlPrograma() {

@@ -10,7 +10,7 @@ import view.JanelaExcluirProprietario;
 import view.JanelaProprietarios;
 import view.JanelaSalvaProprietario;
 
-public class CtrlManterProprietarios implements ICtrlManterProprietarios{
+public class CtrlManterProprietarios implements ICtrlManter{
 	//
 	// ATRIBUTOS
 	//
@@ -84,7 +84,6 @@ public class CtrlManterProprietarios implements ICtrlManterProprietarios{
 		}
 	}
 
-	@Override
 	public boolean incluir(String nome, String cpf, String email, String endereco, String banco, int agencia, String conta) throws ModelException {
 		if(this.operacao != Operacao.INCLUSAO)
 			return false;
@@ -128,7 +127,6 @@ public class CtrlManterProprietarios implements ICtrlManterProprietarios{
 		}
 	}
 
-	@Override
 	public boolean alterar(String nome, String cpf, String email, String endereco, String banco, int agencia, String conta) throws ModelException {
 		if(this.operacao != Operacao.ALTERACAO)
 			return false;

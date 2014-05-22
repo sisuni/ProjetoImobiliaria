@@ -14,17 +14,16 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import control.CtrlManterCargos;
-import control.ICtrlManterCargos;
+import control.ICtrlManter;
 import control.ITabelavel;
 
 public class JanelaCargos extends JFrame implements IViewerCargos{
 	private JPanel contentPane;
-	private ICtrlManterCargos ctrl;
+	private ICtrlManter ctrl;
 	private JTable table;
 	
 	
-	public JanelaCargos(ICtrlManterCargos c){
+	public JanelaCargos(ICtrlManter c){
 		this.ctrl = c;
 		setTitle("Cargo");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

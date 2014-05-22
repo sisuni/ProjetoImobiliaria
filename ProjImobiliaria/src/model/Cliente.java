@@ -1,9 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
-public abstract class Cliente extends Pessoa {
+import control.ITabelavel;
+
+public abstract class Cliente extends Pessoa implements Comparable<Cliente> {
 
 	private String cpf;
 	private String email;
@@ -98,4 +101,7 @@ public abstract class Cliente extends Pessoa {
 		exTel.setCliente(null);
 	}
 
-}
+	@Override
+	public int compareTo(Cliente c) {
+		return this.getCpf().compareTo(c.getCpf());
+	}}
