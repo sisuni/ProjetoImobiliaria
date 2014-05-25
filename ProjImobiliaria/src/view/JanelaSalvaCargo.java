@@ -40,8 +40,6 @@ public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(20, 48, 46, 14);
 		contentPane.add(lblNome);
-		
-		
 			
 		txtNome = new JTextField();
 		txtNome.setBounds(76, 45, 334, 20);

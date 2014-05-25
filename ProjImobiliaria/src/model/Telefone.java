@@ -1,6 +1,10 @@
 package model;
 
-public class Telefone {
+import java.io.Serializable;
+
+import control.ITabelavel;
+
+public class Telefone  implements Serializable, ITabelavel {
 	
 	private String tipo;
 	private String numero;
@@ -47,6 +51,18 @@ public class Telefone {
 			this.cliente = cliente;
 			cliente.addTelefone(this);
 		}
+	}
+
+	@Override
+	public Object[] getData() {
+		return new Object[]{
+				this.getTipo(), 
+				this.getNumero(), 
+		};
+	}
+	
+	public String toString() {
+		return this.getNumero();
 	}
 
 }

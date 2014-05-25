@@ -43,8 +43,6 @@ public class JanelaSalvaFuncionario extends JFrame implements IViewerSalvaFuncio
 		lblNome.setBounds(20, 48, 46, 14);
 		contentPane.add(lblNome);
 		
-		
-			
 		txtNome = new JTextField();
 		txtNome.setBounds(76, 45, 334, 20);
 		contentPane.add(txtNome);
