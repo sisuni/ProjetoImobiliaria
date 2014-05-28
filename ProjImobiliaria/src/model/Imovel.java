@@ -1,9 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Imovel {
+import control.ITabelavel;
+
+public class Imovel implements Serializable, ITabelavel, Comparable<Imovel> {
 	
 	private String uf;
 	private String cidade;
@@ -21,10 +24,7 @@ public class Imovel {
 	private Proprietario proprietario;
 	private Set<Contrato> listaContratos;
 		
-	public Imovel(String uf, String cidade, String bairro,
-			String logradouro, int numero, String complemento, float valorBase,
-			String dimensoes, int qtdQuartos, String descricao,
-			String finalidade, String tipo, boolean status, Proprietario proprietario) {
+	public Imovel(String uf, String cidade, String bairro, String logradouro, int numero, String complemento, float valorBase, String dimensoes, int qtdQuartos, String descricao, String finalidade, String tipo, boolean status, Proprietario proprietario) {
 		this.setUf(uf);
 		this.setCidade(cidade);
 		this.setBairro(bairro);
@@ -188,5 +188,15 @@ public class Imovel {
 
 	public Set<Contrato> getContratos(){
 		return this.listaContratos;
+	}
+
+	@Override
+	public int compareTo(Imovel i) {
+		return this.descricao.compareTo(i.descricao);
+	}
+
+	@Override
+	public Object[] getData() {
+		return new Object[]{this.proprietario, this.logradouro + this.cidade + this.uf};
 	}
 }
