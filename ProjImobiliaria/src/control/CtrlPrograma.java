@@ -62,8 +62,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 
 	@Override
 	public boolean iniciarCasoDeUsoManterCargo() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.ctrlCargo.iniciar();
 	}
 
 	@Override

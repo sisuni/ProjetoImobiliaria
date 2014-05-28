@@ -10,7 +10,7 @@ import view.JanelaCargos;
 import view.JanelaExcluirCargo;
 import view.JanelaSalvaCargo;
 
-public class CtrlManterCargos implements ICtrlManter{
+public class CtrlManterCargos implements ICtrlManterCargos{
 	//
 	// ATRIBUTOS
 	//
@@ -75,15 +75,8 @@ public class CtrlManterCargos implements ICtrlManter{
 		this.jCargo = new JanelaSalvaCargo(this);
 		return true;
 	}
-
+	
 	@Override
-	public void cancelarIncluir() {
-		if(this.operacao == Operacao.INCLUSAO) {
-			this.jCargo.setVisible(false);
-			this.operacao = Operacao.DISPONIVEL;
-		}
-	}
-
 	public boolean incluir(int nivel, String nome) throws ModelException {
 		if(this.operacao != Operacao.INCLUSAO)
 			return false;
@@ -96,6 +89,14 @@ public class CtrlManterCargos implements ICtrlManter{
 		this.atualizarInterface();
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
+	}
+
+	@Override
+	public void cancelarIncluir() {
+		if(this.operacao == Operacao.INCLUSAO) {
+			this.jCargo.setVisible(false);
+			this.operacao = Operacao.DISPONIVEL;
+		}
 	}
 
 	@Override
@@ -176,5 +177,7 @@ public class CtrlManterCargos implements ICtrlManter{
 			this.jCadastro.incluirLinha(cargo);
 		}
 	}
+
+	
 
 }

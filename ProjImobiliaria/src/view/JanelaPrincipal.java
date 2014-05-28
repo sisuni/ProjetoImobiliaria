@@ -1,5 +1,8 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,9 +28,16 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton button = new JButton("Cargo");
-		button.setBounds(47, 44, 89, 49);
-		contentPane.add(button);
+		JButton btnCargo = new JButton("Cargo");
+		btnCargo.addActionListener(new ActionListener() {
+			// Método acionado quando o botão "Departamentos" 
+			// for pressionado (Método de Callback).
+			public void actionPerformed(ActionEvent arg0) {
+				ctrlPrg.iniciarCasoDeUsoManterCargo();
+			}
+		});
+		btnCargo.setBounds(47, 44, 89, 49);
+		contentPane.add(btnCargo);
 		
 		JButton btnSair = new JButton("sair");
 		btnSair.setBounds(195, 44, 89, 49);
