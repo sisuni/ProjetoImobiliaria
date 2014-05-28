@@ -11,7 +11,7 @@ import view.JanelaExcluirFuncionario;
 import view.JanelaFuncionario;
 import view.JanelaSalvaFuncionario;
 
-public class CtrlManterFuncionario implements ICtrlManter{
+public class CtrlManterFuncionarios implements ICtrlManter{
 	//
 	// ATRIBUTOS
 	//
@@ -39,7 +39,7 @@ public class CtrlManterFuncionario implements ICtrlManter{
 	/**
 	 * Construtor da classe
 	 */
-	public CtrlManterFuncionario(ICtrlPrograma p) {
+	public CtrlManterFuncionarios(ICtrlPrograma p) {
 		this.ctrlPrg = p;
 	}
 	
