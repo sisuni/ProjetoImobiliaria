@@ -64,7 +64,7 @@ public class Cargo implements Serializable, ITabelavel, Comparable<Cargo> {
 	 * Dados para serem exibidos no data grid
 	 */
 	public Object[] getData() {
-		return new Object[]{this.nivel, this.nome, this.listaFuncionarios.size()};
+		return new Object[]{this.nome, this.nivel, this.listaFuncionarios.size()};
 	}
 	
 	/** 
