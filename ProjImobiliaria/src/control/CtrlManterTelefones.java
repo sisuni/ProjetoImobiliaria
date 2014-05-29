@@ -1,19 +1,17 @@
 package control;
 
+import model.Cliente;
 import model.DAOTelefone;
 import model.IDAO;
 import model.ModelException;
-import model.Proprietario;
 import model.Telefone;
 import view.IViewer;
 import view.IViewerSalvaTelefone;
-import view.JanelaExcluirProprietario;
 import view.JanelaExcluirTelefone;
-import view.JanelaSalvaProprietario;
 import view.JanelaSalvaTelefone;
 import view.JanelaTelefones;
 
-public class CtrlManterTelefones implements ICtrlManter{
+public class CtrlManterTelefones implements ICtrlManterTelefones {
 	
 	private enum Operacao {
 		INCLUSAO, EXCLUSAO, ALTERACAO, DISPONIVEL;
@@ -78,11 +76,11 @@ public class CtrlManterTelefones implements ICtrlManter{
 		}
 	}
 
-	public boolean incluir(String tipo, String num) throws ModelException {
+	public boolean incluir(String tipo, String numero, Cliente cliente) throws ModelException {
 		if(this.operacao != Operacao.INCLUSAO)
 			return false;
 
-		Telefone novo = new Telefone(tipo,num,null);
+		Telefone novo = new Telefone(tipo, numero, null);
 
 		dao.salvar(novo);
 
@@ -116,12 +114,13 @@ public class CtrlManterTelefones implements ICtrlManter{
 		}
 	}
 	
-	public boolean alterar(String tipo, String nome) throws ModelException {
+	public boolean alterar(String tipo, String numero, Cliente cliente) throws ModelException {
 		if(this.operacao != Operacao.ALTERACAO)
 			return false;
 
 		this.telefoneAtual.setTipo(tipo);
-		this.telefoneAtual.setNumero(nome);
+		this.telefoneAtual.setNumero(numero);
+		this.telefoneAtual.setCliente(cliente);
 		
 
 		dao.atualizar(this.telefoneAtual);

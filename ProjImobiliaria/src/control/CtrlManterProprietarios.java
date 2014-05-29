@@ -10,7 +10,7 @@ import view.JanelaExcluirProprietario;
 import view.JanelaProprietarios;
 import view.JanelaSalvaProprietario;
 
-public class CtrlManterProprietarios implements ICtrlManter{
+public class CtrlManterProprietarios implements ICtrlManterProprietarios {
 	//
 	// ATRIBUTOS
 	//

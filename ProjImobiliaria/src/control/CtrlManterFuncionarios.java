@@ -11,7 +11,7 @@ import view.JanelaExcluirFuncionario;
 import view.JanelaFuncionario;
 import view.JanelaSalvaFuncionario;
 
-public class CtrlManterFuncionarios implements ICtrlManter{
+public class CtrlManterFuncionarios implements ICtrlManterFuncionarios{
 	//
 	// ATRIBUTOS
 	//

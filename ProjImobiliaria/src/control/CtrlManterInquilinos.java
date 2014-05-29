@@ -1,6 +1,5 @@
 package control;
 
-import model.Cargo;
 import model.DAOInquilino;
 import model.IDAO;
 import model.Inquilino;
@@ -9,10 +8,9 @@ import view.IViewer;
 import view.IViewerSalvaInquilino;
 import view.JanelaExcluirCargo;
 import view.JanelaInquilinos;
-import view.JanelaSalvaCargo;
 import view.JanelaSalvaInquilino;
 
-public class CtrlManterInquilinos implements ICtrlManter{
+public class CtrlManterInquilinos implements ICtrlManterInquilinos{
 	//
 	// ATRIBUTOS
 	//
