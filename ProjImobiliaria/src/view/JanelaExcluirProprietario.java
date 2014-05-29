@@ -31,7 +31,7 @@ public class JanelaExcluirProprietario {
 		// Guardo a referência para o controlador de caso de uso
 		this.ctrl = ct;
 		// Pergunto ao usuário o que ele deseja fazer
-		this.opcao = JOptionPane.showConfirmDialog(null, "Deseja remover o Proprietario " + selecionado);
+		this.opcao = JOptionPane.showConfirmDialog(null, "Deseja remover o Proprietario " + selecionado + "?");
 		// Verifica o que o usuário indicou para ser feito
 		if(this.opcao == JOptionPane.YES_OPTION)
 			try {

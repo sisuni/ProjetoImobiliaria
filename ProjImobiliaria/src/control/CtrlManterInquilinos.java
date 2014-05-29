@@ -6,7 +6,7 @@ import model.Inquilino;
 import model.ModelException;
 import view.IViewer;
 import view.IViewerSalvaInquilino;
-import view.JanelaExcluirCargo;
+import view.JanelaExcluirInquilino;
 import view.JanelaInquilinos;
 import view.JanelaSalvaInquilino;
 
@@ -151,7 +151,7 @@ public class CtrlManterInquilinos implements ICtrlManterInquilinos{
 
 		this.operacao = Operacao.EXCLUSAO;
 		this.inquilinoAtual = dao.recuperar(pos);
-		new JanelaExcluirCargo(this, this.inquilinoAtual);
+		new JanelaExcluirInquilino(this, this.inquilinoAtual);
 		return true;
 	}
 

@@ -6,11 +6,11 @@ import model.ModelException;
 import control.ICtrlManter;
 
 /**
- * Implementação da janela de confirmação de exclusão do Funcionario
+ * Implementação da janela de confirmação de exclusão do Cargo
  * @author Valdecir
  *
  */
-public class JanelaExcluirFuncionario {
+public class JanelaExcluirInquilino {
 	/**
 	 * Referência para o controlador do caso de uso
 	 */
@@ -27,11 +27,11 @@ public class JanelaExcluirFuncionario {
 	 * se o usuário deseja ou não excluir o departamento
 	 * @param nome
 	 */
-	public JanelaExcluirFuncionario(ICtrlManter ct, Object selecionado){
+	public JanelaExcluirInquilino(ICtrlManter ct, Object selecionado){
 		// Guardo a referência para o controlador de caso de uso
 		this.ctrl = ct;
 		// Pergunto ao usuário o que ele deseja fazer
-		this.opcao = JOptionPane.showConfirmDialog(null, "Deseja remover o Funcionario " + selecionado + "?");
+		this.opcao = JOptionPane.showConfirmDialog(null, "Deseja remover o Inquilino " + selecionado + "?");
 		// Verifica o que o usuário indicou para ser feito
 		if(this.opcao == JOptionPane.YES_OPTION)
 			try {
