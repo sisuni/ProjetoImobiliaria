@@ -9,12 +9,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import control.CtrlPrograma;
+import control.ICtrlPrograma;
 
 public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 
 	private JPanel contentPane;
 	
-	private CtrlPrograma ctrlPrg;
+	private ICtrlPrograma ctrlPrg;
 
 	/**
 	 * Create the frame.
@@ -40,6 +41,12 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 		contentPane.add(btnCargo);
 		
 		JButton btnSair = new JButton("sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Método de Callback).
+				ctrlPrg.terminar();
+			}
+		});
 		btnSair.setBounds(195, 44, 89, 49);
 		contentPane.add(btnSair);
 		
