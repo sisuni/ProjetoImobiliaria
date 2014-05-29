@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import model.DAOCargo;
 import model.DAOFuncionario;
 import model.DAOInquilino;
 import model.DAOProprietario;
@@ -35,7 +36,11 @@ public class CtrlPrograma implements ICtrlPrograma{
 	
 	public void iniciar(){
 		this.jPrincipal = new JanelaPrincipal(this);
+		IDAOSerializavel daoCargo = (IDAOSerializavel) DAOCargo.getSingleton();
+		IDAOSerializavel daoFuncionario = (IDAOSerializavel) DAOFuncionario.getSingleton();
+		IDAOSerializavel daoInquilino = (IDAOSerializavel) DAOInquilino.getSingleton();
 		IDAOSerializavel daoProprietario = (IDAOSerializavel) DAOProprietario.getSingleton();
+		IDAOSerializavel daoTelefone = (IDAOSerializavel) DAOTelefone.getSingleton();
 		
 		//
 		// Recuperação dos objetos serializados no arquivo c:/base.bin
@@ -43,7 +48,13 @@ public class CtrlPrograma implements ICtrlPrograma{
 		try {
 			FileInputStream fis = new FileInputStream("base.bin");
 			ObjectInputStream ois = new ObjectInputStream(fis);
+			
+			daoCargo.recuperarObjetos(ois);
+			daoFuncionario.recuperarObjetos(ois);
+			daoInquilino.recuperarObjetos(ois);
 			daoProprietario.recuperarObjetos(ois);
+			daoTelefone.recuperarObjetos(ois);
+			
 			ois.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("Arquivo base.bin não encontrado");
@@ -55,7 +66,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 	}
 
 	public void terminar(){
-		IDAOSerializavel daoCargo = (IDAOSerializavel)DAOProprietario.getSingleton();
+		IDAOSerializavel daoCargo = (IDAOSerializavel)DAOCargo.getSingleton();
 		IDAOSerializavel daoFuncionario = (IDAOSerializavel)DAOFuncionario.getSingleton();
 		IDAOSerializavel daoInquilino = (IDAOSerializavel)DAOInquilino.getSingleton();
 		IDAOSerializavel daoProprietario = (IDAOSerializavel)DAOProprietario.getSingleton();
