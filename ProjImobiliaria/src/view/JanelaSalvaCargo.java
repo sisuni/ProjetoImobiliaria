@@ -27,20 +27,21 @@ public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
 	
 	public JanelaSalvaCargo(ICtrlManterCargos sc){
 		this.ctrl = sc;
-		setTitle("Cargo");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Salvar Cargo - Imobiliária");
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 178);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblNivel = new JLabel("Nível:");
 		lblNivel.setBounds(20, 11, 46, 14);
 		contentPane.add(lblNivel);
 		
 		cmbNivel = new JComboBox<Integer>();
-		cmbNivel.setBounds(76, 11, 46, 14);
+		cmbNivel.setBounds(76, 11, 46, 18);
 		cmbNivel.addItem(1);
 		cmbNivel.addItem(2);
 		cmbNivel.addItem(3);
@@ -68,7 +69,7 @@ public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//executarCancelar();
+				executarCancelar();
 			}
 		});
 		btnCancelar.setBounds(256, 95, 154, 23);
@@ -93,6 +94,13 @@ public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			e.printStackTrace();
 		}
+	}
+	
+	public void executarCancelar() {
+		if(!ehAlteracao)
+			ctrl.cancelarIncluir();
+		else
+			ctrl.cancelarAlterar();
 	}
 
 	@Override

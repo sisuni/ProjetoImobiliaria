@@ -28,10 +28,11 @@ public class JanelaCargos extends JFrame implements IViewer{
 	
 	public JanelaCargos(ICtrlManter c){
 		this.ctrl = c;
-		setTitle("Cargo");
+		setTitle("Cargos - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 419, 300);
 		contentPane = new JPanel();
+		setLocationRelativeTo(null);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

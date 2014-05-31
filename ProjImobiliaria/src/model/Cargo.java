@@ -11,19 +11,30 @@ public class Cargo implements Serializable, ITabelavel, Comparable<Cargo> {
 	private String nome;
 	private int nivel;
 	private Set<Funcionario> listaFuncionarios;
+	
+	//constantes
+	public static final int TAMANHO_NOME = 40;
 		
-	public Cargo (String nome, int nivel){
+	public Cargo (String nome, int nivel) throws ModelException{
 		this.setNome(nome);
 		this.setNivel(nivel);
 		this.listaFuncionarios = new TreeSet<Funcionario>();
+	}
+	
+	public static void validarNome(String nome)throws ModelException {
+		if (nome == (null) || nome.length() == 0)
+			throw new ModelException("O Nome cargo não pode estar nulo!");
+		if (nome.length() > TAMANHO_NOME)
+			throw new ModelException("O Nome não deve exceder a " + TAMANHO_NOME + " caracteres!");
 	}
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String nome) throws ModelException {
+		validarNome(nome);
+		this.nome = nome;	
 	}
 
 	public int getNivel() {
