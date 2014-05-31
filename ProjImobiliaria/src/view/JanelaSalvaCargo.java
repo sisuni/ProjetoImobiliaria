@@ -33,8 +33,9 @@ public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		contentPane.setLayout(null); //centralizar janela
+		setResizable(false); //não maximizar, aumentar	
 		
 		JLabel lblNivel = new JLabel("Nível:");
 		lblNivel.setBounds(20, 11, 46, 14);
