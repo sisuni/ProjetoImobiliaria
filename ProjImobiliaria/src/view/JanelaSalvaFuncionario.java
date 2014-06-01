@@ -32,6 +32,7 @@ public class JanelaSalvaFuncionario extends JFrame implements IViewerSalvaFuncio
 	private JTextField txtNome;
 	private JTextField txtLogin;
 	private JPasswordField txtSenha;
+	private JLabel lblVerSenha;
 	private JCheckBox chkVerSenha;
 	private JComboBox<Cargo> cmbCargo;
 	
@@ -87,7 +88,7 @@ public class JanelaSalvaFuncionario extends JFrame implements IViewerSalvaFuncio
 	    	}
 	    });
 	    
-	    JLabel lblVerSenha = new JLabel("Mostrar Senha");
+	    lblVerSenha = new JLabel("Mostrar Senha");
 	    lblVerSenha.setBounds(80,108,100,14);
 	    contentPane.add(lblVerSenha);
 	    
@@ -159,6 +160,8 @@ public class JanelaSalvaFuncionario extends JFrame implements IViewerSalvaFuncio
 		this.txtSenha.setText(senha);
 		this.cmbCargo.setSelectedItem(cargo);
 		this.ehAlteracao = true;
+		this.lblVerSenha.setVisible(false);
+		this.chkVerSenha.setVisible(false);
 		
 	}
 

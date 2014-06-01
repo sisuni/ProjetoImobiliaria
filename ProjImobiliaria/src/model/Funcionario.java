@@ -62,5 +62,9 @@ public class Funcionario extends Pessoa implements Serializable, ITabelavel, Com
 	public int compareTo(Funcionario f) {
 		return this.getNome().compareTo(f.getNome());
 	}
+	
+	public String toString() {
+		return this.getNome();
+	}
 
 }

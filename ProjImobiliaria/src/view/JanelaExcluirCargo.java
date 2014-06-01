@@ -24,7 +24,7 @@ public class JanelaExcluirCargo {
 	
 	/**
 	 * Construtor que irá colocar uma janela modal perguntando
-	 * se o usuário deseja ou não excluir o departamento
+	 * se o usuário deseja ou não excluir o Cargo
 	 * @param nome
 	 */
 	public JanelaExcluirCargo(ICtrlManter ct, Object selecionado){

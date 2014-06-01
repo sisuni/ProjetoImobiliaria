@@ -59,16 +59,16 @@ public class DAOFuncionario implements IDAO<Funcionario>, IDAOSerializavel {
 	@Override
 	public Funcionario recuperar(int pos){
 		int i = 0;
-		for(Funcionario d : this.listaObjs)
+		for(Funcionario f : this.listaObjs)
 			if(i++ == pos)
-				return d;
+				return f;
 		return null;
 	}
 	
 	@Override
-	public Funcionario recuperarPelaChave(Object nivel){
+	public Funcionario recuperarPelaChave(Object nome){
 		for(Funcionario f : this.listaObjs)
-			if(nivel.equals(f.getLogin()))
+			if(nome.equals(f.getNome()))
 				return f;
 		return null;
 	}

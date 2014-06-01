@@ -24,14 +24,14 @@ public class JanelaExcluirFuncionario {
 	
 	/**
 	 * Construtor que irá colocar uma janela modal perguntando
-	 * se o usuário deseja ou não excluir o departamento
+	 * se o usuário deseja ou não excluir o Funcionário
 	 * @param nome
 	 */
 	public JanelaExcluirFuncionario(ICtrlManter ct, Object selecionado){
 		// Guardo a referência para o controlador de caso de uso
 		this.ctrl = ct;
 		// Pergunto ao usuário o que ele deseja fazer
-		this.opcao = JOptionPane.showConfirmDialog(null, "Deseja remover o Funcionario " + selecionado + "?");
+		this.opcao = JOptionPane.showConfirmDialog(null, "Deseja remover o(a) Funcionario(a) " + selecionado + "?");
 		// Verifica o que o usuário indicou para ser feito
 		if(this.opcao == JOptionPane.YES_OPTION)
 			try {
