@@ -21,10 +21,10 @@ public abstract class Cliente extends Pessoa implements Comparable<Cliente> {
 		this.listaTelefones = new TreeSet<Telefone>();
 	}
 
-	public static boolean validarCPF(String cpf) {
+	public static void validarCPF(String cpf) throws ModelException {
 		if (cpf == null)
-			return false;
-
+			throw new ModelException("O CPF não pode estar nulo!");
+		
 		int c1 = 0, c2 = 0, dv1, dv2, i, j = 0;
 
 		for (i = 1; i <= 9; i++) {
@@ -48,9 +48,9 @@ public abstract class Cliente extends Pessoa implements Comparable<Cliente> {
 			dv2 = 0;
 
 		if ((dv1 == Integer.parseInt(String.valueOf(cpf.charAt(9))) && (dv2 == Integer.parseInt(String.valueOf(cpf.charAt(10))))))
-			return true;
+			return;
 		else
-			return false;
+			throw new ModelException("CPF inválido: " + cpf);
 	}
 	
 	public String getCpf() {
@@ -58,10 +58,8 @@ public abstract class Cliente extends Pessoa implements Comparable<Cliente> {
 	}
 
 	public void setCpf(String cpf) throws ModelException{
-		if(validarCPF(cpf))
-			this.cpf = cpf;
-		else
-			throw new ModelException("CPF inválido: " + cpf);
+		validarCPF(cpf);
+		this.cpf = cpf;
 	}
 
 	public String getEmail() {

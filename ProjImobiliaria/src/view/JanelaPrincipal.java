@@ -3,8 +3,12 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -16,12 +20,17 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 	private JPanel contentPane;
 	
 	private ICtrlPrograma ctrlPrg;
+	
+	// Cria uma barra de menu para o JFrame
+	private JMenuBar menuBar = new JMenuBar();
 
 	/**
 	 * Create the frame.
 	 */
 	public JanelaPrincipal(CtrlPrograma p) {
 		this.ctrlPrg = p;
+		setTitle("Imobiliária - Menu Principal");
+		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 357, 173);
 		contentPane = new JPanel();
@@ -29,26 +38,34 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnCargo = new JButton("Cargo");
-		btnCargo.addActionListener(new ActionListener() {
+		// Adiciona a barra de menu ao frame
+		setJMenuBar(menuBar);
+		
+		// Define e adiciona dois menus drop down na barra de menus
+		JMenu menu = new JMenu("Controle");
+		menuBar.add(menu);
+		
+		JMenuItem cargo = new JMenuItem("Cargo");
+		JMenuItem sair = new JMenuItem("Sair");
+		ButtonGroup bg = new ButtonGroup();
+		menu.add(cargo);
+		menu.addSeparator();
+		menu.add(sair);
+				
+		cargo.addActionListener(new ActionListener() {
 			// Método acionado quando o botão "Departamentos" 
 			// for pressionado (Método de Callback).
 			public void actionPerformed(ActionEvent arg0) {
 				ctrlPrg.iniciarCasoDeUsoManterCargo();
 			}
 		});
-		btnCargo.setBounds(47, 44, 89, 49);
-		contentPane.add(btnCargo);
 		
-		JButton btnSair = new JButton("sair");
-		btnSair.addActionListener(new ActionListener() {
+		sair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Método de Callback).
 				ctrlPrg.terminar();
 			}
 		});
-		btnSair.setBounds(195, 44, 89, 49);
-		contentPane.add(btnSair);
 		
 		this.setVisible(true);
 	}
