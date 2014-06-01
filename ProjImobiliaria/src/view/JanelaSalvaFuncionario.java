@@ -1,10 +1,14 @@
 package view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Set;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,6 +32,7 @@ public class JanelaSalvaFuncionario extends JFrame implements IViewerSalvaFuncio
 	private JTextField txtNome;
 	private JTextField txtLogin;
 	private JPasswordField txtSenha;
+	private JCheckBox chkVerSenha;
 	private JComboBox<Cargo> cmbCargo;
 	
 	public JanelaSalvaFuncionario(ICtrlManterFuncionarios sc, Set<Cargo> Cargos){
@@ -66,7 +71,26 @@ public class JanelaSalvaFuncionario extends JFrame implements IViewerSalvaFuncio
 	    txtSenha = new JPasswordField();
 	    txtSenha.setBounds(62, 85, 150, 20);
 	    contentPane.add(txtSenha);
-				
+	    
+	    chkVerSenha = new JCheckBox();
+		chkVerSenha.setBounds(58,105,110,20);
+		chkVerSenha.setOpaque(false);
+	    contentPane.add(chkVerSenha);
+	    
+	    chkVerSenha.addItemListener(new ItemListener(){
+	    	public void itemStateChanged(ItemEvent e){
+		    	if (e.getStateChange() != ItemEvent.SELECTED){
+		    		txtSenha.setEchoChar('•');
+		    	}else{
+		    		txtSenha.setEchoChar((char) 0);
+	    		}
+	    	}
+	    });
+	    
+	    JLabel lblVerSenha = new JLabel("Mostrar Senha");
+	    lblVerSenha.setBounds(80,108,100,14);
+	    contentPane.add(lblVerSenha);
+	    
 	    JLabel lblCargo = new JLabel("Cargo:");
 	    lblCargo.setBounds(220, 50, 46, 14);
 	    contentPane.add(lblCargo);
@@ -87,7 +111,7 @@ public class JanelaSalvaFuncionario extends JFrame implements IViewerSalvaFuncio
 				executarSalvar();
 			}
 		});
-		btnSalvar.setBounds(53, 125, 143, 23);
+		btnSalvar.setBounds(53, 135, 143, 23);
 		contentPane.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -96,7 +120,7 @@ public class JanelaSalvaFuncionario extends JFrame implements IViewerSalvaFuncio
 				executarCancelar();
 			}
 		});
-		btnCancelar.setBounds(226, 125, 154, 23);
+		btnCancelar.setBounds(226, 135, 154, 23);
 		contentPane.add(btnCancelar);
 		
 		this.setVisible(true);
