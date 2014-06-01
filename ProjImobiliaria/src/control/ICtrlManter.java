@@ -36,4 +36,6 @@ public interface ICtrlManter {
 	public abstract boolean excluir() throws ModelException;
 
 	public abstract void atualizarInterface();
+
+
 }

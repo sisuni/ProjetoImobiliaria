@@ -29,7 +29,7 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 	 */
 	public JanelaPrincipal(CtrlPrograma p) {
 		this.ctrlPrg = p;
-		setTitle("Imobiliária - Menu Principal");
+		setTitle("Menu Principal - Imobiliária");
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 357, 173);
@@ -46,9 +46,11 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 		menuBar.add(menu);
 		
 		JMenuItem cargo = new JMenuItem("Cargo");
+		JMenuItem func = new JMenuItem("Funcionário");
 		JMenuItem sair = new JMenuItem("Sair");
 		ButtonGroup bg = new ButtonGroup();
 		menu.add(cargo);
+		menu.add(func);
 		menu.addSeparator();
 		menu.add(sair);
 				
@@ -58,6 +60,12 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 			public void actionPerformed(ActionEvent arg0) {
 				ctrlPrg.iniciarCasoDeUsoManterCargo();
 			}
+		});
+		
+		func.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent arg0){
+					ctrlPrg.iniciarCasoDeUsoManterFuncionario();
+				}
 		});
 		
 		sair.addActionListener(new ActionListener() {

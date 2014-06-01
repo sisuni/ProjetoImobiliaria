@@ -5,12 +5,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -25,13 +28,15 @@ public class JanelaFuncionario extends JFrame implements IViewer{
 	
 	public JanelaFuncionario(ICtrlManter c){
 		this.ctrl = c;
-		setTitle("Funcionario");
+		setTitle("Salvar Funcionario - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 419, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+		setResizable(false);
 		
 		/*Inicio dos Botões*/
 		JButton btnIncluir = new JButton("Incluir");
@@ -77,16 +82,18 @@ public class JanelaFuncionario extends JFrame implements IViewer{
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) table.getDefaultRenderer(JLabel.class);  
+        renderer.setHorizontalAlignment(SwingConstants.CENTER); 
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Nível", "Nome", "#Func"
+				"Nome", "Login", "#Cargo"
 			}
 		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(60);
-		table.getColumnModel().getColumn(1).setPreferredWidth(300);
-		table.getColumnModel().getColumn(2).setPreferredWidth(60);
+		table.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table.getColumnModel().getColumn(1).setPreferredWidth(110);
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);
 		
 		// monitorando o evento através de TableModelListener
 				table.getModel().addTableModelListener(new TableModelListener() {

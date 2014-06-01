@@ -68,8 +68,8 @@ public class DAOInquilino implements IDAO<Inquilino>, IDAOSerializavel {
 	}
 	
 	@Override
-	public Inquilino[] getListaObjs() {
-		return (Inquilino[])this.listaObjs.toArray();
+	public Set<Inquilino> getListaObjs() {
+		return this.listaObjs;
 	}
 
 	@Override

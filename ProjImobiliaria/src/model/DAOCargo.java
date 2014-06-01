@@ -68,8 +68,8 @@ public class DAOCargo implements IDAO<Cargo>, IDAOSerializavel {
 	}
 	
 	@Override
-	public Cargo[] getListaObjs() {
-		return (Cargo[])this.listaObjs.toArray();
+	public Set<Cargo> getListaObjs() {
+		return this.listaObjs;
 	}
 
 	@Override

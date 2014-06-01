@@ -1,6 +1,10 @@
 package model;
 
-public class Funcionario extends Pessoa {
+import java.io.Serializable;
+
+import control.ITabelavel;
+
+public class Funcionario extends Pessoa implements Serializable, ITabelavel, Comparable<Funcionario> {
 
 	private String login;
 	private String senha;
@@ -51,8 +55,12 @@ public class Funcionario extends Pessoa {
 
 	@Override
 	public Object[] getData() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Object[]{this.getNome(), this.login, this.cargo.getNome()};
+	}
+
+	@Override
+	public int compareTo(Funcionario f) {
+		return this.getNome().compareTo(f.getNome());
 	}
 
 }

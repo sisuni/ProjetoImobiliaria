@@ -1,6 +1,9 @@
 package control;
 
+import java.util.Set;
+
 import model.Cargo;
+import model.DAOCargo;
 import model.DAOFuncionario;
 import model.Funcionario;
 import model.IDAO;
@@ -32,6 +35,8 @@ public class CtrlManterFuncionarios implements ICtrlManterFuncionarios{
 	private boolean emExecucao;
 	
 	private Operacao operacao;
+	
+	
 	
 	//
 	// MÉTODOS
@@ -71,9 +76,13 @@ public class CtrlManterFuncionarios implements ICtrlManterFuncionarios{
 	public boolean iniciarIncluir() {
 		if(this.operacao != Operacao.DISPONIVEL)
 			return false;
-
+		
 		this.operacao = Operacao.INCLUSAO;
-		this.jFuncionario = new JanelaSalvaFuncionario(this);
+		
+		IDAO<Cargo> daoCargo = DAOCargo.getSingleton();
+		Set<Cargo> cargos = daoCargo.getListaObjs();
+		
+		this.jFuncionario = new JanelaSalvaFuncionario(this, cargos);
 		return true;
 	}
 
@@ -106,7 +115,10 @@ public class CtrlManterFuncionarios implements ICtrlManterFuncionarios{
 
 		this.operacao = Operacao.ALTERACAO;
 		this.funcionarioAtual = dao.recuperar(pos);
-		this.jFuncionario = new JanelaSalvaFuncionario(this);
+		IDAO<Cargo> daoCargo = DAOCargo.getSingleton();
+		Set<Cargo> cargos = daoCargo.getListaObjs();
+		
+		this.jFuncionario = new JanelaSalvaFuncionario(this, cargos);
 		this.jFuncionario.atualizarCampos(
 				this.funcionarioAtual.getNome(),
 				this.funcionarioAtual.getLogin(), 

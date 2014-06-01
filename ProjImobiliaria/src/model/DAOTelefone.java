@@ -68,8 +68,8 @@ public class DAOTelefone implements IDAO<Telefone>, IDAOSerializavel{
 	}
 
 	@Override
-	public Telefone[] getListaObjs() {
-		return (Telefone[])this.listaObjs.toArray();
+	public Set<Telefone> getListaObjs() {
+		return this.listaObjs;
 	}
 
 	@Override

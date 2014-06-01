@@ -79,8 +79,8 @@ public class DAOFuncionario implements IDAO<Funcionario>, IDAOSerializavel {
 	}
 	
 	@Override
-	public Funcionario[] getListaObjs() {
-		return (Funcionario[])this.listaObjs.toArray();
+	public Set<Funcionario> getListaObjs() {
+		return this.listaObjs;
 	}
 
 	@Override

@@ -68,8 +68,8 @@ public class DAOProprietario implements IDAO<Proprietario>, IDAOSerializavel {
 	}
 
 	@Override
-	public Proprietario[] getListaObjs() {
-		return (Proprietario[])this.listaObjs.toArray();
+	public Set<Proprietario> getListaObjs() {
+		return this.listaObjs;
 	}
 
 	@Override
