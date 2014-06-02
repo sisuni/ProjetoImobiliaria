@@ -140,11 +140,15 @@ public class CtrlManterCargos implements ICtrlManterCargos{
 	public boolean iniciarExcluir(int pos) {
 		if(this.operacao != Operacao.DISPONIVEL)
 			return false;
-
-		this.operacao = Operacao.EXCLUSAO;
+		
 		this.cargoAtual = dao.recuperar(pos);
-		new JanelaExcluirCargo(this, this.cargoAtual);
-		return true;
+		this.operacao = Operacao.EXCLUSAO;
+		JanelaExcluirCargo jExcluirCargo = new JanelaExcluirCargo(this);
+		
+		if(this.cargoAtual.getFuncionarios().isEmpty())
+			return jExcluirCargo.ExcluirCargo(this.cargoAtual);
+		else
+			return jExcluirCargo.ExcluirTudo(this.cargoAtual, this.cargoAtual.getFuncionarios().size());
 	}
 
 	@Override
