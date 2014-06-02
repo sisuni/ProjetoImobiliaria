@@ -1,10 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Contrato {
+import control.ITabelavel;
+
+public class Contrato implements Serializable, ITabelavel, Comparable<Contrato> {
 	private int duracao;
 	private Date dataInicio;
 	private int percentImobiliaria;
@@ -23,6 +26,10 @@ public class Contrato {
 		this.listaBoletos = new TreeSet<Boleto>();
 	}
 
+	public int getDuracao() {
+		return this.duracao;
+	}	
+	
 	public void setDuracao(int duracao) {
 		this.duracao = duracao;
 	}
@@ -90,10 +97,6 @@ public class Contrato {
 		}
 	}
 
-	public int getduracao() {
-		return duracao;
-	}	
-	
 	public Set<Boleto> getBoletos(){
 		return this.listaBoletos;
 	}
@@ -110,6 +113,16 @@ public class Contrato {
 			return;
 		this.listaBoletos.remove(exBoleto);
 		exBoleto.setContrato(null);
+	}
+
+	@Override
+	public int compareTo(Contrato c) {
+		return this.imovel.compareTo(c.imovel);
+	}
+
+	@Override
+	public Object[] getData() {
+		return new Object[]{this.duracao, this.dataInicio, this.percentImobiliaria, this.valorAluguel, this.listaBoletos.size()};
 	}
 
 }

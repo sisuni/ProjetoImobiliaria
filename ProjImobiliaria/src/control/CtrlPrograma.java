@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import model.DAOCargo;
+import model.DAOContrato;
 import model.DAOFuncionario;
 import model.DAOImovel;
 import model.DAOInquilino;
@@ -21,6 +22,7 @@ import view.JanelaPrincipal;
 public class CtrlPrograma implements ICtrlPrograma{
 	
 	private ICtrlManter ctrlCargo;
+	private ICtrlManter ctrlContrato;
 	private ICtrlManter ctrlFuncionario;
 	private ICtrlManter ctrlImovel;
 	private ICtrlManter ctrlInquilino;
@@ -30,6 +32,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 	
 	public CtrlPrograma() {
 		this.ctrlCargo			= new CtrlManterCargos(this);
+		this.ctrlContrato		= new CtrlManterContratos(this);
 		this.ctrlFuncionario	= new CtrlManterFuncionarios(this);
 		this.ctrlImovel			= new CtrlManterImoveis(this);
 		this.ctrlInquilino		= new CtrlManterInquilinos(this);
@@ -40,6 +43,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 	public void iniciar(){
 		this.jPrincipal = new JanelaPrincipal(this);
 		IDAOSerializavel daoCargo			= (IDAOSerializavel) DAOCargo.getSingleton();
+		IDAOSerializavel daoContrato		= (IDAOSerializavel) DAOContrato.getSingleton();
 		IDAOSerializavel daoFuncionario		= (IDAOSerializavel) DAOFuncionario.getSingleton();
 		IDAOSerializavel daoImovel			= (IDAOSerializavel) DAOImovel.getSingleton();
 		IDAOSerializavel daoInquilino		= (IDAOSerializavel) DAOInquilino.getSingleton();
@@ -54,6 +58,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
 			daoCargo.recuperarObjetos(ois);
+			daoContrato.recuperarObjetos(ois);
 			daoFuncionario.recuperarObjetos(ois);
 			daoImovel.recuperarObjetos(ois);
 			daoInquilino.recuperarObjetos(ois);
@@ -72,6 +77,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 
 	public void terminar(){
 		IDAOSerializavel daoCargo			= (IDAOSerializavel)DAOCargo.getSingleton();
+		IDAOSerializavel daoContrato		= (IDAOSerializavel)DAOContrato.getSingleton();
 		IDAOSerializavel daoFuncionario		= (IDAOSerializavel)DAOFuncionario.getSingleton();
 		IDAOSerializavel daoImovel			= (IDAOSerializavel)DAOImovel.getSingleton();
 		IDAOSerializavel daoInquilino		= (IDAOSerializavel)DAOInquilino.getSingleton();
@@ -84,6 +90,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 			
 			// Persistindo os estados das classes no arquino serializado
 			daoCargo.salvarObjetos(oos);
+			daoContrato.salvarObjetos(oos);
 			daoFuncionario.salvarObjetos(oos);
 			daoImovel.salvarObjetos(oos);
 			daoInquilino.salvarObjetos(oos);
@@ -105,8 +112,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 
 	@Override
 	public boolean terminarCasoDeUsoManterCargo() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -116,8 +122,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 
 	@Override
 	public boolean terminarCasoDeUsoManterFuncionario() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -127,20 +132,17 @@ public class CtrlPrograma implements ICtrlPrograma{
 
 	@Override
 	public boolean terminarCasoDeUsoManterProprietarios() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean iniciarCasoDeUsoManterImovel() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.ctrlImovel.iniciar();
 	}
 
 	@Override
 	public boolean terminarCasoDeUsoManterImovel() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -150,20 +152,17 @@ public class CtrlPrograma implements ICtrlPrograma{
 
 	@Override
 	public boolean terminarCasoDeUsoManterInquilino() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean iniciarCasoDeUsoManterContrato() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.ctrlContrato.iniciar();
 	}
 
 	@Override
 	public boolean terminarCasoDeUsoManterContrato() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -174,8 +173,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 
 	@Override
 	public boolean terminarCasoDeUsoManterTaxas() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -186,20 +184,17 @@ public class CtrlPrograma implements ICtrlPrograma{
 
 	@Override
 	public boolean terminarCasoDeUsoManterBoleto() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean iniciarCasoDeUsoManterTelefone() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.ctrlTelefone.iniciar();
 	}
 
 	@Override
 	public boolean terminarCasoDeUsoManterTelefone() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	/**

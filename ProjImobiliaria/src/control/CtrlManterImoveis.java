@@ -7,8 +7,8 @@ import model.ModelException;
 import model.Proprietario;
 import view.IViewer;
 import view.IViewerSalvaImovel;
-import view.JanelaCargos;
 import view.JanelaExcluirImovel;
+import view.JanelaImoveis;
 import view.JanelaSalvaImovel;
 
 public class CtrlManterImoveis implements ICtrlManterImoveis {
@@ -48,7 +48,7 @@ public class CtrlManterImoveis implements ICtrlManterImoveis {
 		if (this.emExecucao)
 			return false;
 
-		this.jCadastro = new JanelaCargos(this);
+		this.jCadastro = new JanelaImoveis(this);
 		this.atualizarInterface();
 		this.emExecucao = true;
 		this.operacao = Operacao.DISPONIVEL;
@@ -61,7 +61,7 @@ public class CtrlManterImoveis implements ICtrlManterImoveis {
 			return false;
 
 		this.jCadastro.setVisible(false);
-		this.ctrlPrg.terminarCasoDeUsoManterCargo();
+		this.ctrlPrg.terminarCasoDeUsoManterImovel();
 		this.emExecucao = false;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
@@ -114,8 +114,7 @@ public class CtrlManterImoveis implements ICtrlManterImoveis {
 		this.operacao = Operacao.ALTERACAO;
 		this.imovelAtual = dao.recuperar(pos);
 		this.jImovel = new JanelaSalvaImovel(this);
-		this.jImovel
-				.atualizarCampos(
+		this.jImovel.atualizarCampos(
 						this.imovelAtual.getUf(),
 						this.imovelAtual.getCidade(),
 						this.imovelAtual.getBairro(),
