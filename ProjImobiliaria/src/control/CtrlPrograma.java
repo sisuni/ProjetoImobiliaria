@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 
 import model.DAOCargo;
 import model.DAOFuncionario;
+import model.DAOImovel;
 import model.DAOInquilino;
 import model.DAOProprietario;
 import model.DAOTelefone;
@@ -21,26 +22,29 @@ public class CtrlPrograma implements ICtrlPrograma{
 	
 	private ICtrlManter ctrlCargo;
 	private ICtrlManter ctrlFuncionario;
+	private ICtrlManter ctrlImovel;
 	private ICtrlManter ctrlInquilino;
 	private ICtrlManter ctrlProprietario;
 	private ICtrlManter ctrlTelefone;
 	private IViewerPrincipal jPrincipal;
 	
 	public CtrlPrograma() {
-		this.ctrlCargo = new CtrlManterCargos(this);
-		this.ctrlFuncionario= new CtrlManterFuncionarios(this);
-		this.ctrlInquilino = new CtrlManterInquilinos(this);
-		this.ctrlProprietario = new CtrlManterProprietarios(this);
-		this.ctrlTelefone = new CtrlManterTelefones(this);
+		this.ctrlCargo			= new CtrlManterCargos(this);
+		this.ctrlFuncionario	= new CtrlManterFuncionarios(this);
+		this.ctrlImovel			= new CtrlManterImoveis(this);
+		this.ctrlInquilino		= new CtrlManterInquilinos(this);
+		this.ctrlProprietario	= new CtrlManterProprietarios(this);
+		this.ctrlTelefone		= new CtrlManterTelefones(this);
 	}
 	
 	public void iniciar(){
 		this.jPrincipal = new JanelaPrincipal(this);
-		IDAOSerializavel daoCargo = (IDAOSerializavel) DAOCargo.getSingleton();
-		IDAOSerializavel daoFuncionario = (IDAOSerializavel) DAOFuncionario.getSingleton();
-		IDAOSerializavel daoInquilino = (IDAOSerializavel) DAOInquilino.getSingleton();
-		IDAOSerializavel daoProprietario = (IDAOSerializavel) DAOProprietario.getSingleton();
-		IDAOSerializavel daoTelefone = (IDAOSerializavel) DAOTelefone.getSingleton();
+		IDAOSerializavel daoCargo			= (IDAOSerializavel) DAOCargo.getSingleton();
+		IDAOSerializavel daoFuncionario		= (IDAOSerializavel) DAOFuncionario.getSingleton();
+		IDAOSerializavel daoImovel			= (IDAOSerializavel) DAOImovel.getSingleton();
+		IDAOSerializavel daoInquilino		= (IDAOSerializavel) DAOInquilino.getSingleton();
+		IDAOSerializavel daoProprietario	= (IDAOSerializavel) DAOProprietario.getSingleton();
+		IDAOSerializavel daoTelefone		= (IDAOSerializavel) DAOTelefone.getSingleton();
 		
 		//
 		// Recuperação dos objetos serializados no arquivo c:/base.bin
@@ -51,6 +55,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 			
 			daoCargo.recuperarObjetos(ois);
 			daoFuncionario.recuperarObjetos(ois);
+			daoImovel.recuperarObjetos(ois);
 			daoInquilino.recuperarObjetos(ois);
 			daoProprietario.recuperarObjetos(ois);
 			daoTelefone.recuperarObjetos(ois);
@@ -66,11 +71,12 @@ public class CtrlPrograma implements ICtrlPrograma{
 	}
 
 	public void terminar(){
-		IDAOSerializavel daoCargo = (IDAOSerializavel)DAOCargo.getSingleton();
-		IDAOSerializavel daoFuncionario = (IDAOSerializavel)DAOFuncionario.getSingleton();
-		IDAOSerializavel daoInquilino = (IDAOSerializavel)DAOInquilino.getSingleton();
-		IDAOSerializavel daoProprietario = (IDAOSerializavel)DAOProprietario.getSingleton();
-		IDAOSerializavel daoTelefone = (IDAOSerializavel)DAOTelefone.getSingleton();
+		IDAOSerializavel daoCargo			= (IDAOSerializavel)DAOCargo.getSingleton();
+		IDAOSerializavel daoFuncionario		= (IDAOSerializavel)DAOFuncionario.getSingleton();
+		IDAOSerializavel daoImovel			= (IDAOSerializavel)DAOImovel.getSingleton();
+		IDAOSerializavel daoInquilino		= (IDAOSerializavel)DAOInquilino.getSingleton();
+		IDAOSerializavel daoProprietario	= (IDAOSerializavel)DAOProprietario.getSingleton();
+		IDAOSerializavel daoTelefone		= (IDAOSerializavel)DAOTelefone.getSingleton();
 
 		try {
 			FileOutputStream fos = new FileOutputStream("base.bin");
@@ -79,6 +85,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 			// Persistindo os estados das classes no arquino serializado
 			daoCargo.salvarObjetos(oos);
 			daoFuncionario.salvarObjetos(oos);
+			daoImovel.salvarObjetos(oos);
 			daoInquilino.salvarObjetos(oos);
 			daoProprietario.salvarObjetos(oos);
 			daoTelefone.salvarObjetos(oos);
