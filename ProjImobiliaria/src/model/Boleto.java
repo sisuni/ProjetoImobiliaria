@@ -1,9 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Boleto {
+import control.ITabelavel;
+
+public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 	private int dataVencimento;
 	private Contrato contrato;
 	private Set<Cobra> listaCobrancas;
@@ -60,5 +63,31 @@ public class Boleto {
 		exCobranca.setBoleto(null);
 	}
 	
+	public float getValorTotal() {
+		float total = this.contrato.getValorAluguel();
+		
+		for (Cobra taxa : this.listaCobrancas) {
+			total += taxa.getValor();
+		}
+		
+		return total;
+	}
+
+	@Override
+	public int compareTo(Boleto b) {
+		return this.contrato.compareTo(b.contrato);
+	}
+
+	@Override
+	public Object[] getData() {
+		return new Object[]{this.dataVencimento, this.contrato.getInquilino().getNome(), this.getValorTotal()};
+	}
+	
+	public String toString() {
+		return "Vencimento: " + this.dataVencimento + " - " + 
+				"Inquilino: " + this.contrato.getInquilino().getNome() + " - " + 
+				"Imóvel: " + this.contrato.getImovel().toString();
+	}
+
 }
 
