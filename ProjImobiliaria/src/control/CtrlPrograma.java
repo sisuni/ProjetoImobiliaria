@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import model.DAOBoleto;
 import model.DAOCargo;
 import model.DAOContrato;
 import model.DAOFuncionario;
@@ -23,6 +24,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 	
 	private ICtrlManter ctrlCargo;
 	private ICtrlManter ctrlContrato;
+	private ICtrlManter ctrlBoleto;
 	private ICtrlManter ctrlFuncionario;
 	private ICtrlManter ctrlImovel;
 	private ICtrlManter ctrlInquilino;
@@ -33,6 +35,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 	public CtrlPrograma() {
 		this.ctrlCargo			= new CtrlManterCargos(this);
 		this.ctrlContrato		= new CtrlManterContratos(this);
+		this.ctrlBoleto			= new CtrlManterContratos(this);
 		this.ctrlFuncionario	= new CtrlManterFuncionarios(this);
 		this.ctrlImovel			= new CtrlManterImoveis(this);
 		this.ctrlInquilino		= new CtrlManterInquilinos(this);
@@ -44,6 +47,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 		this.jPrincipal = new JanelaPrincipal(this);
 		IDAOSerializavel daoCargo			= (IDAOSerializavel) DAOCargo.getSingleton();
 		IDAOSerializavel daoContrato		= (IDAOSerializavel) DAOContrato.getSingleton();
+		IDAOSerializavel daoBoleto			= (IDAOSerializavel) DAOBoleto.getSingleton();
 		IDAOSerializavel daoFuncionario		= (IDAOSerializavel) DAOFuncionario.getSingleton();
 		IDAOSerializavel daoImovel			= (IDAOSerializavel) DAOImovel.getSingleton();
 		IDAOSerializavel daoInquilino		= (IDAOSerializavel) DAOInquilino.getSingleton();
@@ -59,6 +63,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 			
 			daoCargo.recuperarObjetos(ois);
 			daoContrato.recuperarObjetos(ois);
+			daoBoleto.recuperarObjetos(ois);
 			daoFuncionario.recuperarObjetos(ois);
 			daoImovel.recuperarObjetos(ois);
 			daoInquilino.recuperarObjetos(ois);
