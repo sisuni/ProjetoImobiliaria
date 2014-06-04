@@ -55,9 +55,9 @@ public class DAOContrato implements IDAO<Contrato>, IDAOSerializavel {
 	}
 	
 	@Override
-	public Contrato recuperarPelaChave(Object imovel){
+	public Contrato recuperarPelaChave(Object chave){
 		for(Contrato c : this.listaObjs)
-			if(imovel.equals(c.getImovel()))
+			if(chave.equals(c.getImovel()))
 				return c;
 		return null;
 	}
@@ -81,4 +81,5 @@ public class DAOContrato implements IDAO<Contrato>, IDAOSerializavel {
 	public void salvarObjetos(ObjectOutputStream oos) throws IOException {
 		oos.writeObject(this.listaObjs);
 	}
+	
 }

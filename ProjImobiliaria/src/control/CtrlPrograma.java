@@ -7,14 +7,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import model.DAOBoleto;
 import model.DAOCargo;
 import model.DAOContrato;
 import model.DAOFuncionario;
 import model.DAOImovel;
 import model.DAOInquilino;
 import model.DAOProprietario;
-import model.DAOTelefone;
 import model.IDAOSerializavel;
 import view.IViewerPrincipal;
 import view.JanelaPrincipal;
@@ -22,37 +20,37 @@ import view.JanelaPrincipal;
 
 public class CtrlPrograma implements ICtrlPrograma{
 	
+//	private ICtrlManter ctrlBoleto;
 	private ICtrlManter ctrlCargo;
 	private ICtrlManter ctrlContrato;
-	private ICtrlManter ctrlBoleto;
 	private ICtrlManter ctrlFuncionario;
 	private ICtrlManter ctrlImovel;
 	private ICtrlManter ctrlInquilino;
 	private ICtrlManter ctrlProprietario;
-	private ICtrlManter ctrlTelefone;
+//	private ICtrlManter ctrlTelefone;
 	private IViewerPrincipal jPrincipal;
 	
 	public CtrlPrograma() {
+//		this.ctrlBoleto			= new CtrlManterBoletos(this);
 		this.ctrlCargo			= new CtrlManterCargos(this);
 		this.ctrlContrato		= new CtrlManterContratos(this);
-		this.ctrlBoleto			= new CtrlManterContratos(this);
 		this.ctrlFuncionario	= new CtrlManterFuncionarios(this);
 		this.ctrlImovel			= new CtrlManterImoveis(this);
 		this.ctrlInquilino		= new CtrlManterInquilinos(this);
 		this.ctrlProprietario	= new CtrlManterProprietarios(this);
-		this.ctrlTelefone		= new CtrlManterTelefones(this);
+//		this.ctrlTelefone		= new CtrlManterTelefones(this);
 	}
 	
 	public void iniciar(){
 		this.jPrincipal = new JanelaPrincipal(this);
+//		IDAOSerializavel daoBoleto			= (IDAOSerializavel) DAOBoleto.getSingleton();
 		IDAOSerializavel daoCargo			= (IDAOSerializavel) DAOCargo.getSingleton();
 		IDAOSerializavel daoContrato		= (IDAOSerializavel) DAOContrato.getSingleton();
-		IDAOSerializavel daoBoleto			= (IDAOSerializavel) DAOBoleto.getSingleton();
 		IDAOSerializavel daoFuncionario		= (IDAOSerializavel) DAOFuncionario.getSingleton();
 		IDAOSerializavel daoImovel			= (IDAOSerializavel) DAOImovel.getSingleton();
 		IDAOSerializavel daoInquilino		= (IDAOSerializavel) DAOInquilino.getSingleton();
 		IDAOSerializavel daoProprietario	= (IDAOSerializavel) DAOProprietario.getSingleton();
-		IDAOSerializavel daoTelefone		= (IDAOSerializavel) DAOTelefone.getSingleton();
+//		IDAOSerializavel daoTelefone		= (IDAOSerializavel) DAOTelefone.getSingleton();
 		
 		//
 		// Recuperação dos objetos serializados no arquivo c:/base.bin
@@ -61,14 +59,14 @@ public class CtrlPrograma implements ICtrlPrograma{
 			FileInputStream fis = new FileInputStream("base.bin");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
+//			daoBoleto.recuperarObjetos(ois);
 			daoCargo.recuperarObjetos(ois);
 			daoContrato.recuperarObjetos(ois);
-			daoBoleto.recuperarObjetos(ois);
 			daoFuncionario.recuperarObjetos(ois);
 			daoImovel.recuperarObjetos(ois);
 			daoInquilino.recuperarObjetos(ois);
 			daoProprietario.recuperarObjetos(ois);
-			daoTelefone.recuperarObjetos(ois);
+//			daoTelefone.recuperarObjetos(ois);
 			
 			ois.close();
 		} catch (FileNotFoundException e) {
@@ -81,26 +79,28 @@ public class CtrlPrograma implements ICtrlPrograma{
 	}
 
 	public void terminar(){
+//		IDAOSerializavel daoBoleto			= (IDAOSerializavel)DAOBoleto.getSingleton();
 		IDAOSerializavel daoCargo			= (IDAOSerializavel)DAOCargo.getSingleton();
 		IDAOSerializavel daoContrato		= (IDAOSerializavel)DAOContrato.getSingleton();
 		IDAOSerializavel daoFuncionario		= (IDAOSerializavel)DAOFuncionario.getSingleton();
 		IDAOSerializavel daoImovel			= (IDAOSerializavel)DAOImovel.getSingleton();
 		IDAOSerializavel daoInquilino		= (IDAOSerializavel)DAOInquilino.getSingleton();
 		IDAOSerializavel daoProprietario	= (IDAOSerializavel)DAOProprietario.getSingleton();
-		IDAOSerializavel daoTelefone		= (IDAOSerializavel)DAOTelefone.getSingleton();
+//		IDAOSerializavel daoTelefone		= (IDAOSerializavel)DAOTelefone.getSingleton();
 
 		try {
 			FileOutputStream fos = new FileOutputStream("base.bin");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
 			// Persistindo os estados das classes no arquino serializado
+//			daoBoleto.salvarObjetos(oos);
 			daoCargo.salvarObjetos(oos);
 			daoContrato.salvarObjetos(oos);
 			daoFuncionario.salvarObjetos(oos);
 			daoImovel.salvarObjetos(oos);
 			daoInquilino.salvarObjetos(oos);
 			daoProprietario.salvarObjetos(oos);
-			daoTelefone.salvarObjetos(oos);
+//			daoTelefone.salvarObjetos(oos);
 			
 			oos.close();
 		} catch (IOException e) {
@@ -108,6 +108,17 @@ public class CtrlPrograma implements ICtrlPrograma{
 		} 	
 
 		System.exit(0);
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterBoleto() {
+//		return this.ctrlBoleto.iniciar();
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterBoleto() {
+		return true;
 	}
 
 	@Override
@@ -121,22 +132,34 @@ public class CtrlPrograma implements ICtrlPrograma{
 	}
 
 	@Override
+	public boolean iniciarCasoDeUsoManterCobra() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterCobra() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterContrato() {
+		return this.ctrlContrato.iniciar();
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterContrato() {
+		return true;
+	}
+
+	@Override
 	public boolean iniciarCasoDeUsoManterFuncionario() {
 		return this.ctrlFuncionario.iniciar();
 	}
 
 	@Override
 	public boolean terminarCasoDeUsoManterFuncionario() {
-		return true;
-	}
-
-	@Override
-	public boolean iniciarCasoDeUsoManterProprietarios() {
-		return this.ctrlProprietario.iniciar();
-	}
-
-	@Override
-	public boolean terminarCasoDeUsoManterProprietarios() {
 		return true;
 	}
 
@@ -161,12 +184,23 @@ public class CtrlPrograma implements ICtrlPrograma{
 	}
 
 	@Override
-	public boolean iniciarCasoDeUsoManterContrato() {
-		return this.ctrlContrato.iniciar();
+	public boolean iniciarCasoDeUsoManterProprietarios() {
+		return this.ctrlProprietario.iniciar();
 	}
 
 	@Override
-	public boolean terminarCasoDeUsoManterContrato() {
+	public boolean terminarCasoDeUsoManterProprietarios() {
+		return true;
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterTelefone() {
+//		return this.ctrlTelefone.iniciar();
+		return false;
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterTelefone() {
 		return true;
 	}
 
@@ -178,27 +212,6 @@ public class CtrlPrograma implements ICtrlPrograma{
 
 	@Override
 	public boolean terminarCasoDeUsoManterTaxas() {
-		return true;
-	}
-
-	@Override
-	public boolean iniciarCasoDeUsoManterBoleto() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean terminarCasoDeUsoManterBoleto() {
-		return true;
-	}
-
-	@Override
-	public boolean iniciarCasoDeUsoManterTelefone() {
-		return this.ctrlTelefone.iniciar();
-	}
-
-	@Override
-	public boolean terminarCasoDeUsoManterTelefone() {
 		return true;
 	}
 

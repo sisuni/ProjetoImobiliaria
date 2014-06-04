@@ -7,6 +7,7 @@ import java.util.TreeSet;
 import control.ITabelavel;
 
 public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
+	
 	private int dataVencimento;
 	private Contrato contrato;
 	private Set<Cobra> listaCobrancas;
@@ -40,8 +41,7 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 			if(this.contrato !=null)
 				this.contrato.removeBoleto(this);
 			this.contrato = contrato;
-			contrato.addBoleto(this);
-			
+			contrato.addBoleto(this);			
 		}
 	}
 	

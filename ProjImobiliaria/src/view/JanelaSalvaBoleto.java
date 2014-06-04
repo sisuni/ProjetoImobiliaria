@@ -36,7 +36,7 @@ public class JanelaSalvaBoleto extends JFrame implements IViewerSalvaBoleto {
 		setContentPane(contentPane);
 		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
-		setResizable(false); //não maximizar, aumentar	
+		setResizable(false); //nÃ£o maximizar, aumentar	
 		
 		JLabel lblNivel = new JLabel("Nível:");
 		lblNivel.setBounds(20, 11, 46, 14);

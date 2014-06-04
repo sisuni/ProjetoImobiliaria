@@ -1,7 +1,6 @@
 package control;
 
 import model.Boleto;
-import model.Cargo;
 import model.Contrato;
 import model.DAOBoleto;
 import model.IDAO;
@@ -141,17 +140,13 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 
 	@Override
 	public boolean iniciarExcluir(int pos) {
-		if(this.operacao != Operacao.DISPONIVEL)
+		if (this.operacao != Operacao.DISPONIVEL)
 			return false;
-		
-		this.boletoAtual = dao.recuperar(pos);
+
 		this.operacao = Operacao.EXCLUSAO;
-		JanelaExcluirBoleto jExcluirBoleto = new JanelaExcluirBoleto(this);
-		
-		if(this.boletoAtual.getCobrancas().isEmpty())
-			return jExcluirBoleto.ExcluirBoleto(this.boletoAtual);
-		else
-			return jExcluirBoleto.ExcluirTudo(this.boletoAtual, this.boletoAtual.getCobrancas().size());
+		this.boletoAtual = dao.recuperar(pos);
+		new JanelaExcluirBoleto(this, this.boletoAtual);
+		return true;
 	}
 
 	@Override

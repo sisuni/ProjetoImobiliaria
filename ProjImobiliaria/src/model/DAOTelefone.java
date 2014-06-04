@@ -46,10 +46,10 @@ public class DAOTelefone implements IDAO<Telefone>, IDAOSerializavel{
 	}
 
 	@Override
-	public Telefone recuperar(int posicao) {
+	public Telefone recuperar(int pos) {
 		int i = 0;
 		for(Telefone t: this.listaObjs)
-			if(i++ == posicao)
+			if(i++ == pos)
 				return t;
 		return null;
 	}
