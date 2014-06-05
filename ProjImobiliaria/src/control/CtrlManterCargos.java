@@ -2,6 +2,8 @@ package control;
 
 import model.Cargo;
 import model.DAOCargo;
+import model.DAOFuncionario;
+import model.Funcionario;
 import model.IDAO;
 import model.ModelException;
 import view.IViewer;
@@ -28,6 +30,8 @@ public class CtrlManterCargos implements ICtrlManterCargos{
 	
 	private IDAO<Cargo> dao = DAOCargo.getSingleton();
 
+	private IDAO<Funcionario> daoFunc = DAOFuncionario.getSingleton();
+	
 	private boolean emExecucao;
 	
 	private Operacao operacao;
@@ -164,8 +168,10 @@ public class CtrlManterCargos implements ICtrlManterCargos{
 		if(this.operacao != Operacao.EXCLUSAO)
 			return false;
 
+		for(Funcionario func : this.cargoAtual.getFuncionarios()){
+			daoFunc.remover(func);
+		}
 		dao.remover(this.cargoAtual);
-
 		this.atualizarInterface();
 		this.cargoAtual = null;
 		this.operacao = Operacao.DISPONIVEL;

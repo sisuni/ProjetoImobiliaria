@@ -50,8 +50,8 @@ public class JanelaExcluirCargo {
 
 	public boolean ExcluirTudo(Object selecionado, int qtdFunc) {
 		this.opcao = JOptionPane.showConfirmDialog(null,"O Cargo: "+selecionado+" contém "
-				+ qtdFunc + " funcionários. A remoção do cargo removerá também seus funcionários. "
-				+ "Deseja Remover o Cargo Selcionado?");
+				+ qtdFunc + " funcionários.\n A remoção do cargo removerá também seus funcionários. "
+				+ "\nDeseja Remover o Cargo Selcionado?");
 		
 		if(this.opcao == JOptionPane.YES_OPTION)
 			try{
