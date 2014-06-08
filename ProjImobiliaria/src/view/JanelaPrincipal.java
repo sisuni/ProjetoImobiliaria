@@ -43,14 +43,20 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 		
 		// Define e adiciona dois menus drop down na barra de menus
 		JMenu menu = new JMenu("Controle");
+		JMenu cliente = new JMenu("Cliente");
 		menuBar.add(menu);
 		
 		JMenuItem cargo = new JMenuItem("Cargo");
 		JMenuItem func = new JMenuItem("Funcionário");
+		JMenuItem proprietario = new JMenuItem("Proprietário");
+		JMenuItem inquilino = new JMenuItem("Inquilino");
 		JMenuItem sair = new JMenuItem("Sair");
 		ButtonGroup bg = new ButtonGroup();
 		menu.add(cargo);
 		menu.add(func);
+		menu.add(cliente);
+		cliente.add(proprietario);
+		cliente.add(inquilino);
 		menu.addSeparator();
 		menu.add(sair);
 				
@@ -63,9 +69,15 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 		});
 		
 		func.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent arg0){
-					ctrlPrg.iniciarCasoDeUsoManterFuncionario();
-				}
+			public void actionPerformed(ActionEvent arg0){
+				ctrlPrg.iniciarCasoDeUsoManterFuncionario();
+			}
+		});
+		
+		proprietario.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				ctrlPrg.iniciarCasoDeUsoManterProprietarios();
+			}
 		});
 		
 		sair.addActionListener(new ActionListener() {

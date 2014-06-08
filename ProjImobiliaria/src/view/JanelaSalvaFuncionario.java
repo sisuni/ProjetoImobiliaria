@@ -38,7 +38,7 @@ public class JanelaSalvaFuncionario extends JFrame implements IViewerSalvaFuncio
 	
 	public JanelaSalvaFuncionario(ICtrlManterFuncionarios sc, Set<Cargo> Cargos){
 		this.ctrl = sc;
-		setTitle("Funcionario");
+		setTitle("Salvar Funcionário - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 418, 195);
 		contentPane = new JPanel();
@@ -64,7 +64,7 @@ public class JanelaSalvaFuncionario extends JFrame implements IViewerSalvaFuncio
 		txtLogin = new JTextField();
 		txtLogin.setBounds(62, 47, 150, 20);
 		contentPane.add(txtLogin);
-		
+			
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setBounds(16 ,87, 46, 14);
 	    contentPane.add(lblSenha);

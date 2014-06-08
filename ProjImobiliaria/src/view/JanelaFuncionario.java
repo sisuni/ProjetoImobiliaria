@@ -28,7 +28,7 @@ public class JanelaFuncionario extends JFrame implements IViewer{
 	
 	public JanelaFuncionario(ICtrlManter c){
 		this.ctrl = c;
-		setTitle("Salvar Funcionario - Imobiliária");
+		setTitle("Funcionários - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 419, 300);
 		contentPane = new JPanel();

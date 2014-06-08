@@ -9,11 +9,11 @@ import control.ITabelavel;
 public class Proprietario extends Cliente implements Serializable, ITabelavel{
 	
 	private String banco;
-	private int agencia;
+	private String agencia;
 	private String conta;
 	private Set<Imovel> listaImoveis;
 	
-	public Proprietario(String nome, String cpf, String email, String endereco, String banco, int agencia, String conta) throws ModelException{
+	public Proprietario(String nome, String cpf, String email, String endereco, String banco, String agencia, String conta) throws ModelException{
 		super(nome, cpf, email, endereco);
 		this.setBanco(banco);
 		this.setAgencia(agencia);
@@ -29,11 +29,11 @@ public class Proprietario extends Cliente implements Serializable, ITabelavel{
 		this.banco = banco;
 	}
 
-	public int getAgencia() {
+	public String getAgencia() {
 		return this.agencia;
 	}
 
-	public void setAgencia(int agencia) {
+	public void setAgencia(String agencia) {
 		this.agencia = agencia;
 	}
 

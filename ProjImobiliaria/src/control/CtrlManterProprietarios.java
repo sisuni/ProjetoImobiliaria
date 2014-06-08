@@ -1,5 +1,7 @@
 package control;
 
+import java.text.ParseException;
+
 import model.DAOProprietario;
 import model.IDAO;
 import model.ModelException;
@@ -72,7 +74,12 @@ public class CtrlManterProprietarios implements ICtrlManterProprietarios {
 			return false;
 
 		this.operacao = Operacao.INCLUSAO;
-		this.jProprietario = new JanelaSalvaProprietario(this);
+		try {
+			this.jProprietario = new JanelaSalvaProprietario(this);
+		} catch (ParseException e) {
+			e.getMessage();
+			e.printStackTrace();
+		}
 		return true;
 	}
 
@@ -84,7 +91,8 @@ public class CtrlManterProprietarios implements ICtrlManterProprietarios {
 		}
 	}
 
-	public boolean incluir(String nome, String cpf, String email, String endereco, String banco, int agencia, String conta) throws ModelException {
+	@Override
+	public boolean incluir(String nome, String cpf, String email, String endereco, String banco, String agencia, String conta) throws ModelException {
 		if(this.operacao != Operacao.INCLUSAO)
 			return false;
 
@@ -105,7 +113,12 @@ public class CtrlManterProprietarios implements ICtrlManterProprietarios {
 
 		this.operacao = Operacao.ALTERACAO;
 		this.proprietarioAtual = dao.recuperar(pos);
-		this.jProprietario = new JanelaSalvaProprietario(this);
+		try {
+			this.jProprietario = new JanelaSalvaProprietario(this);
+		} catch (ParseException e) {
+			e.getMessage();
+			e.printStackTrace();
+		}
 		this.jProprietario.atualizarCampos(
 				this.proprietarioAtual.getNome(),
 				this.proprietarioAtual.getCpf(),
@@ -126,8 +139,9 @@ public class CtrlManterProprietarios implements ICtrlManterProprietarios {
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
-
-	public boolean alterar(String nome, String cpf, String email, String endereco, String banco, int agencia, String conta) throws ModelException {
+	
+	@Override
+	public boolean alterar(String nome, String cpf, String email, String endereco, String banco, String agencia, String conta) throws ModelException {
 		if(this.operacao != Operacao.ALTERACAO)
 			return false;
 

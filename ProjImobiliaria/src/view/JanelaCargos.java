@@ -32,10 +32,10 @@ public class JanelaCargos extends JFrame implements IViewer{
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 419, 300);
 		contentPane = new JPanel();
-		setLocationRelativeTo(null);
+		setLocationRelativeTo(null);//centralizar janela
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null); //centralizar janela
+		contentPane.setLayout(null); 
 		setResizable(false); //não maximizar, aumentar		
 		/*Inicio dos Botões*/
 		JButton btnIncluir = new JButton("Incluir");
