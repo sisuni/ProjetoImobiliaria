@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,12 +20,12 @@ public class JanelaSalvaTelefone extends JFrame implements IViewerSalvaTelefone{
 	private boolean ehAlteração;
 	
 	private JPanel contentPane;
-	private JTextField txtTipo;
+	private JComboBox<String> cmbTipo;
 	private JTextField txtNum;
 	
 	public JanelaSalvaTelefone(ICtrlManter t){
 		this.ctrl = t;
-		setTitle("Telefone");
+		setTitle("Salva Telefone - Imobiliária");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 178);
 		contentPane = new JPanel();
@@ -40,11 +41,12 @@ public class JanelaSalvaTelefone extends JFrame implements IViewerSalvaTelefone{
 		lblNum.setBounds(20, 48, 46, 14);
 		contentPane.add(lblNum);
 		
-		txtTipo = new JTextField();
-		txtTipo.setBounds(76, 45, 334, 20);
-		contentPane.add(txtTipo);
-		txtTipo.setColumns(10);
 		
+		String[] tipoTel = {"Celular", "Comercial", "Residencial", "Outros"};
+		cmbTipo = new JComboBox<String>(tipoTel);
+		cmbTipo.setBounds(76, 45, 334, 20);
+		contentPane.add(cmbTipo);
+				
 		txtNum = new JTextField();
 		txtNum.setBounds(76, 45, 334, 20);
 		contentPane.add(txtNum);
