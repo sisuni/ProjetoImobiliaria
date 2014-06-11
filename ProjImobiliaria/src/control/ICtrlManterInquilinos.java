@@ -2,7 +2,7 @@ package control;
 
 import model.ModelException;
 
-public interface ICtrlManterInquilinos extends ICtrlManter {
+public interface ICtrlManterInquilinos extends ICtrlManterCliente {
 
 	 public abstract boolean incluir(String nome, String cpf, String email, String endereco, String endAnteriorCompleto) throws ModelException;
 

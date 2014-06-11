@@ -20,6 +20,8 @@ public class CtrlManterInquilinos implements ICtrlManterInquilinos{
 	
 	private ICtrlPrograma ctrlPrg;
 	
+	private ICtrlManter ctrlTel;
+	
 	private IViewer jCadastro;
 	
 	private IViewerSalvaInquilino jInquilino;
@@ -186,4 +188,14 @@ public class CtrlManterInquilinos implements ICtrlManterInquilinos{
 		}
 	}
 
+	@Override
+	public boolean iniciarCasoDeUsoManterTelefone() {
+		this.ctrlTel = new CtrlManterTelefones(this);
+		return this.ctrlTel.iniciar();
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterTelefone() {
+		return true;
+	}
 }

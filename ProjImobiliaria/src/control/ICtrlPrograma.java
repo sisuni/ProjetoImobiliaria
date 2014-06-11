@@ -37,11 +37,7 @@ public interface ICtrlPrograma {
 	public abstract boolean iniciarCasoDeUsoManterProprietarios();
 	
 	public abstract boolean terminarCasoDeUsoManterProprietarios();
-	
-	public abstract boolean iniciarCasoDeUsoManterTelefone();
-	
-	public abstract boolean terminarCasoDeUsoManterTelefone();
-	
+		
 	public abstract boolean iniciarCasoDeUsoManterTaxas();
 	
 	public abstract boolean terminarCasoDeUsoManterTaxas();

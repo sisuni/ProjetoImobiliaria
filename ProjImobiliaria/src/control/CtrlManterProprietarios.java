@@ -22,6 +22,8 @@ public class CtrlManterProprietarios implements ICtrlManterProprietarios {
 	
 	private ICtrlPrograma ctrlPrg;
 	
+	private ICtrlManter ctrlTel;
+	
 	private IViewer jCadastro;
 	
 	private IViewerSalvaProprietario jProprietario;
@@ -202,6 +204,17 @@ public class CtrlManterProprietarios implements ICtrlManterProprietarios {
 			Proprietario proprietario = dao.recuperar(i);
 			this.jCadastro.incluirLinha(proprietario);
 		}
+	}
+	
+	@Override
+	public boolean iniciarCasoDeUsoManterTelefone() {
+		this.ctrlTel = new CtrlManterTelefones(this);
+		return this.ctrlTel.iniciar();
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterTelefone() {
+		return true;
 	}
 
 }
