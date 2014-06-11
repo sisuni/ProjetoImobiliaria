@@ -10,7 +10,7 @@ import view.JanelaExcluirInquilino;
 import view.JanelaInquilinos;
 import view.JanelaSalvaInquilino;
 
-public class CtrlManterInquilinos implements ICtrlManterInquilinos{
+public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlManterInquilinos{
 	//
 	// ATRIBUTOS
 	//
@@ -19,9 +19,7 @@ public class CtrlManterInquilinos implements ICtrlManterInquilinos{
 	}
 	
 	private ICtrlPrograma ctrlPrg;
-	
-	private ICtrlManter ctrlTel;
-	
+		
 	private IViewer jCadastro;
 	
 	private IViewerSalvaInquilino jInquilino;
@@ -186,16 +184,5 @@ public class CtrlManterInquilinos implements ICtrlManterInquilinos{
 			Inquilino inquilino = dao.recuperar(i);
 			this.jCadastro.incluirLinha(inquilino);
 		}
-	}
-
-	@Override
-	public boolean iniciarCasoDeUsoManterTelefone() {
-		this.ctrlTel = new CtrlManterTelefones(this);
-		return this.ctrlTel.iniciar();
-	}
-
-	@Override
-	public boolean terminarCasoDeUsoManterTelefone() {
-		return true;
 	}
 }

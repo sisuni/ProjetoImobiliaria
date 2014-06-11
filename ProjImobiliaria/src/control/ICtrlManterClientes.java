@@ -1,6 +1,6 @@
 package control;
 
-public interface ICtrlManterCliente extends ICtrlManter{
+public interface ICtrlManterClientes extends ICtrlManter{
 	public boolean iniciarCasoDeUsoManterTelefone();
 
 	public boolean terminarCasoDeUsoManterTelefone() ;

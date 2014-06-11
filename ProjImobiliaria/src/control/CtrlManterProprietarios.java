@@ -12,7 +12,7 @@ import view.JanelaExcluirProprietario;
 import view.JanelaProprietarios;
 import view.JanelaSalvaProprietario;
 
-public class CtrlManterProprietarios implements ICtrlManterProprietarios {
+public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrlManterProprietarios {
 	//
 	// ATRIBUTOS
 	//
@@ -21,9 +21,7 @@ public class CtrlManterProprietarios implements ICtrlManterProprietarios {
 	}
 	
 	private ICtrlPrograma ctrlPrg;
-	
-	private ICtrlManter ctrlTel;
-	
+		
 	private IViewer jCadastro;
 	
 	private IViewerSalvaProprietario jProprietario;
@@ -206,15 +204,4 @@ public class CtrlManterProprietarios implements ICtrlManterProprietarios {
 		}
 	}
 	
-	@Override
-	public boolean iniciarCasoDeUsoManterTelefone() {
-		this.ctrlTel = new CtrlManterTelefones(this);
-		return this.ctrlTel.iniciar();
-	}
-
-	@Override
-	public boolean terminarCasoDeUsoManterTelefone() {
-		return true;
-	}
-
 }

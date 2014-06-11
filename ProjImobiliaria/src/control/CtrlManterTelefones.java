@@ -16,7 +16,7 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 	private enum Operacao {
 		INCLUSAO, EXCLUSAO, ALTERACAO, DISPONIVEL;
 	}
-	private ICtrlManterCliente ctrl;
+	private ICtrlManterClientes ctrl;
 	
 	private IViewer jCadastro;
 	
@@ -30,7 +30,7 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 	
 	private Operacao operacao;
 	
-	public CtrlManterTelefones(ICtrlManterCliente ctrl){
+	public CtrlManterTelefones(ICtrlManterClientes ctrl){
 		this.ctrl = ctrl;
 	}
 	
