@@ -21,6 +21,8 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 	}
 	
 	private ICtrlPrograma ctrlPrg;
+	
+	private ICtrlManterTelefones ctrlTel = new CtrlManterTelefones(this);;
 		
 	private IViewer jCadastro;
 	
@@ -48,7 +50,6 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 	public boolean iniciar() {
 		if(this.emExecucao)
 			return false;
-
 		this.jCadastro = new JanelaProprietarios(this);
 		this.atualizarInterface();
 		this.emExecucao = true;
@@ -75,7 +76,7 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 
 		this.operacao = Operacao.INCLUSAO;
 		try {
-			this.jProprietario = new JanelaSalvaProprietario(this);
+			this.jProprietario = new JanelaSalvaProprietario(this,ctrlTel);
 		} catch (ParseException e) {
 			e.getMessage();
 			e.printStackTrace();
@@ -114,7 +115,7 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 		this.operacao = Operacao.ALTERACAO;
 		this.proprietarioAtual = dao.recuperar(pos);
 		try {
-			this.jProprietario = new JanelaSalvaProprietario(this);
+			this.jProprietario = new JanelaSalvaProprietario(this,ctrlTel);
 		} catch (ParseException e) {
 			e.getMessage();
 			e.printStackTrace();

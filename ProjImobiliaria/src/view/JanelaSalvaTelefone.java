@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import control.ICtrlManter;
+import control.ICtrlManterTelefones;
 
 public class JanelaSalvaTelefone extends JFrame implements IViewerSalvaTelefone{
 
-	private ICtrlManter ctrl;
+	private ICtrlManterTelefones ctrl;
 
 	private boolean ehAlteração;
 	
@@ -23,7 +23,7 @@ public class JanelaSalvaTelefone extends JFrame implements IViewerSalvaTelefone{
 	private JComboBox<String> cmbTipo;
 	private JTextField txtNum;
 	
-	public JanelaSalvaTelefone(ICtrlManter t){
+	public JanelaSalvaTelefone(ICtrlManterTelefones t){
 		this.ctrl = t;
 		setTitle("Salva Telefone - Imobiliária");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,7 +40,6 @@ public class JanelaSalvaTelefone extends JFrame implements IViewerSalvaTelefone{
 		JLabel lblNum = new JLabel("Número:");
 		lblNum.setBounds(20, 48, 46, 14);
 		contentPane.add(lblNum);
-		
 		
 		String[] tipoTel = {"Celular", "Comercial", "Residencial", "Outros"};
 		cmbTipo = new JComboBox<String>(tipoTel);

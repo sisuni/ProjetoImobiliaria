@@ -18,11 +18,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import control.ICtrlManter;
+import control.ICtrlManterTelefones;
 import control.ITabelavel;
 
 public class JanelaProprietarios extends JFrame implements IViewer{
 	private JPanel contentPane;
 	private ICtrlManter ctrl;
+	
 	private JTable table;
 	
 	

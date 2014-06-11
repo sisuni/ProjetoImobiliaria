@@ -46,8 +46,9 @@ public class JanelaSalvaProprietario extends JFrame implements
 	private JTextField txtAgencia;
 	private JTable tableNum;
 
-	public JanelaSalvaProprietario(ICtrlManterProprietarios sc) throws ParseException {
+	public JanelaSalvaProprietario(ICtrlManterProprietarios sc, ICtrlManterTelefones tel) throws ParseException {
 		this.ctrl = sc;
+		this.ctrlTel = tel;
 		setTitle("Salva Proprietario - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 420, 520);
@@ -229,7 +230,7 @@ public class JanelaSalvaProprietario extends JFrame implements
 	}
 	
 	public void executarIncluir() {
-		this.ctrl.iniciarIncluir();
+		this.ctrlTel.iniciarIncluir();
 	}
 	
 	public void executarExcluir() {
@@ -240,7 +241,7 @@ public class JanelaSalvaProprietario extends JFrame implements
 		if(pos < 0)
 			return;
 		// Informo ao controlador para iniciar o processo de exclusão
-		ctrl.iniciarExcluir(pos);	
+		ctrlTel.iniciarExcluir(pos);	
 	}
 	
 	public void executarAlterar() {
@@ -251,7 +252,7 @@ public class JanelaSalvaProprietario extends JFrame implements
 		if(pos < 0)
 			return;
 		// Informo ao controlador para iniciar o processo de alteração
-		ctrl.iniciarAlterar(pos);	
+		ctrlTel.iniciarAlterar(pos);	
 	}
 	
 	/* Fim dos metódos pertencentes ao telefone*/
@@ -279,6 +280,7 @@ public class JanelaSalvaProprietario extends JFrame implements
 		cmbBanco.setBounds(72, 172, 330, 18);
 		contentPane.add(cmbBanco);
 	}
+	/*Fim do Método para preencher a lista de 124 bancos na combo*/
 	
 	public void executarSalvar() {
 		// Recupero os valores digitados nos textfields
@@ -310,7 +312,6 @@ public class JanelaSalvaProprietario extends JFrame implements
 			ctrl.cancelarAlterar();
 	}
 	
-
 	@Override
 	public void atualizarCampos(String nome, String cpf, String email,
 			String endereco, String banco, String agencia, String conta) {
@@ -337,5 +338,4 @@ public class JanelaSalvaProprietario extends JFrame implements
         System.out.println("Você alterou a linha " + linha + ", coluna " + coluna);
         System.out.println("Valor da célula alterada: " + model.getValueAt(linha, coluna));
 	}
-
 }
