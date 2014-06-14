@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import control.ICtrlManter;
+import control.ITabelavel;
 
 public class JanelaSalvaInquilino extends JFrame implements IViewerSalvaInquilino{
 	
@@ -73,6 +74,36 @@ public class JanelaSalvaInquilino extends JFrame implements IViewerSalvaInquilin
 	@Override
 	public void atualizarCampos(String nome, String cpf, String email,
 			String endereco, String endAnteriorCompleto) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void limpar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void incluirLinha(ITabelavel objeto) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void executarIncluirTelefone() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void executarExcluirTelefone() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void executarAlterarTelefone() {
 		// TODO Auto-generated method stub
 		
 	}

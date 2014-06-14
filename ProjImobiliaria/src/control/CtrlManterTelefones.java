@@ -1,15 +1,19 @@
 package control;
 
+import java.text.ParseException;
+import java.util.Set;
+import java.util.TreeSet;
+
 import model.Cliente;
 import model.DAOTelefone;
 import model.IDAO;
 import model.ModelException;
+import model.Proprietario;
 import model.Telefone;
-import view.IViewer;
+import view.IViewerSalvaCliente;
 import view.IViewerSalvaTelefone;
 import view.JanelaExcluirTelefone;
 import view.JanelaSalvaTelefone;
-import view.JanelaTelefones;
 
 public class CtrlManterTelefones implements ICtrlManterTelefones {
 	
@@ -18,14 +22,14 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 	}
 	private ICtrlManterClientes ctrl;
 	
-	private IViewer jCadastro;
+	private IViewerSalvaCliente jCliente;
 	
 	private IViewerSalvaTelefone jTelefone;
 	
 	private Telefone telefoneAtual;
-	
+		
 	private IDAO<Telefone> dao = DAOTelefone.getSingleton();
-
+	
 	private boolean emExecucao;
 	
 	private Operacao operacao;
@@ -33,13 +37,13 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 	public CtrlManterTelefones(ICtrlManterClientes ctrl){
 		this.ctrl = ctrl;
 	}
-	
+		
 	@Override
 	public boolean iniciar() {
 		if(this.emExecucao)
 			return false;
 
-		this.jCadastro = new JanelaTelefones(this);
+		this.jCliente = ctrl.getJanela();
 		this.atualizarInterface();
 		this.emExecucao = true;
 		this.operacao = Operacao.DISPONIVEL;
@@ -51,7 +55,6 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 		if(!this.emExecucao)
 			return false;
 
-		this.jCadastro.setVisible(false);
 		this.ctrl.terminarCasoDeUsoManterTelefone();
 		this.emExecucao = false;
 		this.operacao = Operacao.DISPONIVEL;
@@ -64,7 +67,11 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 			return false;
 
 		this.operacao = Operacao.INCLUSAO;
-		this.jTelefone = new JanelaSalvaTelefone(this);
+		try {
+			this.jTelefone = new JanelaSalvaTelefone(this);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 
@@ -81,9 +88,8 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 			return false;
 
 		Telefone novo = new Telefone(tipo, numero, null);
-
 		dao.salvar(novo);
-
+		
 		this.jTelefone.setVisible(false);
 		this.atualizarInterface();
 		this.operacao = Operacao.DISPONIVEL;
@@ -97,7 +103,11 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 
 		this.operacao = Operacao.ALTERACAO;
 		this.telefoneAtual = dao.recuperar(pos);
-		this.jTelefone = new JanelaSalvaTelefone(this);
+		try {
+			this.jTelefone = new JanelaSalvaTelefone(this);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		this.jTelefone.atualizarCampos(
 				this.telefoneAtual.getTipo(),
 				this.telefoneAtual.getNumero());
@@ -122,7 +132,6 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 		this.telefoneAtual.setNumero(numero);
 		this.telefoneAtual.setCliente(cliente);
 		
-
 		dao.atualizar(this.telefoneAtual);
 
 		this.jTelefone.setVisible(false);
@@ -166,12 +175,25 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 
 	@Override
 	public void atualizarInterface() {
-		this.jCadastro.limpar();
+		this.jCliente.limpar();
 
-		for(int i = 0; i < dao.getNumObjs(); i++) {
-			Telefone telefone = dao.recuperar(i);
-			this.jCadastro.incluirLinha(telefone);
+		if (this.operacao == Operacao.INCLUSAO){
+			for(int i = 0; i < dao.getNumObjs(); i++) {
+				Telefone telCliente = dao.recuperar(i);
+				this.jCliente.incluirLinha(telCliente);
+			}
+		}else{
+			for(int i = 0; i < dao.getNumObjs(); i++) {
+				Telefone telCliente = dao.recuperar(i);
+				if(this.telefoneAtual.getCliente().equals(telCliente.getCliente()))
+					this.jCliente.incluirLinha(telCliente);
+			}
 		}
 	}
-
+	
+	@Override
+	public Set<Telefone> getTelefones(){
+		return dao.getListaObjs();
+	}
+	
 }

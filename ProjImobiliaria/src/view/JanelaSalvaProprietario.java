@@ -25,14 +25,12 @@ import javax.swing.text.MaskFormatter;
 
 import model.ModelException;
 import control.ICtrlManterProprietarios;
-import control.ICtrlManterTelefones;
 import control.ITabelavel;
 
 public class JanelaSalvaProprietario extends JFrame implements
 		IViewerSalvaProprietario {
 
 	private ICtrlManterProprietarios ctrl;
-	private ICtrlManterTelefones ctrlTel;
 
 	private boolean ehAlteracao;
 
@@ -46,9 +44,8 @@ public class JanelaSalvaProprietario extends JFrame implements
 	private JTextField txtAgencia;
 	private JTable tableNum;
 
-	public JanelaSalvaProprietario(ICtrlManterProprietarios sc, ICtrlManterTelefones tel) throws ParseException {
+	public JanelaSalvaProprietario(ICtrlManterProprietarios sc) throws ParseException {
 		this.ctrl = sc;
-		this.ctrlTel = tel;
 		setTitle("Salva Proprietario - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 420, 520);
@@ -155,13 +152,13 @@ public class JanelaSalvaProprietario extends JFrame implements
 		
 		scrollPane.setViewportView(tableNum);
 		this.setVisible(true);
-		/*Fim da Table*/
+		/************Fim da Table***********/
 				
-		/*Inicio dos Botões Telefone*/
+		/*****************Inicio dos Botões Telefone*******************/
 		JButton btnIncluir = new JButton("Incluir");
 		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				executarIncluir();
+				executarIncluirTelefone();
 			}
 		});
 		btnIncluir.setBounds(60, 395, 89, 23);
@@ -171,7 +168,7 @@ public class JanelaSalvaProprietario extends JFrame implements
 		JButton btnAlterar = new JButton("Alterar");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				executarAlterar();
+				executarAlterarTelefone();
 			}
 		});
 		btnAlterar.setBounds(162, 395, 89, 23);
@@ -181,17 +178,17 @@ public class JanelaSalvaProprietario extends JFrame implements
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				executarExcluir();
+				//executarExcluir();
 			}
 		});
 		btnExcluir.setBounds(263, 395, 89, 23);
 		btnExcluir.setToolTipText("Excluir Telefone Selecionado");
 		contentPane.add(btnExcluir);
 		
-		/*Fim dos Botões Telefone*/
+		/***********Fim dos Botões Telefone****************/
 		
 		
-		/*Inicio dos Botões Salva Proprietario*/
+		/***************Inicio dos Botões Salva Proprietario****************/
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -212,12 +209,12 @@ public class JanelaSalvaProprietario extends JFrame implements
 		btnCancelar.setToolTipText("Cancelar");
 		contentPane.add(btnCancelar);
 		
-		/*Fim dos Botões Salva Proprietario*/
+		/***************Fim dos Botões Salva Proprietario****************/
 		
 		this.setVisible(true);
 	}
 	
-	/* Inicio dos metódos pertencentes ao telefone*/
+	/*********Inicio dos metódos pertencentes ao telefone******/
 	public void limpar() {
 		DefaultTableModel dtm = (DefaultTableModel)this.tableNum.getModel();
 		while(dtm.getRowCount() > 0)
@@ -229,11 +226,12 @@ public class JanelaSalvaProprietario extends JFrame implements
 		dtm.addRow(objeto.getData());
 	}
 	
-	public void executarIncluir() {
-		this.ctrlTel.iniciarIncluir();
+	public void executarIncluirTelefone() {
+		this.ctrl.iniciarIncluirTelefone();
+		
 	}
 	
-	public void executarExcluir() {
+	public void executarExcluirTelefone() {
 		// Recupero a posição selecionada
 		int pos = tableNum.getSelectedRow();
 		// Se a posição for -1, não há ninguém selecionado. Então cancelo
@@ -241,10 +239,10 @@ public class JanelaSalvaProprietario extends JFrame implements
 		if(pos < 0)
 			return;
 		// Informo ao controlador para iniciar o processo de exclusão
-		ctrlTel.iniciarExcluir(pos);	
+		ctrl.iniciarExcluir(pos);	
 	}
 	
-	public void executarAlterar() {
+	public void executarAlterarTelefone() {
 		// Recupero a posição selecionada
 		int pos = tableNum.getSelectedRow();
 		// Se a posição for -1, não há ninguém selecionado. Então cancelo
@@ -252,10 +250,10 @@ public class JanelaSalvaProprietario extends JFrame implements
 		if(pos < 0)
 			return;
 		// Informo ao controlador para iniciar o processo de alteração
-		ctrlTel.iniciarAlterar(pos);	
+		ctrl.iniciarAlterarTelefone(pos);	
 	}
 	
-	/* Fim dos metódos pertencentes ao telefone*/
+	/* ******Fim dos metódos pertencentes ao telefone********/
 	
 	/*Método para preencher a lista de 124 bancos na combo*/
 	public void preencherBancos(){

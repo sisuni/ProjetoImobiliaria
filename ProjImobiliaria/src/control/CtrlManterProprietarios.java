@@ -6,6 +6,7 @@ import model.DAOProprietario;
 import model.IDAO;
 import model.ModelException;
 import model.Proprietario;
+import model.Telefone;
 import view.IViewer;
 import view.IViewerSalvaProprietario;
 import view.JanelaExcluirProprietario;
@@ -21,8 +22,6 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 	}
 	
 	private ICtrlPrograma ctrlPrg;
-	
-	private ICtrlManterTelefones ctrlTel = new CtrlManterTelefones(this);;
 		
 	private IViewer jCadastro;
 	
@@ -76,7 +75,8 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 
 		this.operacao = Operacao.INCLUSAO;
 		try {
-			this.jProprietario = new JanelaSalvaProprietario(this,ctrlTel);
+			this.jProprietario = new JanelaSalvaProprietario(this);
+			this.setJanela(jProprietario);
 		} catch (ParseException e) {
 			e.getMessage();
 			e.printStackTrace();
@@ -88,7 +88,9 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 	public void cancelarIncluir() {
 		if(this.operacao == Operacao.INCLUSAO) {
 			this.jProprietario.setVisible(false);
+			this.setJanela(null);
 			this.operacao = Operacao.DISPONIVEL;
+			
 		}
 	}
 
@@ -98,7 +100,9 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 			return false;
 
 		Proprietario novo = new Proprietario(nome, cpf, email, endereco, banco, agencia, conta);
-
+		for(Telefone t : this.getTelefones())
+			novo.addTelefone(t);
+		
 		dao.salvar(novo);
 
 		this.jProprietario.setVisible(false);
@@ -115,7 +119,8 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 		this.operacao = Operacao.ALTERACAO;
 		this.proprietarioAtual = dao.recuperar(pos);
 		try {
-			this.jProprietario = new JanelaSalvaProprietario(this,ctrlTel);
+			this.jProprietario = new JanelaSalvaProprietario(this);
+			this.setJanela(jProprietario);
 		} catch (ParseException e) {
 			e.getMessage();
 			e.printStackTrace();
@@ -128,7 +133,7 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 				this.proprietarioAtual.getBanco(),
 				this.proprietarioAtual.getAgencia(),
 				this.proprietarioAtual.getConta());
-		
+		this.iniciarCasoDeUsoManterTelefone();
 		return true;
 	}
 
@@ -136,8 +141,10 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 	public void cancelarAlterar() {
 		if(this.operacao == Operacao.ALTERACAO) {
 			this.jProprietario.setVisible(false);
+			this.setJanela(null);
 			this.proprietarioAtual = null;
 			this.operacao = Operacao.DISPONIVEL;
+			this.terminarCasoDeUsoManterTelefone();
 		}
 	}
 	
@@ -153,7 +160,7 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 		this.proprietarioAtual.setBanco(banco);
 		this.proprietarioAtual.setAgencia(agencia);
 		this.proprietarioAtual.setConta(conta);
-
+		
 		dao.atualizar(this.proprietarioAtual);
 
 		this.jProprietario.setVisible(false);
@@ -204,5 +211,10 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 			this.jCadastro.incluirLinha(proprietario);
 		}
 	}
+	
+	public IViewer getJanela(IViewerSalvaProprietario j){
+		j = this.jProprietario;
+		return (IViewer) j;
+	} 
 	
 }

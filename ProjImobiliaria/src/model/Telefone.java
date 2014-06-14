@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import control.ITabelavel;
 
-public class Telefone  implements Serializable, ITabelavel {
+public class Telefone  implements Serializable, ITabelavel, Comparable<Telefone>{
 	
 	private String tipo;
 	private String numero;
@@ -63,6 +63,11 @@ public class Telefone  implements Serializable, ITabelavel {
 	
 	public String toString() {
 		return this.getNumero();
+	}
+
+	@Override
+	public int compareTo(Telefone t) {
+		 return this.getNumero().compareTo(t.getNumero());
 	}
 
 }
