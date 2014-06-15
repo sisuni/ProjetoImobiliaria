@@ -2,31 +2,32 @@ package control;
 
 import java.util.Set;
 
+import model.Cliente;
 import model.Telefone;
 import view.IViewerSalvaCliente;
 
 public interface ICtrlManterClientes extends ICtrlManter{
-	public boolean iniciarCasoDeUsoManterTelefone();
+	public abstract boolean iniciarCasoDeUsoManterTelefone(IViewerSalvaCliente jc);
 	
-	public boolean iniciarIncluirTelefone();
+	public abstract boolean iniciarIncluirTelefone();
 	
-	public void cancelarIncluirTelefone();
+	public abstract void cancelarIncluirTelefone();
 	
-	public boolean iniciarAlterarTelefone(int pos);
+	public abstract boolean iniciarAlterarTelefone(int pos);
+	 
+	public abstract void cancelarAlterarTelefone();
 	
-	public void cancelarAlterarTelefone();
+	public abstract boolean iniciarExcluirTelefone(int pos);
+ 
+	public abstract void cancelarExcluirTelefone();
 	
-	public boolean iniciarExcluirTelefone(int pos);
-
-	public void cancelarExcluirTelefone();
+	public abstract boolean terminarCasoDeUsoManterTelefone() ;
+		
+	public abstract IViewerSalvaCliente getJanela();
 	
-	public boolean terminarCasoDeUsoManterTelefone() ;
+	public abstract Set<Telefone> getTelefones();
 	
-	public void setJanela(IViewerSalvaCliente j);
-	
-	public IViewerSalvaCliente getJanela();
-	
-	public Set<Telefone> getTelefones();
+	public abstract Cliente getCliente();
 
 	
 }

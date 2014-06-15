@@ -85,13 +85,14 @@ public class JanelaSalvaTelefone extends JFrame implements IViewerSalvaTelefone{
 		// Recupero os valores digitados nos textfields
 		String tipo = (String) cmbTipo.getSelectedItem();
 		String numero = txtNum.getText();
+		
 		// Verifico qual é a operação que estou fazendo
 		// e notifico ao controlador
 		try {
 			if(!ehAlteracao)
-				ctrl.incluir(tipo, numero, null);
+				ctrl.incluir(tipo, numero);
 			else
-				ctrl.alterar(tipo, numero, null);
+				ctrl.alterar(tipo, numero);
 		} catch(ModelException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			e.printStackTrace();
@@ -109,6 +110,7 @@ public class JanelaSalvaTelefone extends JFrame implements IViewerSalvaTelefone{
 	public void atualizarCampos(String tipo, String numero) {
 		this.cmbTipo.setSelectedItem(tipo);
 		this.txtNum.setText(numero);
+		this.ehAlteracao = true;
 	}
 
 }

@@ -7,19 +7,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class DAOTelefone implements IDAO<Telefone>, IDAOSerializavel{
-	//
-	// ATRIBUTOS
-	//
+	
 	private static IDAO<Telefone> singleton;
 	
 	private Set<Telefone> listaObjs;
 	
-	//
-	// MétodoS
-	//
-	/**
-	 * Construtor privado do DAO
-	 */
 	private DAOTelefone(){
 		this.listaObjs = new TreeSet<Telefone>();
 	}
@@ -29,57 +21,71 @@ public class DAOTelefone implements IDAO<Telefone>, IDAOSerializavel{
 			DAOTelefone.singleton = new DAOTelefone();
 		return DAOTelefone.singleton;
 	}
-	
+
 	@Override
-	public boolean salvar(Telefone novo) {
+	public boolean salvar(Telefone novo){
 		return this.listaObjs.add(novo);
 	}
-
+	
 	@Override
-	public boolean remover(Telefone obj) {
+	public boolean remover(Telefone obj){
 		return this.listaObjs.remove(obj);
 	}
-
+	
 	@Override
-	public boolean atualizar(Telefone obj) {
+	public boolean atualizar(Telefone obj){
 		return true;
 	}
-
+	
 	@Override
-	public Telefone recuperar(int pos) {
+	public Telefone recuperar(int pos){
 		int i = 0;
-		for(Telefone t: this.listaObjs)
+		for(Telefone t : this.listaObjs)
 			if(i++ == pos)
 				return t;
 		return null;
 	}
-
+	
+	public Set<Telefone> recuperarPeloCliente(Cliente c){
+		Set<Telefone> listaTelClientes = new TreeSet<Telefone>();
+		for(Telefone t : this.listaObjs){
+			if(t.getCliente().equals(c))
+				listaTelClientes.add(t);
+		}
+		return listaTelClientes;
+	}
+	
 	@Override
-	public Telefone recuperarPelaChave(Object chave) {
-		for(Telefone t: this.listaObjs)
-			if(chave.equals(t.getNumero()))
+	public Telefone recuperarPelaChave(Object c){
+		for(Telefone t : this.listaObjs)
+			if(t.getNumero().equals(c))
 				return t;
 		return null;
 	}
-
+		
 	@Override
-	public int getNumObjs() {
+	public int getNumObjs(){
 		return this.listaObjs.size();
 	}
-
+	
 	@Override
-	public Set<Telefone> getListaObjs() {
+	public Set<Telefone> getListaObjs(){
 		return this.listaObjs;
 	}
-
+	
+	public void setListaObjs(Set<Telefone> novaLista){
+		this.listaObjs = novaLista;
+	}
+	
 	@Override
-	public void recuperarObjetos(ObjectInputStream ois) throws IOException,	ClassNotFoundException {
+	public void recuperarObjetos(ObjectInputStream ois)
+			throws IOException, ClassNotFoundException {
 		this.listaObjs = (Set<Telefone>)ois.readObject();
 	}
-
+	
 	@Override
-	public void salvarObjetos(ObjectOutputStream oos) throws IOException {
-		oos.writeObject(this.listaObjs);		
+	public void salvarObjetos(ObjectOutputStream oos)
+			throws IOException{
+		oos.writeObject(this.listaObjs);
 	}
-
 }

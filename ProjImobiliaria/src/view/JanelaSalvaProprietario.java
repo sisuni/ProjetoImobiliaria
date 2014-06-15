@@ -178,7 +178,7 @@ public class JanelaSalvaProprietario extends JFrame implements
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//executarExcluir();
+				executarExcluirTelefone();
 			}
 		});
 		btnExcluir.setBounds(263, 395, 89, 23);
@@ -232,30 +232,24 @@ public class JanelaSalvaProprietario extends JFrame implements
 	}
 	
 	public void executarExcluirTelefone() {
-		// Recupero a posição selecionada
 		int pos = tableNum.getSelectedRow();
-		// Se a posição for -1, não há ninguém selecionado. Então cancelo
-		// a operação
 		if(pos < 0)
 			return;
-		// Informo ao controlador para iniciar o processo de exclusão
-		ctrl.iniciarExcluir(pos);	
+		
+		ctrl.iniciarExcluirTelefone(pos);	
 	}
 	
 	public void executarAlterarTelefone() {
-		// Recupero a posição selecionada
 		int pos = tableNum.getSelectedRow();
-		// Se a posição for -1, não há ninguém selecionado. Então cancelo
-		// a operação
 		if(pos < 0)
 			return;
-		// Informo ao controlador para iniciar o processo de alteração
+		
 		ctrl.iniciarAlterarTelefone(pos);	
 	}
 	
 	/* ******Fim dos metódos pertencentes ao telefone********/
 	
-	/*Método para preencher a lista de 124 bancos na combo*/
+	/*********Método para preencher a lista de 124 bancos na combo*********/
 	public void preencherBancos(){
 		String[] listaBancos = {"Banco ABC Brasil S.A.","Banco ABN AMRO S.A.","Banco Alfa S.A.","Banco Alvorada S.A.","Banco Banerj S.A.","Banco Bankpar S.A.",
 				"Banco Barclays S.A.","Banco BBM S.A.","Banco Beg S.A.","Banco BGN S.A.","Banco BM&FBOVESPA de Serviços de Liquidação e Custódia S.A","Banco BMG S.A.",
@@ -281,7 +275,6 @@ public class JanelaSalvaProprietario extends JFrame implements
 	/*Fim do Método para preencher a lista de 124 bancos na combo*/
 	
 	public void executarSalvar() {
-		// Recupero os valores digitados nos textfields
 		String nome = txtNome.getText();
 		String cpf = txtCpf.getText().replace(".","").replace("-", "");
 		String email = txtEmail.getText();
@@ -313,7 +306,7 @@ public class JanelaSalvaProprietario extends JFrame implements
 	@Override
 	public void atualizarCampos(String nome, String cpf, String email,
 			String endereco, String banco, String agencia, String conta) {
-		// TODO Auto-generated method stub
+		
 		this.txtNome.setText(nome);
 		this.txtCpf.setText(cpf);
 		this.txtEmail.setText(email);

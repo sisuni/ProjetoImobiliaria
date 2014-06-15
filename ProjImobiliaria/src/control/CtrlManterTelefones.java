@@ -6,90 +6,101 @@ import java.util.TreeSet;
 
 import model.Cliente;
 import model.DAOTelefone;
-import model.IDAO;
+//import model.IDAO;
 import model.ModelException;
-import model.Proprietario;
 import model.Telefone;
 import view.IViewerSalvaCliente;
 import view.IViewerSalvaTelefone;
 import view.JanelaExcluirTelefone;
 import view.JanelaSalvaTelefone;
 
+
 public class CtrlManterTelefones implements ICtrlManterTelefones {
-	
+
 	private enum Operacao {
 		INCLUSAO, EXCLUSAO, ALTERACAO, DISPONIVEL;
 	}
-	private ICtrlManterClientes ctrl;
+	
+	private ICtrlManterClientes ctrlCli;
 	
 	private IViewerSalvaCliente jCliente;
 	
 	private IViewerSalvaTelefone jTelefone;
-	
+
 	private Telefone telefoneAtual;
-		
-	private IDAO<Telefone> dao = DAOTelefone.getSingleton();
+	
+	private Set<Telefone> listaTelefones;
+	
+	private DAOTelefone dao = (DAOTelefone) DAOTelefone.getSingleton();
 	
 	private boolean emExecucao;
 	
 	private Operacao operacao;
 	
-	public CtrlManterTelefones(ICtrlManterClientes ctrl){
-		this.ctrl = ctrl;
+	
+	public CtrlManterTelefones(ICtrlManterClientes c){
+		this.ctrlCli = c;
 	}
-		
+	
 	@Override
-	public boolean iniciar() {
+	public boolean iniciar(){
 		if(this.emExecucao)
 			return false;
-
-		this.jCliente = ctrl.getJanela();
+		
+		this.jCliente = ctrlCli.getJanela();
 		this.atualizarInterface();
 		this.emExecucao = true;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
-
+	
 	@Override
-	public boolean terminar() {
+	public boolean terminar(){
 		if(!this.emExecucao)
 			return false;
-
-		this.ctrl.terminarCasoDeUsoManterTelefone();
+		
+		this.jCliente = null;
+		this.ctrlCli = null;
 		this.emExecucao = false;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
-
+	
 	@Override
-	public boolean iniciarIncluir() {
+	public boolean iniciarIncluir(){
 		if(this.operacao != Operacao.DISPONIVEL)
 			return false;
-
+		
 		this.operacao = Operacao.INCLUSAO;
 		try {
 			this.jTelefone = new JanelaSalvaTelefone(this);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
 		return true;
 	}
-
+	
 	@Override
-	public void cancelarIncluir() {
-		if(this.operacao == Operacao.INCLUSAO) {
+	public void cancelarIncluir(){
+		if(this.operacao == Operacao.INCLUSAO){
 			this.jTelefone.setVisible(false);
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
-
-	public boolean incluir(String tipo, String numero, Cliente cliente) throws ModelException {
+	
+	@Override
+	public boolean incluir(String tipo, String numero) throws ModelException{
 		if(this.operacao != Operacao.INCLUSAO)
 			return false;
-
-		Telefone novo = new Telefone(tipo, numero, null);
-		dao.salvar(novo);
 		
+		Telefone novo;
+		if(ctrlCli.getCliente() == null)
+			 novo = new Telefone(tipo,numero,null);
+		else
+			 novo = new Telefone(tipo,numero,ctrlCli.getCliente());
+		
+		dao.salvar(novo);
 		this.jTelefone.setVisible(false);
 		this.atualizarInterface();
 		this.operacao = Operacao.DISPONIVEL;
@@ -97,103 +108,108 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 	}
 	
 	@Override
-	public boolean iniciarAlterar(int pos) {
+	public boolean iniciarAlterar(int pos){
 		if(this.operacao != Operacao.DISPONIVEL)
 			return false;
-
+		
 		this.operacao = Operacao.ALTERACAO;
-		this.telefoneAtual = dao.recuperar(pos);
+		
+		Set<Telefone> lista = dao.recuperarPeloCliente(ctrlCli.getCliente());
+		int i = 0;
+		for(Telefone t : lista){
+			if(i++ == pos)
+				this.telefoneAtual = t;
+		}
+					
 		try {
 			this.jTelefone = new JanelaSalvaTelefone(this);
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.jTelefone.atualizarCampos(
-				this.telefoneAtual.getTipo(),
-				this.telefoneAtual.getNumero());
-		
+		this.jTelefone.atualizarCampos(this.telefoneAtual.getTipo(), this.telefoneAtual.getNumero());
 		return true;
 	}
-
+	
 	@Override
-	public void cancelarAlterar() {
-		if(this.operacao == Operacao.ALTERACAO) {
+	public void cancelarAlterar(){
+		if(this.operacao == Operacao.ALTERACAO){
 			this.jTelefone.setVisible(false);
 			this.telefoneAtual = null;
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
 	
-	public boolean alterar(String tipo, String numero, Cliente cliente) throws ModelException {
+	@Override
+	public boolean alterar(String tipo, String numero) throws ModelException{
 		if(this.operacao != Operacao.ALTERACAO)
 			return false;
-
+		
 		this.telefoneAtual.setTipo(tipo);
 		this.telefoneAtual.setNumero(numero);
-		this.telefoneAtual.setCliente(cliente);
-		
+				
 		dao.atualizar(this.telefoneAtual);
-
+		
 		this.jTelefone.setVisible(false);
 		this.atualizarInterface();
 		this.telefoneAtual = null;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
-
+	
 	@Override
-	public boolean iniciarExcluir(int pos) {
+	public boolean iniciarExcluir(int pos){
 		if(this.operacao != Operacao.DISPONIVEL)
 			return false;
-
+		
 		this.operacao = Operacao.EXCLUSAO;
-		this.telefoneAtual = dao.recuperar(pos);
+			
+		Set<Telefone> lista = dao.recuperarPeloCliente(ctrlCli.getCliente());
+		int i = 0;
+		for(Telefone t : lista){
+			if(i++ == pos)
+				this.telefoneAtual = t;
+		}
+		
 		new JanelaExcluirTelefone(this, this.telefoneAtual);
 		return true;
 	}
-
+	
 	@Override
-	public void cancelarExcluir() {
-		if(this.operacao == Operacao.EXCLUSAO) {
+	public void cancelarExcluir(){
+		if(this.operacao == Operacao.EXCLUSAO){
 			this.telefoneAtual = null;
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
-
+	
 	@Override
-	public boolean excluir() throws ModelException {
+	public boolean excluir(){
 		if(this.operacao != Operacao.EXCLUSAO)
 			return false;
-
+		
+		ctrlCli.getCliente().removeTelefone(this.telefoneAtual);
 		dao.remover(this.telefoneAtual);
-
 		this.atualizarInterface();
 		this.telefoneAtual = null;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
-
+	
 	@Override
-	public void atualizarInterface() {
+	public void atualizarInterface(){
 		this.jCliente.limpar();
-
-		if (this.operacao == Operacao.INCLUSAO){
-			for(int i = 0; i < dao.getNumObjs(); i++) {
-				Telefone telCliente = dao.recuperar(i);
-				this.jCliente.incluirLinha(telCliente);
-			}
-		}else{
-			for(int i = 0; i < dao.getNumObjs(); i++) {
-				Telefone telCliente = dao.recuperar(i);
-				if(this.telefoneAtual.getCliente().equals(telCliente.getCliente()))
-					this.jCliente.incluirLinha(telCliente);
+		
+		for(Telefone t : dao.getListaObjs()){
+			if(!(t.getCliente() == null)){
+				if(t.getCliente() == ctrlCli.getCliente())
+					this.jCliente.incluirLinha(t);
 			}
 		}
 	}
 	
 	@Override
-	public Set<Telefone> getTelefones(){
-		return dao.getListaObjs();
-	}
-	
+	 public Set<Telefone> getTelefones(){
+		 return this.listaTelefones;
+	 }
 }
