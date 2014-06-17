@@ -28,7 +28,7 @@ public class JanelaBoletos extends JFrame implements IViewer{
 	
 	public JanelaBoletos(ICtrlManter c){
 		this.ctrl = c;
-		setTitle("Boletos - ImobiliÃ¡ria");
+		setTitle("Boletos - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 419, 300);
 		contentPane = new JPanel();
@@ -36,8 +36,8 @@ public class JanelaBoletos extends JFrame implements IViewer{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null); //centralizar janela
-		setResizable(false); //nÃ£o maximizar, aumentar		
-		/*Inicio dos BotÃµes*/
+		setResizable(false); //não maximizar, aumentar		
+		/*Inicio dos Botões*/
 		JButton btnIncluir = new JButton("Incluir");
 		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -73,7 +73,7 @@ public class JanelaBoletos extends JFrame implements IViewer{
 		});
 		btnSair.setBounds(307, 232, 89, 23);
 		contentPane.add(btnSair);
-		/*Fim dos BotÃµes*/
+		/*Fim dos Botões*/
 		
 		/*Inicio da Table*/
 		JScrollPane scrollPane = new JScrollPane();
@@ -88,14 +88,14 @@ public class JanelaBoletos extends JFrame implements IViewer{
 			new Object[][] {
 			},
 			new String[] {
-				"Nome", "NÃ­vel", "NÂºFunc"
+				"Nome", "Nível", "NºFunc"
 			}
 		));
 		table.getColumnModel().getColumn(0).setPreferredWidth(300);
 		table.getColumnModel().getColumn(1).setPreferredWidth(60);
 		table.getColumnModel().getColumn(2).setPreferredWidth(60);
 		
-		// monitorando o evento atravÃ©s de TableModelListener
+		// monitorando o evento através de TableModelListener
 				table.getModel().addTableModelListener(new TableModelListener() {
 				    public void tableChanged(TableModelEvent e) {
 				    	tratarModificacaoNaTabela(e);
@@ -123,24 +123,24 @@ public class JanelaBoletos extends JFrame implements IViewer{
 	}
 	
 	public void executarExcluir() {
-		// Recupero a posiÃ§Ã£o selecionada
+		// Recupero a posição selecionada
 		int pos = table.getSelectedRow();
-		// Se a posiÃ§Ã£o for -1, nÃ£o hÃ¡ ninguÃ©m selecionado. EntÃ£o cancelo
-		// a operaÃ§Ã£o
+		// Se a posição for -1, não há ninguém selecionado. Então cancelo
+		// a operação
 		if(pos < 0)
 			return;
-		// Informo ao controlador para iniciar o processo de exclusÃ£o
+		// Informo ao controlador para iniciar o processo de exclusão
 		ctrl.iniciarExcluir(pos);	
 	}
 	
 	public void executarAlterar() {
-		// Recupero a posiÃ§Ã£o selecionada
+		// Recupero a posição selecionada
 		int pos = table.getSelectedRow();
-		// Se a posiÃ§Ã£o for -1, nÃ£o hÃ¡ ninguÃ©m selecionado. EntÃ£o cancelo
-		// a operaÃ§Ã£o
+		// Se a posição for -1, não há ninguém selecionado. Então cancelo
+		// a operação
 		if(pos < 0)
 			return;
-		// Informo ao controlador para iniciar o processo de alteraÃ§Ã£o
+		// Informo ao controlador para iniciar o processo de alteração
 		ctrl.iniciarAlterar(pos);	
 	}
 	
@@ -156,8 +156,8 @@ public class JanelaBoletos extends JFrame implements IViewer{
  
         TableModel model = (TableModel) e.getSource();
  
-        System.out.println("VocÃª alterou a linha " + linha + ", coluna " + coluna);
-        System.out.println("Valor da cÃ©lula alterada: " + model.getValueAt(linha, coluna));
+        System.out.println("Você alterou a linha " + linha + ", coluna " + coluna);
+        System.out.println("Valor da célula alterada: " + model.getValueAt(linha, coluna));
 	}
 
 }

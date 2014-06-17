@@ -15,7 +15,7 @@ public class DAOBoleto implements IDAO<Boleto>, IDAOSerializavel {
 	private Set<Boleto> 			listaObjs;
 	
 	//
-	// MÃ©todoS
+	// MétodoS
 	//
 	/**
 	 * Construtor privado do DAO

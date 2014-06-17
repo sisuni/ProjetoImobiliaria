@@ -61,7 +61,7 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 			return false;
 
 		this.jCadastro.setVisible(false);
-		this.ctrlPrg.terminarCasoDeUsoManterCargo();
+		this.ctrlPrg.terminarCasoDeUsoManterBoleto();
 		this.emExecucao = false;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;

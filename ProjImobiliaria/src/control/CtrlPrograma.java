@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import model.DAOBoleto;
 import model.DAOCargo;
 import model.DAOContrato;
 import model.DAOFuncionario;
@@ -21,29 +22,28 @@ import view.JanelaPrincipal;
 
 public class CtrlPrograma implements ICtrlPrograma{
 	
-//	private ICtrlManter ctrlBoleto;
 	private ICtrlManter ctrlCargo;
 	private ICtrlManter ctrlContrato;
 	private ICtrlManter ctrlFuncionario;
 	private ICtrlManter ctrlImovel;
 	private ICtrlManter ctrlInquilino;
 	private ICtrlManter ctrlProprietario;
+	private ICtrlManter ctrlBoleto;
 	private IViewerPrincipal jPrincipal;
 	
 	public CtrlPrograma() {
-//		this.ctrlBoleto			= new CtrlManterBoletos(this);
 		this.ctrlCargo			= new CtrlManterCargos(this);
 		this.ctrlContrato		= new CtrlManterContratos(this);
 		this.ctrlFuncionario	= new CtrlManterFuncionarios(this);
 		this.ctrlImovel			= new CtrlManterImoveis(this);
 		this.ctrlInquilino		= new CtrlManterInquilinos(this);
 		this.ctrlProprietario	= new CtrlManterProprietarios(this);
+		this.ctrlBoleto			= new CtrlManterBoletos(this);
 
 	}
 	
 	public void iniciar(){
 		this.jPrincipal = new JanelaPrincipal(this);
-//		IDAOSerializavel daoBoleto			= (IDAOSerializavel) DAOBoleto.getSingleton();
 		IDAOSerializavel daoCargo			= (IDAOSerializavel) DAOCargo.getSingleton();
 		IDAOSerializavel daoContrato		= (IDAOSerializavel) DAOContrato.getSingleton();
 		IDAOSerializavel daoFuncionario		= (IDAOSerializavel) DAOFuncionario.getSingleton();
@@ -51,6 +51,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 		IDAOSerializavel daoInquilino		= (IDAOSerializavel) DAOInquilino.getSingleton();
 		IDAOSerializavel daoProprietario	= (IDAOSerializavel) DAOProprietario.getSingleton();
 		IDAOSerializavel daoTelefone 		= (IDAOSerializavel) DAOTelefone.getSingleton();
+		IDAOSerializavel daoBoleto			= (IDAOSerializavel) DAOBoleto.getSingleton();
 		
 		//
 		// Recuperação dos objetos serializados no arquivo c:/base.bin
@@ -59,7 +60,6 @@ public class CtrlPrograma implements ICtrlPrograma{
 			FileInputStream fis = new FileInputStream("base.bin");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
-//			daoBoleto.recuperarObjetos(ois);
 			daoCargo.recuperarObjetos(ois);
 			daoContrato.recuperarObjetos(ois);
 			daoFuncionario.recuperarObjetos(ois);
@@ -67,6 +67,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 			daoInquilino.recuperarObjetos(ois);
 			daoProprietario.recuperarObjetos(ois);
 			daoTelefone.recuperarObjetos(ois);
+			daoBoleto.recuperarObjetos(ois);
 			
 			ois.close();
 		} catch (FileNotFoundException e) {
@@ -79,7 +80,6 @@ public class CtrlPrograma implements ICtrlPrograma{
 	}
 
 	public void terminar(){
-//		IDAOSerializavel daoBoleto			= (IDAOSerializavel)DAOBoleto.getSingleton();
 		IDAOSerializavel daoCargo			= (IDAOSerializavel)DAOCargo.getSingleton();
 		IDAOSerializavel daoContrato		= (IDAOSerializavel)DAOContrato.getSingleton();
 		IDAOSerializavel daoFuncionario		= (IDAOSerializavel)DAOFuncionario.getSingleton();
@@ -87,13 +87,13 @@ public class CtrlPrograma implements ICtrlPrograma{
 		IDAOSerializavel daoInquilino		= (IDAOSerializavel)DAOInquilino.getSingleton();
 		IDAOSerializavel daoProprietario	= (IDAOSerializavel)DAOProprietario.getSingleton();
 		IDAOSerializavel daoTelefone 		= (IDAOSerializavel) DAOTelefone.getSingleton();
+		IDAOSerializavel daoBoleto			= (IDAOSerializavel)DAOBoleto.getSingleton();
 
 		try {
 			FileOutputStream fos = new FileOutputStream("base.bin");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
 			// Persistindo os estados das classes no arquino serializado
-//			daoBoleto.salvarObjetos(oos);
 			daoCargo.salvarObjetos(oos);
 			daoContrato.salvarObjetos(oos);
 			daoFuncionario.salvarObjetos(oos);
@@ -101,6 +101,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 			daoInquilino.salvarObjetos(oos);
 			daoProprietario.salvarObjetos(oos);
 			daoTelefone.salvarObjetos(oos);
+			daoBoleto.salvarObjetos(oos);
 			
 			oos.close();
 		} catch (IOException e) {
@@ -108,17 +109,6 @@ public class CtrlPrograma implements ICtrlPrograma{
 		} 	
 
 		System.exit(0);
-	}
-
-	@Override
-	public boolean iniciarCasoDeUsoManterBoleto() {
-//		return this.ctrlBoleto.iniciar();
-		return false;
-	}
-
-	@Override
-	public boolean terminarCasoDeUsoManterBoleto() {
-		return true;
 	}
 
 	@Override
@@ -201,6 +191,16 @@ public class CtrlPrograma implements ICtrlPrograma{
 
 	@Override
 	public boolean terminarCasoDeUsoManterTaxas() {
+		return true;
+	}
+
+	@Override
+	public boolean iniciarCasoDeUsoManterBoleto() {
+		return this.ctrlBoleto.iniciar();
+	}
+
+	@Override
+	public boolean terminarCasoDeUsoManterBoleto() {
 		return true;
 	}
 
