@@ -13,6 +13,7 @@ import model.DAOFuncionario;
 import model.DAOImovel;
 import model.DAOInquilino;
 import model.DAOProprietario;
+import model.DAOTelefone;
 import model.IDAOSerializavel;
 import view.IViewerPrincipal;
 import view.JanelaPrincipal;
@@ -49,6 +50,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 		IDAOSerializavel daoImovel			= (IDAOSerializavel) DAOImovel.getSingleton();
 		IDAOSerializavel daoInquilino		= (IDAOSerializavel) DAOInquilino.getSingleton();
 		IDAOSerializavel daoProprietario	= (IDAOSerializavel) DAOProprietario.getSingleton();
+		IDAOSerializavel daoTelefone 		= (IDAOSerializavel) DAOTelefone.getSingleton();
 		
 		//
 		// Recuperação dos objetos serializados no arquivo c:/base.bin
@@ -64,6 +66,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 			daoImovel.recuperarObjetos(ois);
 			daoInquilino.recuperarObjetos(ois);
 			daoProprietario.recuperarObjetos(ois);
+			daoTelefone.recuperarObjetos(ois);
 			
 			ois.close();
 		} catch (FileNotFoundException e) {
@@ -83,6 +86,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 		IDAOSerializavel daoImovel			= (IDAOSerializavel)DAOImovel.getSingleton();
 		IDAOSerializavel daoInquilino		= (IDAOSerializavel)DAOInquilino.getSingleton();
 		IDAOSerializavel daoProprietario	= (IDAOSerializavel)DAOProprietario.getSingleton();
+		IDAOSerializavel daoTelefone 		= (IDAOSerializavel) DAOTelefone.getSingleton();
 
 		try {
 			FileOutputStream fos = new FileOutputStream("base.bin");
@@ -96,6 +100,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 			daoImovel.salvarObjetos(oos);
 			daoInquilino.salvarObjetos(oos);
 			daoProprietario.salvarObjetos(oos);
+			daoTelefone.salvarObjetos(oos);
 			
 			oos.close();
 		} catch (IOException e) {

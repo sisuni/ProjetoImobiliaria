@@ -96,7 +96,6 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 		
 		Proprietario novo = new Proprietario(nome, cpf, email, endereco, 
 												banco, agencia, conta);
-		
 		for (Telefone t : this.getTelefones()){
 			if(t.getCliente() == null)
 				novo.addTelefone(t);
@@ -125,7 +124,6 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 		}
 		this.setCliente(this.proprietarioAtual);
 		this.iniciarCasoDeUsoManterTelefone(jProprietario);
-		this.atualizarListaTelefones();
 		this.jProprietario.atualizarCampos(this.proprietarioAtual.getNome(),
 				this.proprietarioAtual.getCpf(), this.proprietarioAtual.getEmail(),
 				this.proprietarioAtual.getEndereco(), this.proprietarioAtual.getBanco(), 
@@ -140,7 +138,6 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 			this.jProprietario.setVisible(false);
 			this.proprietarioAtual = null;
 			this.setCliente(null);
-			this.atualizarListaTelefones();
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
@@ -179,6 +176,7 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 		
 		this.operacao = Operacao.EXCLUSAO;
 		this.proprietarioAtual = dao.recuperar(pos);
+		this.iniciarCasoDeUsoManterTelefone(jProprietario);
 		new JanelaExcluirProprietario(this,this.proprietarioAtual);
 		return true;
 	}
@@ -195,6 +193,13 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 	public boolean excluir(){
 		if(this.operacao != Operacao.EXCLUSAO)
 			return false;
+		
+		if(!(this.getTelefones().isEmpty())){
+			for (Telefone t : this.getTelefones()){
+				if(t.getCliente() == this.proprietarioAtual)
+					this.proprietarioAtual.removeTelefone(t);
+			}
+		}
 		
 		dao.remover(this.proprietarioAtual);
 		this.atualizarInterface();

@@ -45,16 +45,7 @@ public class DAOTelefone implements IDAO<Telefone>, IDAOSerializavel{
 				return t;
 		return null;
 	}
-	
-	public Set<Telefone> recuperarPeloCliente(Cliente c){
-		Set<Telefone> listaTelClientes = new TreeSet<Telefone>();
-		for(Telefone t : this.listaObjs){
-			if(t.getCliente().equals(c))
-				listaTelClientes.add(t);
-		}
-		return listaTelClientes;
-	}
-	
+		
 	@Override
 	public Telefone recuperarPelaChave(Object c){
 		for(Telefone t : this.listaObjs)

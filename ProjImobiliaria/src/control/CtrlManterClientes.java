@@ -68,7 +68,6 @@ public abstract class CtrlManterClientes implements ICtrlManterClientes {
 	
 	public void atualizarListaTelefones(){
 		this.ctrlTel.atualizarInterface();
-	}
-	
+	}	
 	
 }

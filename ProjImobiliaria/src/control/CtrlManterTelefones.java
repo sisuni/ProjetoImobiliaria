@@ -6,7 +6,6 @@ import java.util.TreeSet;
 
 import model.Cliente;
 import model.DAOTelefone;
-//import model.IDAO;
 import model.ModelException;
 import model.Telefone;
 import view.IViewerSalvaCliente;
@@ -29,8 +28,8 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 
 	private Telefone telefoneAtual;
 	
-	private Set<Telefone> listaTelefones;
-	
+	private Set<Telefone> listaTelefones = new TreeSet<Telefone>();
+		
 	private DAOTelefone dao = (DAOTelefone) DAOTelefone.getSingleton();
 	
 	private boolean emExecucao;
@@ -39,14 +38,15 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 	
 	
 	public CtrlManterTelefones(ICtrlManterClientes c){
-		this.ctrlCli = c;
+		this.ctrlCli = c;	
 	}
 	
 	@Override
 	public boolean iniciar(){
 		if(this.emExecucao)
 			return false;
-		
+				
+		this.recuperarDAO();
 		this.jCliente = ctrlCli.getJanela();
 		this.atualizarInterface();
 		this.emExecucao = true;
@@ -59,6 +59,7 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 		if(!this.emExecucao)
 			return false;
 		
+		this.persisteDAO();
 		this.jCliente = null;
 		this.ctrlCli = null;
 		this.emExecucao = false;
@@ -100,7 +101,7 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 		else
 			 novo = new Telefone(tipo,numero,ctrlCli.getCliente());
 		
-		dao.salvar(novo);
+		listaTelefones.add(novo);
 		this.jTelefone.setVisible(false);
 		this.atualizarInterface();
 		this.operacao = Operacao.DISPONIVEL;
@@ -114,7 +115,7 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 		
 		this.operacao = Operacao.ALTERACAO;
 		
-		Set<Telefone> lista = dao.recuperarPeloCliente(ctrlCli.getCliente());
+		Set<Telefone> lista = this.recuperarPeloCliente(ctrlCli.getCliente());
 		int i = 0;
 		for(Telefone t : lista){
 			if(i++ == pos)
@@ -163,10 +164,10 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 			return false;
 		
 		this.operacao = Operacao.EXCLUSAO;
-			
-		Set<Telefone> lista = dao.recuperarPeloCliente(ctrlCli.getCliente());
+		
+		Set<Telefone> lista = this.recuperarPeloCliente(ctrlCli.getCliente());
 		int i = 0;
-		for(Telefone t : lista){
+		for(Telefone t : listaTelefones){
 			if(i++ == pos)
 				this.telefoneAtual = t;
 		}
@@ -189,7 +190,7 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 			return false;
 		
 		ctrlCli.getCliente().removeTelefone(this.telefoneAtual);
-		dao.remover(this.telefoneAtual);
+		this.listaTelefones.remove(this.telefoneAtual);
 		this.atualizarInterface();
 		this.telefoneAtual = null;
 		this.operacao = Operacao.DISPONIVEL;
@@ -200,11 +201,9 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 	public void atualizarInterface(){
 		this.jCliente.limpar();
 		
-		for(Telefone t : dao.getListaObjs()){
-			if(!(t.getCliente() == null)){
-				if(t.getCliente() == ctrlCli.getCliente())
-					this.jCliente.incluirLinha(t);
-			}
+		for(Telefone t : this.getTelefones()){
+			if (t.getCliente() == ctrlCli.getCliente())
+				this.jCliente.incluirLinha(t);
 		}
 	}
 	
@@ -212,4 +211,24 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 	 public Set<Telefone> getTelefones(){
 		 return this.listaTelefones;
 	 }
+	
+	public Set<Telefone> recuperarPeloCliente(Cliente c){
+		Set<Telefone> listaTelClientes = new TreeSet<Telefone>();
+		for(Telefone t : this.listaTelefones){
+			if(t.getCliente().equals(c))
+				listaTelClientes.add(t);
+		}
+		return listaTelClientes;
+	}
+	
+	public void recuperarDAO(){
+		if(!(dao.getListaObjs().isEmpty())){
+			this.listaTelefones = new TreeSet<Telefone>(dao.getListaObjs());
+		}
+	}
+	
+	public void persisteDAO(){
+		this.dao.setListaObjs(this.listaTelefones);
+	}
+	
 }

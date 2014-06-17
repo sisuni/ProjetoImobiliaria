@@ -75,6 +75,7 @@ public class Proprietario extends Cliente implements Serializable, ITabelavel{
 				this.banco, 
 				this.agencia, 
 				this.conta,
+				this.getTelefones().size(),
 				this.listaImoveis.size()
 		};
 	}

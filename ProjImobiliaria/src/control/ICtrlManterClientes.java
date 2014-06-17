@@ -28,6 +28,8 @@ public interface ICtrlManterClientes extends ICtrlManter{
 	public abstract Set<Telefone> getTelefones();
 	
 	public abstract Cliente getCliente();
+	
+	public abstract void atualizarListaTelefones();
 
 	
 }
