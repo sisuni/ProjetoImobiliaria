@@ -197,6 +197,16 @@ public class Imovel implements Serializable, ITabelavel, Comparable<Imovel> {
 
 	@Override
 	public Object[] getData() {
-		return new Object[]{this.proprietario, this.logradouro + this.cidade + this.uf};
+		return new Object[]{
+				this.uf +", "+ this.cidade +", "+ this.bairro +", "+ this.logradouro,
+				this.valorBase,
+				this.dimensoes,
+				this.qtdQuartos,
+				this.descricao,
+				this.finalidade,
+				this.status,
+				this.tipo,
+				this.proprietario
+		};
 	}
 }

@@ -50,13 +50,16 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 		JMenuItem func = new JMenuItem("Funcionário");
 		JMenuItem proprietario = new JMenuItem("Proprietário");
 		JMenuItem inquilino = new JMenuItem("Inquilino");
+		JMenuItem imovel = new JMenuItem("Imóvel");
 		JMenuItem sair = new JMenuItem("Sair");
 		ButtonGroup bg = new ButtonGroup();
+		
 		menu.add(cargo);
 		menu.add(func);
 		menu.add(cliente);
 		cliente.add(proprietario);
 		cliente.add(inquilino);
+		menu.add(imovel);
 		menu.addSeparator();
 		menu.add(sair);
 				
@@ -83,6 +86,12 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 		inquilino.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
 				ctrlPrg.iniciarCasoDeUsoManterInquilino();
+			}
+		});
+		
+		imovel.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				ctrlPrg.iniciarCasoDeUsoManterImovel();
 			}
 		});
 		

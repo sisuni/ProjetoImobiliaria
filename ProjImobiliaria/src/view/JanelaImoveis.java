@@ -30,7 +30,7 @@ public class JanelaImoveis extends JFrame implements IViewer{
 		this.ctrl = c;
 		setTitle("Imoveis - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 419, 300);
+		setBounds(100, 100, 800, 300);
 		contentPane = new JPanel();
 		setLocationRelativeTo(null);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -44,7 +44,7 @@ public class JanelaImoveis extends JFrame implements IViewer{
 				executarIncluir();
 			}
 		});
-		btnIncluir.setBounds(10, 232, 89, 23);
+		btnIncluir.setBounds(190, 232, 89, 23);
 		contentPane.add(btnIncluir);
 		
 		JButton btnExcluir = new JButton("Excluir");
@@ -53,7 +53,7 @@ public class JanelaImoveis extends JFrame implements IViewer{
 				executarExcluir();
 			}
 		});
-		btnExcluir.setBounds(109, 232, 89, 23);
+		btnExcluir.setBounds(290, 232, 89, 23);
 		contentPane.add(btnExcluir);
 		
 		JButton btnAlterar = new JButton("Alterar");
@@ -62,7 +62,7 @@ public class JanelaImoveis extends JFrame implements IViewer{
 				executarAlterar();
 			}
 		});
-		btnAlterar.setBounds(208, 232, 89, 23);
+		btnAlterar.setBounds(390, 232, 89, 23);
 		contentPane.add(btnAlterar);
 		
 		JButton btnSair = new JButton("Sair");
@@ -71,13 +71,13 @@ public class JanelaImoveis extends JFrame implements IViewer{
 				executarTerminar();
 			}
 		});
-		btnSair.setBounds(307, 232, 89, 23);
+		btnSair.setBounds(490, 232, 89, 23);
 		contentPane.add(btnSair);
 		/*Fim dos Botões*/
 		
 		/*Inicio da Table*/
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 386, 212);
+		scrollPane.setBounds(10, 11, 775, 212);
 		contentPane.add(scrollPane);
 		
 		
@@ -88,12 +88,19 @@ public class JanelaImoveis extends JFrame implements IViewer{
 			new Object[][] {
 			},
 			new String[] {
-				"Nome", "Nível", "NºFunc"
+				"Endereço", "Valor Base", "Dimensão", "Nº Quartos", "Descrição", "Finalidade", "Status", "Tipo", "Proprietário"
 			}
 		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(300);
+		table.getColumnModel().getColumn(0).setPreferredWidth(150);
 		table.getColumnModel().getColumn(1).setPreferredWidth(60);
 		table.getColumnModel().getColumn(2).setPreferredWidth(60);
+		table.getColumnModel().getColumn(3).setPreferredWidth(60);
+		table.getColumnModel().getColumn(4).setPreferredWidth(85);
+		table.getColumnModel().getColumn(5).setPreferredWidth(60);
+		table.getColumnModel().getColumn(6).setPreferredWidth(60);
+		table.getColumnModel().getColumn(7).setPreferredWidth(60);
+		table.getColumnModel().getColumn(8).setPreferredWidth(120);
+		
 		
 		// monitorando o evento através de TableModelListener
 				table.getModel().addTableModelListener(new TableModelListener() {

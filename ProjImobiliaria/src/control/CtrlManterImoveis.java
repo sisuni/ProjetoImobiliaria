@@ -1,6 +1,9 @@
 package control;
 
+import java.util.Set;
+
 import model.DAOImovel;
+import model.DAOProprietario;
 import model.IDAO;
 import model.Imovel;
 import model.ModelException;
@@ -73,7 +76,11 @@ public class CtrlManterImoveis implements ICtrlManterImoveis {
 			return false;
 
 		this.operacao = Operacao.INCLUSAO;
-		this.jImovel = new JanelaSalvaImovel(this);
+		
+		IDAO<Proprietario> daoProprietario = DAOProprietario.getSingleton();
+		Set<Proprietario> proprietarios = daoProprietario.getListaObjs();
+		
+		this.jImovel = new JanelaSalvaImovel(this, proprietarios);
 		return true;
 	}
 
@@ -113,7 +120,9 @@ public class CtrlManterImoveis implements ICtrlManterImoveis {
 
 		this.operacao = Operacao.ALTERACAO;
 		this.imovelAtual = dao.recuperar(pos);
-		this.jImovel = new JanelaSalvaImovel(this);
+		IDAO<Proprietario> daoProprietario = DAOProprietario.getSingleton();
+		Set<Proprietario> proprietarios = daoProprietario.getListaObjs();
+		this.jImovel = new JanelaSalvaImovel(this, proprietarios);
 		this.jImovel.atualizarCampos(
 						this.imovelAtual.getUf(),
 						this.imovelAtual.getCidade(),
