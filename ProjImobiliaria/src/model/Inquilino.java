@@ -1,9 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Inquilino extends Cliente {
+import control.ITabelavel;
+
+public class Inquilino extends Cliente implements Serializable, ITabelavel{
 	
 	private String endAnteriorCompleto;
 	private Set<Contrato> listaContratos;
@@ -45,8 +48,14 @@ public class Inquilino extends Cliente {
 	 */
 	@Override
 	public Object[] getData() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Object[]{
+				this.getNome(), 
+				this.getCpf(), 
+				this.getEmail(), 
+				this.getEndereco(), 
+				this.endAnteriorCompleto,
+				this.getTelefones().size(),
+		};
 	}
 	
 	/** 

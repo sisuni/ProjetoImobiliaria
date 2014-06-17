@@ -5,12 +5,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -25,13 +28,15 @@ public class JanelaInquilinos extends JFrame implements IViewer{
 	
 	public JanelaInquilinos(ICtrlManter c){
 		this.ctrl = c;
-		setTitle("Inquilino");
+		setTitle("Inquilinos - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 419, 300);
+		setBounds(100, 100, 730, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+		setResizable(false);
 		
 		/*Inicio dos Botões*/
 		JButton btnIncluir = new JButton("Incluir");
@@ -40,7 +45,7 @@ public class JanelaInquilinos extends JFrame implements IViewer{
 				executarIncluir();
 			}
 		});
-		btnIncluir.setBounds(10, 232, 89, 23);
+		btnIncluir.setBounds(180, 232, 89, 23);
 		contentPane.add(btnIncluir);
 		
 		JButton btnExcluir = new JButton("Excluir");
@@ -49,7 +54,7 @@ public class JanelaInquilinos extends JFrame implements IViewer{
 				executarExcluir();
 			}
 		});
-		btnExcluir.setBounds(109, 232, 89, 23);
+		btnExcluir.setBounds(288, 232, 89, 23);
 		contentPane.add(btnExcluir);
 		
 		JButton btnAlterar = new JButton("Alterar");
@@ -58,7 +63,7 @@ public class JanelaInquilinos extends JFrame implements IViewer{
 				executarAlterar();
 			}
 		});
-		btnAlterar.setBounds(208, 232, 89, 23);
+		btnAlterar.setBounds(399, 232, 89, 23);
 		contentPane.add(btnAlterar);
 		
 		JButton btnSair = new JButton("Sair");
@@ -67,26 +72,31 @@ public class JanelaInquilinos extends JFrame implements IViewer{
 				executarTerminar();
 			}
 		});
-		btnSair.setBounds(307, 232, 89, 23);
+		btnSair.setBounds(507, 232, 89, 23);
 		contentPane.add(btnSair);
 		/*Fim dos Botões*/
 		
 		/*Inicio da Table*/
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 386, 212);
+		scrollPane.setBounds(10, 11, 700, 212);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) table.getDefaultRenderer(JLabel.class);  
+        renderer.setHorizontalAlignment(SwingConstants.CENTER); 
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Nível", "Nome", "#Func"
+					"Nome", "CPF", "Email", "Endereço Atual", "Endereço Anterior", "#Telefones"
 			}
 		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(60);
-		table.getColumnModel().getColumn(1).setPreferredWidth(300);
-		table.getColumnModel().getColumn(2).setPreferredWidth(60);
+		table.getColumnModel().getColumn(0).setPreferredWidth(250);
+		table.getColumnModel().getColumn(1).setPreferredWidth(120);
+		table.getColumnModel().getColumn(2).setPreferredWidth(180);
+		table.getColumnModel().getColumn(3).setPreferredWidth(180);
+		table.getColumnModel().getColumn(4).setPreferredWidth(180);
+		table.getColumnModel().getColumn(5).setPreferredWidth(95);
 		
 		// monitorando o evento através de TableModelListener
 				table.getModel().addTableModelListener(new TableModelListener() {

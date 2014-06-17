@@ -1,9 +1,12 @@
 package control;
 
+import java.text.ParseException;
+
 import model.DAOInquilino;
 import model.IDAO;
 import model.Inquilino;
 import model.ModelException;
+import model.Telefone;
 import view.IViewer;
 import view.IViewerSalvaInquilino;
 import view.JanelaExcluirInquilino;
@@ -32,12 +35,6 @@ public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlMan
 	
 	private Operacao operacao;
 	
-	//
-	// MÉTODOS
-	//
-	/**
-	 * Construtor da classe
-	 */
 	public CtrlManterInquilinos(ICtrlPrograma p) {
 		this.ctrlPrg = p;
 	}
@@ -72,7 +69,12 @@ public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlMan
 			return false;
 
 		this.operacao = Operacao.INCLUSAO;
-		this.jInquilino = new JanelaSalvaInquilino(this);
+		try {
+			this.jInquilino = new JanelaSalvaInquilino(this);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		this.iniciarCasoDeUsoManterTelefone(jInquilino);
 		return true;
 	}
 
@@ -80,6 +82,7 @@ public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlMan
 	public void cancelarIncluir() {
 		if(this.operacao == Operacao.INCLUSAO) {
 			this.jInquilino.setVisible(false);
+			this.setCliente(null);
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
@@ -90,11 +93,17 @@ public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlMan
 
 		Inquilino novo = new Inquilino(nome, cpf, email, endereco, endAnteriorCompleto);
 
+		for (Telefone t : this.getTelefones()){
+			if(t.getCliente() == null)
+				novo.addTelefone(t);
+		}
+		
+		this.setCliente(novo);
 		dao.salvar(novo);
-
 		this.jInquilino.setVisible(false);
 		this.atualizarInterface();
 		this.operacao = Operacao.DISPONIVEL;
+		this.terminarCasoDeUsoManterTelefone();
 		return true;
 	}
 
@@ -105,7 +114,13 @@ public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlMan
 
 		this.operacao = Operacao.ALTERACAO;
 		this.inquilinoAtual = dao.recuperar(pos);
-		this.jInquilino = new JanelaSalvaInquilino(this);
+		try {
+			this.jInquilino = new JanelaSalvaInquilino(this);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		this.setCliente(this.inquilinoAtual);
+		this.iniciarCasoDeUsoManterTelefone(jInquilino);
 		this.jInquilino.atualizarCampos(
 				this.inquilinoAtual.getNome(),
 				this.inquilinoAtual.getCpf(),
@@ -121,6 +136,7 @@ public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlMan
 		if(this.operacao == Operacao.ALTERACAO) {
 			this.jInquilino.setVisible(false);
 			this.inquilinoAtual = null;
+			this.setCliente(null);
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
@@ -140,6 +156,8 @@ public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlMan
 		this.jInquilino.setVisible(false);
 		this.atualizarInterface();
 		this.inquilinoAtual = null;
+		
+		this.terminarCasoDeUsoManterTelefone();
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
@@ -151,6 +169,7 @@ public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlMan
 
 		this.operacao = Operacao.EXCLUSAO;
 		this.inquilinoAtual = dao.recuperar(pos);
+		this.iniciarCasoDeUsoManterTelefone(jInquilino);
 		new JanelaExcluirInquilino(this, this.inquilinoAtual);
 		return true;
 	}
@@ -167,9 +186,15 @@ public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlMan
 	public boolean excluir() throws ModelException {
 		if(this.operacao != Operacao.EXCLUSAO)
 			return false;
+		
+		if(!(this.getTelefones().isEmpty())){
+			for (Telefone t : this.getTelefones()){
+				if(t.getCliente() == this.inquilinoAtual)
+					this.inquilinoAtual.removeTelefone(t);
+			}
+		}
 
 		dao.remover(this.inquilinoAtual);
-
 		this.atualizarInterface();
 		this.inquilinoAtual = null;
 		this.operacao = Operacao.DISPONIVEL;

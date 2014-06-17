@@ -80,6 +80,12 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 			}
 		});
 		
+		inquilino.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				ctrlPrg.iniciarCasoDeUsoManterInquilino();
+			}
+		});
+		
 		sair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Método de Callback).
