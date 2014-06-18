@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -23,6 +24,7 @@ public class Imovel implements Serializable, ITabelavel, Comparable<Imovel> {
 	private boolean status;
 	private Proprietario proprietario;
 	private Set<Contrato> listaContratos;
+	private DecimalFormat format = new DecimalFormat("#,###.00"); 
 		
 	public Imovel(String uf, String cidade, String bairro, String logradouro, int numero, String complemento, float valorBase, String dimensoes, int qtdQuartos, String descricao, String finalidade, String tipo, boolean status, Proprietario proprietario) {
 		this.setUf(uf);
@@ -199,12 +201,10 @@ public class Imovel implements Serializable, ITabelavel, Comparable<Imovel> {
 	public Object[] getData() {
 		return new Object[]{
 				this.uf +", "+ this.cidade +", "+ this.bairro +", "+ this.logradouro,
-				this.valorBase,
+				"R$ " + format.format(this.valorBase),
 				this.dimensoes,
 				this.qtdQuartos,
-				this.descricao,
 				this.finalidade,
-				this.status,
 				this.tipo,
 				this.proprietario
 		};

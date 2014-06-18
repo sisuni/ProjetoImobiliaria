@@ -7,6 +7,7 @@ import java.awt.event.FocusListener;
 import java.text.DecimalFormat;
 import java.util.Set;
 
+import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,7 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -31,11 +34,20 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 
 	private boolean ehAlteracao;
 	
-	private static int VALOR_INICIAL=0;
-	private static int VALOR_MIN=0;
-	private static int VALOR_MAX=100;
-	private static int VALOR_PASSO=1;
+	private DecimalFormat format = new DecimalFormat("#,###.00");  //Formatação para o Valor Base
+	private static int VALOR_INICIAL=0; // atributo para o JSpiner
+	private static int VALOR_MIN=0; // atributo para o JSpiner
+	private static int VALOR_MAX=100; // atributo para o JSpiner
+	private static int VALOR_PASSO=1; // atributo para o JSpiner
 	
+	private static final String[] listaTipos = {"Apartamento Padrão","Box/Garagem","Casa Comercial","Casa De Condomínio",
+		"Casa De Vlia","Casa Padrão","Chácara","Conjunto Comercial","Fazenda","Flat","Galpão/Depósito","Indústria",
+		"Kitchenette","Loft","Loja/Salão","Loteamento","Prédio Inteiro","Sítio","Studio","Terreno Padrão"};
+	
+	private static final String[] listaUF = {"AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB","PE",
+											 "PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO"};
+	
+	/**************** Componentes da View *******************************/
 	private JPanel contentPane;
 	private JComboBox<Proprietario> cmbProrietarios;
 	private JComboBox<String> cmbUF;
@@ -47,19 +59,20 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 	private JTextField txtVB;
 	private JTextField txtDim;
 	private JSpinner txtNQts;
-	private JTextField txtDesc;
+	private JTextArea txtDesc;
 	private JRadioButton rbAluguel;
 	private JRadioButton rbVenda;
 	private ButtonGroup bgFinalidade;
 	private JComboBox<String> cmbTipos;
-	DecimalFormat format = new DecimalFormat("#,###.00");
+
+	/**************** Fim dos Componentes da View ***********************/
 	
 	
 	public JanelaSalvaImovel(ICtrlManterImoveis si, Set<Proprietario> Proprietarios){
 		this.ctrl = si;
 		setTitle("Salvar Imóvel - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 530, 380);
+		setBounds(100, 100, 530, 430);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -67,7 +80,7 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		contentPane.setLayout(null);
 		setResizable(false); //não maximizar, aumentar	
 		
-		JLabel lblPro = new JLabel("Proprietário");
+		JLabel lblPro = new JLabel("Proprietário:");
 		lblPro.setBounds(20, 11, 150, 20);
 		lblPro.setFont(lblPro.getFont().deriveFont(15.0f));
 		contentPane.add(lblPro);
@@ -87,18 +100,15 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		lblEnd.setFont(lblEnd.getFont().deriveFont(15.0f));
 		contentPane.add(lblEnd);
 
-		JLabel lblUf = new JLabel("UF:");
+		JLabel lblUf = new JLabel("UF");
 		lblUf.setBounds(30, 83, 46, 14);
 		contentPane.add(lblUf);
 		
-		String[] listaUF = {"AL","AM","AP","BA","CE","DF","ES","GO",
-				"MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN",
-				"RO","RR","RS","SC","SE","SP","TO"};
 		cmbUF = new JComboBox<String>(listaUF);
 		cmbUF.setBounds(50, 81, 46, 20);
 		contentPane.add(cmbUF);
 		
-		JLabel lblCidade = new JLabel("Cidade:");
+		JLabel lblCidade = new JLabel("Cidade");
 		lblCidade.setBounds(105, 83, 46, 14);
 		contentPane.add(lblCidade);
 		
@@ -106,7 +116,7 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		txtCidade.setBounds(150, 81, 150, 20);
 		contentPane.add(txtCidade);
 		
-		JLabel lblBairro = new JLabel("Bairro:");
+		JLabel lblBairro = new JLabel("Bairro");
 		lblBairro.setBounds(310, 83, 46, 14);
 		contentPane.add(lblBairro);
 		
@@ -114,15 +124,15 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		txtBairro.setBounds(350, 81, 160, 20);
 		contentPane.add(txtBairro);
 		
-		JLabel lblLogradouro = new JLabel("Logradouro:");
-		lblLogradouro.setBounds(23, 120, 90, 14);
+		JLabel lblLogradouro = new JLabel("Logradouro");
+		lblLogradouro.setBounds(23, 119, 90, 14);
 		contentPane.add(lblLogradouro);
 		
 		txtLog = new JTextField();
 		txtLog.setBounds(100, 118, 251, 20);
 		contentPane.add(txtLog);
 		
-		JLabel lblNum = new JLabel("Número:");
+		JLabel lblNum = new JLabel("Número");
 		lblNum.setBounds(365, 120, 90, 14);
 		contentPane.add(lblNum);
 		
@@ -130,8 +140,8 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		txtNum.setBounds(415, 118, 95, 20);
 		contentPane.add(txtNum);
 		
-		JLabel lblComp = new JLabel("Complemento:");
-		lblComp.setBounds(10, 152, 90, 14);
+		JLabel lblComp = new JLabel("Complemento");
+		lblComp.setBounds(10, 150, 90, 14);
 		contentPane.add(lblComp);
 		
 		txtComp = new JTextField();
@@ -143,7 +153,7 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		lblDadosI.setFont(lblDadosI.getFont().deriveFont(15.0f));
 		contentPane.add(lblDadosI);
 		
-		JLabel lblVB = new JLabel("Valor Base:");
+		JLabel lblVB = new JLabel("Valor Base");
 		lblVB.setBounds(30, 212, 90, 14);
 		contentPane.add(lblVB);
 		
@@ -163,7 +173,7 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		
 		contentPane.add(txtVB);
 		
-		JLabel lblDim = new JLabel("Dimensão:");
+		JLabel lblDim = new JLabel("Dimensão");
 		lblDim.setBounds(207, 212, 90, 14);
 		contentPane.add(lblDim);
 		
@@ -171,7 +181,7 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		txtDim.setBounds(270, 210, 100, 20);
 		contentPane.add(txtDim);
 		
-		JLabel lblNQts = new JLabel("Nº de Quartos:");
+		JLabel lblNQts = new JLabel("Nº de Quartos");
 		lblNQts.setBounds(380, 212, 90, 14);
 		contentPane.add(lblNQts);
 		
@@ -180,42 +190,42 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		txtNQts.setBounds(465,210,40,20);
 		contentPane.add(txtNQts);
 		
-		JLabel lblDesc = new JLabel("Descrição:");
-		lblDesc.setBounds(30, 242, 90, 14);
-		contentPane.add(lblDesc);
-		
-		txtDesc = new JTextField();
-		txtDesc.setBounds(100,241,410,20);
-		contentPane.add(txtDesc);
-		
-		JLabel lblFin = new JLabel("Finalidade:");
-		lblFin.setBounds(30, 270, 90, 14);
+		JLabel lblFin = new JLabel("Finalidade");
+		lblFin.setBounds(30, 242, 90, 14);
 		contentPane.add(lblFin);
 		
 		rbAluguel = new JRadioButton("Aluguel", true);
-		rbAluguel.setBounds(100,270, 70, 20);
+		rbAluguel.setBounds(100,240, 70, 20);
 		contentPane.add(rbAluguel);
 		
 		rbVenda = new JRadioButton("Venda", false);
-		rbVenda.setBounds(170,270, 65, 20);
+		rbVenda.setBounds(170,240, 65, 20);
 		contentPane.add(rbVenda);
 		
 		bgFinalidade = new ButtonGroup();
 		bgFinalidade.add(rbAluguel);
 		bgFinalidade.add(rbVenda);
 		
-		JLabel lblTipo = new JLabel("Tipo:");
-		lblTipo.setBounds(240, 272, 90, 14);
+		JLabel lblTipo = new JLabel("Tipo");
+		lblTipo.setBounds(240, 243, 90, 14);
 		contentPane.add(lblTipo);
-		
-		String[] listaTipos = {"Apartamento Padrão","Box/Garagem","Casa Comercial","Casa De Condomínio","Casa De Vlia",
-								"Casa Padrão","Chácara","Conjunto Comercial","Fazenda","Flat","Galpão/Depósito","Indústria",
-								"Kitchenette","Loft","Loja/Salão","Loteamento","Prédio Inteiro","Sítio","Studio","Terreno Padrão"};
-		
+				
 		cmbTipos = new JComboBox<String>(listaTipos);
-		cmbTipos.setBounds(272,270,237,20);
+		cmbTipos.setBounds(272,241,233,20);
 		contentPane.add(cmbTipos);
 		
+		JLabel lblDesc = new JLabel("Descrição");
+		lblDesc.setBounds(30, 270, 90, 14);
+		contentPane.add(lblDesc);
+		
+		txtDesc = new JTextArea();
+		txtDesc.setLineWrap(true);
+		txtDesc.setWrapStyleWord(true);
+		Box boxDesc = Box.createVerticalBox();
+		boxDesc.setBounds(100,270,405,85);
+		JScrollPane pane = new JScrollPane(txtDesc);
+		boxDesc.add(pane);
+		contentPane.add(boxDesc);
 		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
@@ -223,7 +233,7 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 				executarSalvar();
 			}
 		});
-		btnSalvar.setBounds(90, 310, 143, 23);
+		btnSalvar.setBounds(100, 370, 143, 23);
 		contentPane.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -232,7 +242,7 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 				executarCancelar();
 			}
 		});
-		btnCancelar.setBounds(275, 310, 154, 23);
+		btnCancelar.setBounds(299, 370, 154, 23);
 		contentPane.add(btnCancelar);
 		
 		this.setVisible(true);
@@ -248,7 +258,7 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		String logradouro			= txtLog.getText();
 		int numero 					= Integer.parseInt(txtNum.getText());
 		String complemento 			= txtComp.getText();
-		float valorBase				= Float.parseFloat(txtVB.getText());
+		float valorBase				= Float.parseFloat(txtVB.getText().replace(".", "").replace(",", "."));
 		String dimensoes 			= txtDim.getText();
 		int qtdQuartos				= (int) txtNQts.getValue();
 		String descricao			= txtDesc.getText();
@@ -297,7 +307,7 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		this.txtLog.setText(logradouro);
 		this.txtNum.setText(Integer.toString(numero));
 		this.txtComp.setText(complemento);
-		this.txtVB.setText(Float.toString(valorBase));
+		this.txtVB.setText(format.format(valorBase));
 		this.txtNQts.setValue(qtdQuartos);
 		this.txtDesc.setText(descricao);
 		this.txtDim.setText(dimensoes);

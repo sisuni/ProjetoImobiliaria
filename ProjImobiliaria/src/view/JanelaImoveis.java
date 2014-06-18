@@ -88,18 +88,16 @@ public class JanelaImoveis extends JFrame implements IViewer{
 			new Object[][] {
 			},
 			new String[] {
-				"Endereço", "Valor Base", "Dimensão", "Nº Quartos", "Descrição", "Finalidade", "Status", "Tipo", "Proprietário"
+				"Endereço", "Valor Base", "Dimensão", "Nº Quartos", "Finalidade", "Tipo", "Proprietário"
 			}
 		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(150);
-		table.getColumnModel().getColumn(1).setPreferredWidth(60);
-		table.getColumnModel().getColumn(2).setPreferredWidth(60);
-		table.getColumnModel().getColumn(3).setPreferredWidth(60);
-		table.getColumnModel().getColumn(4).setPreferredWidth(85);
-		table.getColumnModel().getColumn(5).setPreferredWidth(60);
-		table.getColumnModel().getColumn(6).setPreferredWidth(60);
-		table.getColumnModel().getColumn(7).setPreferredWidth(60);
-		table.getColumnModel().getColumn(8).setPreferredWidth(120);
+		table.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(2).setPreferredWidth(70);
+		table.getColumnModel().getColumn(3).setPreferredWidth(70);
+		table.getColumnModel().getColumn(4).setPreferredWidth(80);
+		table.getColumnModel().getColumn(5).setPreferredWidth(125);
+		table.getColumnModel().getColumn(6).setPreferredWidth(180);
 		
 		
 		// monitorando o evento através de TableModelListener
