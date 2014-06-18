@@ -2,6 +2,8 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.text.DecimalFormat;
 import java.util.Set;
 
@@ -50,7 +52,7 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 	private JRadioButton rbVenda;
 	private ButtonGroup bgFinalidade;
 	private JComboBox<String> cmbTipos;
-	DecimalFormat format = new DecimalFormat("0,00");
+	DecimalFormat format = new DecimalFormat("#,###.00");
 	
 	
 	public JanelaSalvaImovel(ICtrlManterImoveis si, Set<Proprietario> Proprietarios){
@@ -146,8 +148,19 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		contentPane.add(lblVB);
 		
 		txtVB = new JTextField();
-		txtVB.setText(format.format(0));
 		txtVB.setBounds(100, 210, 100, 20);
+		txtVB.addFocusListener(
+				new FocusListener(){
+					public void focusGained(FocusEvent e){};
+					
+					public void focusLost(FocusEvent e){
+						if (!e.isTemporary() && isEnabled() ) {
+							Float valor  = Float.parseFloat(txtVB.getText());
+							txtVB.setText(format.format(valor));
+						}
+					}
+				});
+		
 		contentPane.add(txtVB);
 		
 		JLabel lblDim = new JLabel("Dimensão:");
@@ -284,7 +297,10 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		this.txtLog.setText(logradouro);
 		this.txtNum.setText(Integer.toString(numero));
 		this.txtComp.setText(complemento);
-		this.txtVB.setText(format.format(Float.toString(valorBase)));
+		this.txtVB.setText(Float.toString(valorBase));
+		this.txtNQts.setValue(qtdQuartos);
+		this.txtDesc.setText(descricao);
+		this.txtDim.setText(dimensoes);
 		if(finalidade.equals("Aluguel"))
 			rbAluguel.setSelected(true);
 		else
