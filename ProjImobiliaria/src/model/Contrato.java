@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
@@ -15,14 +17,16 @@ public class Contrato implements Serializable, ITabelavel, Comparable<Contrato> 
 	private Inquilino inquilino;
 	private Imovel imovel;
 	private Set<Boleto> listaBoletos;
+	private SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+	private DecimalFormat formatar_valor = new DecimalFormat("#,###.00"); 
 
-	public Contrato(int duracao, Date dataInicio, int percentProprietario, float valorAluguel) {
+	public Contrato(int duracao, Date dataInicio, int percentProprietario, float valorAluguel, Imovel imo,  Inquilino inqui) {
 		this.setDuracao(duracao);
 		this.setDataInicio(dataInicio);
 		this.setPercentProprietario(percentProprietario);
 		this.setValorAluguel(valorAluguel);
-		this.setInquilino(inquilino);
-		this.setImovel(imovel);
+		this.setInquilino(inqui);
+		this.setImovel(imo);
 		this.listaBoletos = new TreeSet<Boleto>();
 	}
 
@@ -114,6 +118,10 @@ public class Contrato implements Serializable, ITabelavel, Comparable<Contrato> 
 		this.listaBoletos.remove(exBoleto);
 		exBoleto.setContrato(null);
 	}
+	
+	public void disponivel(boolean status){
+		this.imovel.setStatus(status);
+	}
 
 	@Override
 	public int compareTo(Contrato c) {
@@ -122,7 +130,13 @@ public class Contrato implements Serializable, ITabelavel, Comparable<Contrato> 
 
 	@Override
 	public Object[] getData() {
-		return new Object[]{this.duracao, this.dataInicio, this.percentImobiliaria, this.valorAluguel, this.listaBoletos.size()};
+		return new Object[]{
+				this.getImovel(),
+				this.getInquilino(),
+				this.duracao, 
+				formatar.format(this.dataInicio), 
+				"R$ " + formatar_valor.format(this.valorAluguel),
+				this.listaBoletos.size()};
 	}
 
 }

@@ -47,6 +47,15 @@ public class JanelaFuncionario extends JFrame implements IViewer{
 		});
 		btnIncluir.setBounds(10, 232, 89, 23);
 		contentPane.add(btnIncluir);
+			
+		JButton btnAlterar = new JButton("Alterar");
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				executarAlterar();
+			}
+		});
+		btnAlterar.setBounds(109, 232, 89, 23);
+		contentPane.add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
@@ -54,17 +63,9 @@ public class JanelaFuncionario extends JFrame implements IViewer{
 				executarExcluir();
 			}
 		});
-		btnExcluir.setBounds(109, 232, 89, 23);
+		btnExcluir.setBounds(208, 232, 89, 23);
 		contentPane.add(btnExcluir);
 		
-		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				executarAlterar();
-			}
-		});
-		btnAlterar.setBounds(208, 232, 89, 23);
-		contentPane.add(btnAlterar);
 		
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
@@ -88,7 +89,7 @@ public class JanelaFuncionario extends JFrame implements IViewer{
 			new Object[][] {
 			},
 			new String[] {
-				"Nome", "Login", "#Cargo"
+				"Nome", "Login", "Cargo"
 			}
 		));
 		table.getColumnModel().getColumn(0).setPreferredWidth(200);

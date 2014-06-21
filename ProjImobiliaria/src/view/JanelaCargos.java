@@ -47,23 +47,23 @@ public class JanelaCargos extends JFrame implements IViewer{
 		btnIncluir.setBounds(10, 232, 89, 23);
 		contentPane.add(btnIncluir);
 		
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				executarExcluir();
-			}
-		});
-		btnExcluir.setBounds(109, 232, 89, 23);
-		contentPane.add(btnExcluir);
-		
 		JButton btnAlterar = new JButton("Alterar");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				executarAlterar();
 			}
 		});
-		btnAlterar.setBounds(208, 232, 89, 23);
+		btnAlterar.setBounds(109, 232, 89, 23);
 		contentPane.add(btnAlterar);
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				executarExcluir();
+			}
+		});
+		btnExcluir.setBounds(208, 232, 89, 23);
+		contentPane.add(btnExcluir);
 		
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {

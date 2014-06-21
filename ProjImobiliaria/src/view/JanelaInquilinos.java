@@ -48,23 +48,23 @@ public class JanelaInquilinos extends JFrame implements IViewer{
 		btnIncluir.setBounds(180, 232, 89, 23);
 		contentPane.add(btnIncluir);
 		
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				executarExcluir();
-			}
-		});
-		btnExcluir.setBounds(288, 232, 89, 23);
-		contentPane.add(btnExcluir);
-		
 		JButton btnAlterar = new JButton("Alterar");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				executarAlterar();
 			}
 		});
-		btnAlterar.setBounds(399, 232, 89, 23);
+		btnAlterar.setBounds(288, 232, 89, 23);
 		contentPane.add(btnAlterar);
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				executarExcluir();
+			}
+		});
+		btnExcluir.setBounds(399, 232, 89, 23);
+		contentPane.add(btnExcluir);
 		
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
@@ -88,7 +88,7 @@ public class JanelaInquilinos extends JFrame implements IViewer{
 			new Object[][] {
 			},
 			new String[] {
-					"Nome", "CPF", "Email", "Endereço Atual", "Endereço Anterior", "#Telefones"
+					"Nome", "CPF", "Email", "Endereço Atual", "Endereço Anterior", "Telefones"
 			}
 		));
 		table.getColumnModel().getColumn(0).setPreferredWidth(250);

@@ -276,11 +276,11 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 			if(!ehAlteracao)
 				ctrl.incluir(uf, cidade, bairro, logradouro, numero, 
 							complemento, valorBase, dimensoes, qtdQuartos,
-							descricao, finalidade, tipo, false, proprietario);
+							descricao, finalidade, tipo, true, proprietario);
 			else
 				ctrl.alterar(uf, cidade, bairro, logradouro, numero, 
 							complemento, valorBase, dimensoes, qtdQuartos, 
-							descricao, finalidade, tipo, false, proprietario);
+							descricao, finalidade, tipo, true, proprietario);
 		} catch(ModelException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			e.printStackTrace();

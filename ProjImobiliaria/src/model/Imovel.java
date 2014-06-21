@@ -191,7 +191,7 @@ public class Imovel implements Serializable, ITabelavel, Comparable<Imovel> {
 	public Set<Contrato> getContratos(){
 		return this.listaContratos;
 	}
-
+	
 	@Override
 	public int compareTo(Imovel i) {
 		return this.descricao.compareTo(i.descricao);
@@ -199,14 +199,26 @@ public class Imovel implements Serializable, ITabelavel, Comparable<Imovel> {
 
 	@Override
 	public Object[] getData() {
+		String status;
+		if(this.status) 
+			status="Disponível";
+		else
+			status="Indisponível";
+		
 		return new Object[]{
 				this.uf +", "+ this.cidade +", "+ this.bairro +", "+ this.logradouro,
 				"R$ " + format.format(this.valorBase),
 				this.dimensoes,
 				this.qtdQuartos,
 				this.finalidade,
+				status,
 				this.tipo,
 				this.proprietario
 		};
+	}
+	
+	public String toString() {
+		String retorno = this.uf+", "+this.cidade+", "+this.bairro+", "+this.logradouro+", "+this.numero;
+		return retorno;
 	}
 }

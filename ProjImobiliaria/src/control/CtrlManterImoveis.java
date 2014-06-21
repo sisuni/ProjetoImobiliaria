@@ -204,6 +204,7 @@ public class CtrlManterImoveis implements ICtrlManterImoveis {
 			return false;
 
 		dao.remover(this.imovelAtual);
+		this.imovelAtual.setProprietario(null);
 
 		this.atualizarInterface();
 		this.imovelAtual = null;

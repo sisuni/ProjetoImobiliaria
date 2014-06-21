@@ -30,7 +30,7 @@ public class JanelaContratos extends JFrame implements IViewer{
 		this.ctrl = c;
 		setTitle("Contratos - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 419, 300);
+		setBounds(100, 100, 575, 300);
 		contentPane = new JPanel();
 		setLocationRelativeTo(null);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -44,18 +44,9 @@ public class JanelaContratos extends JFrame implements IViewer{
 				executarIncluir();
 			}
 		});
-		btnIncluir.setBounds(10, 232, 89, 23);
+		btnIncluir.setBounds(109, 232, 89, 23);
 		contentPane.add(btnIncluir);
-		
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				executarExcluir();
-			}
-		});
-		btnExcluir.setBounds(109, 232, 89, 23);
-		contentPane.add(btnExcluir);
-		
+			
 		JButton btnAlterar = new JButton("Alterar");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -65,19 +56,29 @@ public class JanelaContratos extends JFrame implements IViewer{
 		btnAlterar.setBounds(208, 232, 89, 23);
 		contentPane.add(btnAlterar);
 		
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				executarExcluir();
+			}
+		});
+		btnExcluir.setBounds(307, 232, 89, 23);
+		contentPane.add(btnExcluir);
+		
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				executarTerminar();
 			}
 		});
-		btnSair.setBounds(307, 232, 89, 23);
+		btnSair.setBounds(406, 232, 89, 23);
 		contentPane.add(btnSair);
 		/*Fim dos Botões*/
 		
 		/*Inicio da Table*/
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 386, 212);
+		scrollPane.setBounds(10, 11, 550, 212);
 		contentPane.add(scrollPane);
 		
 		
@@ -88,12 +89,15 @@ public class JanelaContratos extends JFrame implements IViewer{
 			new Object[][] {
 			},
 			new String[] {
-				"Nome", "Nível", "NºFunc"
+				"Imovel", "Inquilino", "Duração", "Data Inicial", "Valor Aluguel", "Boletos"
 			}
 		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(300);
-		table.getColumnModel().getColumn(1).setPreferredWidth(60);
-		table.getColumnModel().getColumn(2).setPreferredWidth(60);
+		table.getColumnModel().getColumn(0).setPreferredWidth(150);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(2).setPreferredWidth(50);
+		table.getColumnModel().getColumn(3).setPreferredWidth(70);
+		table.getColumnModel().getColumn(4).setPreferredWidth(80);
+		table.getColumnModel().getColumn(5).setPreferredWidth(60);
 		
 		// monitorando o evento através de TableModelListener
 				table.getModel().addTableModelListener(new TableModelListener() {

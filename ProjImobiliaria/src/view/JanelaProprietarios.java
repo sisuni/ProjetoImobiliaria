@@ -49,6 +49,15 @@ public class JanelaProprietarios extends JFrame implements IViewer{
 		});
 		btnIncluir.setBounds(240, 232, 89, 23);
 		contentPane.add(btnIncluir);
+				
+		JButton btnAlterar = new JButton("Alterar");
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				executarAlterar();
+			}
+		});
+		btnAlterar.setBounds(350, 232, 89, 23);
+		contentPane.add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
@@ -56,17 +65,9 @@ public class JanelaProprietarios extends JFrame implements IViewer{
 				executarExcluir();
 			}
 		});
-		btnExcluir.setBounds(350, 232, 89, 23);
+		btnExcluir.setBounds(460, 232, 89, 23);
 		contentPane.add(btnExcluir);
 		
-		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				executarAlterar();
-			}
-		});
-		btnAlterar.setBounds(460, 232, 89, 23);
-		contentPane.add(btnAlterar);
 		
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {

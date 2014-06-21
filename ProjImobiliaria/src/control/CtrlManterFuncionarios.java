@@ -180,6 +180,7 @@ public class CtrlManterFuncionarios implements ICtrlManterFuncionarios{
 			return false;
 
 		dao.remover(this.funcionarioAtual);
+		this.funcionarioAtual.setCargo(null);
 
 		this.atualizarInterface();
 		this.funcionarioAtual = null;

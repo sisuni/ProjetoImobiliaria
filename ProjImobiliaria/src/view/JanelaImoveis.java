@@ -30,7 +30,7 @@ public class JanelaImoveis extends JFrame implements IViewer{
 		this.ctrl = c;
 		setTitle("Imoveis - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 800, 300);
+		setBounds(100, 100, 865, 300);
 		contentPane = new JPanel();
 		setLocationRelativeTo(null);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -44,8 +44,17 @@ public class JanelaImoveis extends JFrame implements IViewer{
 				executarIncluir();
 			}
 		});
-		btnIncluir.setBounds(190, 232, 89, 23);
+		btnIncluir.setBounds(210, 232, 89, 23);
 		contentPane.add(btnIncluir);
+				
+		JButton btnAlterar = new JButton("Alterar");
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				executarAlterar();
+			}
+		});
+		btnAlterar.setBounds(310, 232, 89, 23);
+		contentPane.add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
@@ -53,17 +62,8 @@ public class JanelaImoveis extends JFrame implements IViewer{
 				executarExcluir();
 			}
 		});
-		btnExcluir.setBounds(290, 232, 89, 23);
+		btnExcluir.setBounds(410, 232, 89, 23);
 		contentPane.add(btnExcluir);
-		
-		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				executarAlterar();
-			}
-		});
-		btnAlterar.setBounds(390, 232, 89, 23);
-		contentPane.add(btnAlterar);
 		
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
@@ -71,13 +71,13 @@ public class JanelaImoveis extends JFrame implements IViewer{
 				executarTerminar();
 			}
 		});
-		btnSair.setBounds(490, 232, 89, 23);
+		btnSair.setBounds(510, 232, 89, 23);
 		contentPane.add(btnSair);
 		/*Fim dos Botões*/
 		
 		/*Inicio da Table*/
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 775, 212);
+		scrollPane.setBounds(10, 11, 840, 212);
 		contentPane.add(scrollPane);
 		
 		
@@ -88,16 +88,17 @@ public class JanelaImoveis extends JFrame implements IViewer{
 			new Object[][] {
 			},
 			new String[] {
-				"Endereço", "Valor Base", "Dimensão", "Nº Quartos", "Finalidade", "Tipo", "Proprietário"
+				"Endereço", "Valor Base", "Dimensão", "Nº Quartos", "Finalidade", "Status", "Tipo", "Proprietário"
 			}
 		));
 		table.getColumnModel().getColumn(0).setPreferredWidth(200);
-		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setPreferredWidth(80);
 		table.getColumnModel().getColumn(2).setPreferredWidth(70);
-		table.getColumnModel().getColumn(3).setPreferredWidth(70);
-		table.getColumnModel().getColumn(4).setPreferredWidth(80);
-		table.getColumnModel().getColumn(5).setPreferredWidth(125);
-		table.getColumnModel().getColumn(6).setPreferredWidth(180);
+		table.getColumnModel().getColumn(3).setPreferredWidth(65);
+		table.getColumnModel().getColumn(4).setPreferredWidth(65);
+		table.getColumnModel().getColumn(5).setPreferredWidth(70);
+		table.getColumnModel().getColumn(6).setPreferredWidth(120);
+		table.getColumnModel().getColumn(7).setPreferredWidth(180);
 		
 		
 		// monitorando o evento através de TableModelListener

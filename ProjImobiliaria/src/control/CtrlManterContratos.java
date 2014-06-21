@@ -1,10 +1,16 @@
 package control;
 
+import java.text.ParseException;
 import java.util.Date;
+import java.util.Set;
 
 import model.Contrato;
 import model.DAOContrato;
+import model.DAOImovel;
+import model.DAOInquilino;
 import model.IDAO;
+import model.Imovel;
+import model.Inquilino;
 import model.ModelException;
 import view.IViewer;
 import view.IViewerSalvaContrato;
@@ -74,17 +80,30 @@ public class CtrlManterContratos implements ICtrlManterContratos {
 			return false;
 
 		this.operacao = Operacao.INCLUSAO;
-		this.jContrato = new JanelaSalvaContrato(this);
+		
+		IDAO<Imovel> daoImovel = DAOImovel.getSingleton();
+		Set<Imovel> imoveis = daoImovel.getListaObjs();
+		
+		IDAO<Inquilino> daoInquilino = DAOInquilino.getSingleton();
+		Set<Inquilino> inquilinos = daoInquilino.getListaObjs();
+		
+		try {
+			this.jContrato = new JanelaSalvaContrato(this,imoveis,inquilinos);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 	
 	@Override
-	public boolean incluir(int duracao, Date dataInicio, int percentProprietario, float valorAluguel) throws ModelException {
+	public boolean incluir(int duracao, Date dataInicio, int percentProprietario, float valorAluguel, Imovel imo, Inquilino inqui) throws ModelException {
 		if(this.operacao != Operacao.INCLUSAO)
 			return false;
 
-		Contrato novo = new Contrato(duracao, dataInicio, percentProprietario, valorAluguel);
-
+		Contrato novo = new Contrato(duracao, dataInicio, percentProprietario, valorAluguel,imo,inqui);
+		novo.disponivel(false);
+		
 		dao.salvar(novo);
 
 		this.jContrato.setVisible(false);
@@ -108,8 +127,20 @@ public class CtrlManterContratos implements ICtrlManterContratos {
 
 		this.operacao = Operacao.ALTERACAO;
 		this.contratoAtual = dao.recuperar(pos);
-		this.jContrato = new JanelaSalvaContrato(this);
-		this.jContrato.atualizarCampos(this.contratoAtual.getDuracao(), this.contratoAtual.getDataInicio(), this.contratoAtual.getPercentProprietario(), this.contratoAtual.getValorAluguel());
+		
+
+		IDAO<Imovel> daoImovel = DAOImovel.getSingleton();
+		Set<Imovel> imoveis = daoImovel.getListaObjs();
+		
+		IDAO<Inquilino> daoInquilino = DAOInquilino.getSingleton();
+		Set<Inquilino> inquilinos = daoInquilino.getListaObjs();
+		try {
+			this.jContrato = new JanelaSalvaContrato(this,imoveis,inquilinos);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.jContrato.atualizarCampos(this.contratoAtual.getDuracao(), this.contratoAtual.getDataInicio(), this.contratoAtual.getPercentProprietario(), this.contratoAtual.getValorAluguel(), this.contratoAtual.getImovel(), this.contratoAtual.getInquilino());
 		return true;
 	}
 
@@ -122,7 +153,7 @@ public class CtrlManterContratos implements ICtrlManterContratos {
 		}
 	}
 
-	public boolean alterar(int duracao, Date dataInicio, int percentProprietario, float valorAluguel) throws ModelException {
+	public boolean alterar(int duracao, Date dataInicio, int percentProprietario, float valorAluguel, Imovel imo, Inquilino inqui) throws ModelException {
 		if(this.operacao != Operacao.ALTERACAO)
 			return false;
 
@@ -130,6 +161,8 @@ public class CtrlManterContratos implements ICtrlManterContratos {
 		this.contratoAtual.setDataInicio(dataInicio);
 		this.contratoAtual.setPercentProprietario(percentProprietario);
 		this.contratoAtual.setValorAluguel(valorAluguel);
+		this.contratoAtual.setImovel(imo);
+		this.contratoAtual.setInquilino(inqui);
 
 		dao.atualizar(this.contratoAtual);
 
@@ -165,6 +198,9 @@ public class CtrlManterContratos implements ICtrlManterContratos {
 			return false;
 
 		dao.remover(this.contratoAtual);
+		this.contratoAtual.setImovel(null);
+		this.contratoAtual.setInquilino(null);
+		this.contratoAtual.disponivel(true);
 
 		this.atualizarInterface();
 		this.contratoAtual = null;

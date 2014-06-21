@@ -1,5 +1,9 @@
 package control;
 
+import java.util.Date;
+
+import model.Imovel;
+import model.Inquilino;
 import model.ModelException;
 
 public interface ICtrlManter {
@@ -36,6 +40,5 @@ public interface ICtrlManter {
 	public abstract boolean excluir() throws ModelException;
 
 	public abstract void atualizarInterface();
-
 
 }
