@@ -1,10 +1,18 @@
 package control;
 
+import java.text.ParseException;
+import java.util.Date;
+import java.util.Set;
+
 import model.Boleto;
+import model.Cliente;
+import model.Cobra;
 import model.Contrato;
 import model.DAOBoleto;
+import model.DAOContrato;
 import model.IDAO;
 import model.ModelException;
+import model.Taxa;
 import view.IViewer;
 import view.IViewerSalvaBoleto;
 import view.JanelaBoletos;
@@ -20,6 +28,8 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 	}
 	
 	private ICtrlPrograma ctrlPrg;
+	
+	private ICtrlManterTaxas ctrlTax;
 	
 	private IViewer jCadastro;
 	
@@ -73,22 +83,39 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 			return false;
 
 		this.operacao = Operacao.INCLUSAO;
-		this.jBoleto = new JanelaSalvaBoleto(this);
+		IDAO<Contrato> daoContrato = DAOContrato.getSingleton();
+		Set<Contrato> contratos = daoContrato.getListaObjs();
+		
+		try {
+			this.jBoleto = new JanelaSalvaBoleto(this, contratos);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.iniciarCasoDeUsoManterTaxas();
+		this.jBoleto.selecionaContrato();
 		return true;
 	}
 	
 	@Override
-	public boolean incluir(int dataVencimento, Contrato contrato) throws ModelException {
+	public boolean incluir(Date dataVencimento, Contrato contrato) throws ModelException {
 		if(this.operacao != Operacao.INCLUSAO)
 			return false;
 
 		Boleto novo = new Boleto(dataVencimento, contrato);
 
+		for (Taxa t : this.ctrlTax.getTaxas()){
+			for(Cobra c : t.getCobrancas()){
+				if(c.getBoleto() == null);
+				novo.addCobranca(c);
+			}
+		}
+		
 		dao.salvar(novo);
-
 		this.jBoleto.setVisible(false);
 		this.atualizarInterface();
 		this.operacao = Operacao.DISPONIVEL;
+		this.terminarCasoDeUsoManterTaxas();
 		return true;
 	}
 
@@ -107,8 +134,18 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 
 		this.operacao = Operacao.ALTERACAO;
 		this.boletoAtual = dao.recuperar(pos);
-		this.jBoleto = new JanelaSalvaBoleto(this);
-		this.jBoleto.atualizarCampos(this.boletoAtual.getDataVencimento(), this.boletoAtual.getContrato());
+		IDAO<Contrato> daoContrato = DAOContrato.getSingleton();
+		Set<Contrato> contratos = daoContrato.getListaObjs();
+		try {
+			this.jBoleto = new JanelaSalvaBoleto(this,contratos);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.iniciarCasoDeUsoManterTaxas();
+		this.jBoleto.atualizarCampos(
+				this.boletoAtual.getDataVencimento(),
+				this.boletoAtual.getContrato());
 		return true;
 	}
 
@@ -122,7 +159,7 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 	}
 
 	@Override
-	public boolean alterar(int dataVencimento, Contrato contrato) throws ModelException {
+	public boolean alterar(Date dataVencimento, Contrato contrato) throws ModelException {
 		if(this.operacao != Operacao.ALTERACAO)
 			return false;
 
@@ -134,6 +171,8 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 		this.jBoleto.setVisible(false);
 		this.atualizarInterface();
 		this.boletoAtual = null;
+		
+		this.terminarCasoDeUsoManterTaxas();
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
@@ -162,8 +201,16 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 		if(this.operacao != Operacao.EXCLUSAO)
 			return false;
 
+		if(!(this.ctrlTax.getTaxas().isEmpty())){
+			for(Taxa t : this.ctrlTax.getTaxas()){
+				for(Cobra c : t.getCobrancas()){
+					if(c.getBoleto() == this.boletoAtual)
+						this.boletoAtual.removeCobranca(c);
+				}
+			}
+		}
+		
 		dao.remover(this.boletoAtual);
-
 		this.atualizarInterface();
 		this.boletoAtual = null;
 		this.operacao = Operacao.DISPONIVEL;
@@ -180,4 +227,51 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 		}
 	}	
 
+	/********** Métodos para Controlar Taxas *********/
+	@Override
+	public boolean iniciarCasoDeUsoManterTaxas(){
+		this.ctrlTax = new CtrlManterTaxas(this);
+		return this.ctrlTax.iniciar();
+	}
+	@Override
+	public boolean iniciarIncluirTaxa(){
+		return this.ctrlTax.iniciarIncluir();
+	}
+	@Override
+	public void cancelarIncluirTaxa(){
+		this.ctrlTax.cancelarIncluir();
+	}
+	@Override
+	public boolean iniciarAlterarTaxa(int pos){
+		return this.ctrlTax.iniciarAlterar(pos);
+	}
+	@Override
+	public void cancelarAlterarTaxa(){
+		this.ctrlTax.cancelarAlterar();
+	}
+	@Override
+	public boolean iniciarExcluirTaxa(int pos){
+		return this.ctrlTax.iniciarExcluir(pos);
+	}
+	@Override
+	public void cancelarExcluirTaxa(){
+		this.ctrlTax.cancelarExcluir();
+	}
+	@Override
+	public IViewerSalvaBoleto getJanela(){
+		return this.jBoleto;
+	}
+	@Override
+	public Boleto getBoleto(){
+		return this.boletoAtual;
+	}
+	@Override
+	public boolean terminarCasoDeUsoManterTaxas(){
+		return this.ctrlTax.terminar();
+	}
+
+	@Override
+	public void selecionarContrato(Contrato contrato) {
+		this.ctrlTax.selecionarContrato(contrato);
+	}
 }

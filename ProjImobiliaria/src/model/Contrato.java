@@ -138,5 +138,9 @@ public class Contrato implements Serializable, ITabelavel, Comparable<Contrato> 
 				"R$ " + formatar_valor.format(this.valorAluguel),
 				this.listaBoletos.size()};
 	}
+	
+	public String toString() {
+		return "Imóvel: " + this.imovel.toString() + " -- " + "Inquilino: " + this.inquilino.toString();
+	}
 
 }

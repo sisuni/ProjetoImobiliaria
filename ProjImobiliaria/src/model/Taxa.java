@@ -1,9 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Taxa {
+import control.ITabelavel;
+
+public class Taxa implements Serializable, ITabelavel, Comparable<Taxa>{
 	private String nome;
 	private String descricao;
 	private Set<Cobra> listaCobrancas;
@@ -46,6 +49,23 @@ public class Taxa {
 			return;
 		this.listaCobrancas.remove(exCobranca);
 		exCobranca.setTaxa(null);
+	}
+
+	@Override
+	public int compareTo(Taxa t) {
+		return this.getNome().compareTo(t.getNome());
+	}
+
+	@Override
+	public Object[] getData() {
+		float valor = 0;
+		for(Cobra c : this.listaCobrancas){
+			if(c.getTaxa() == this){
+				valor = c.getValor();
+			}
+		}
+		
+		return new Object[]{this.nome,this.descricao,valor};
 	}
 
 }

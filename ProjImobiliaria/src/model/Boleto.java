@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -8,21 +10,22 @@ import control.ITabelavel;
 
 public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 	
-	private int dataVencimento;
+	private Date dataVencimento;
+	private SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
 	private Contrato contrato;
 	private Set<Cobra> listaCobrancas;
 	
-	public Boleto(int dataVencimento, Contrato contrato){
+	public Boleto(Date dataVencimento, Contrato contrato){
 		this.setDataVencimento(dataVencimento);
 		this.setContrato(contrato);
 		this.listaCobrancas = new TreeSet<Cobra>();
 	}
 
-	public int getDataVencimento() {
+	public Date getDataVencimento() {
 		return this.dataVencimento;
 	}
 
-	public void setDataVencimento(int dataVencimento) {
+	public void setDataVencimento(Date dataVencimento) {
 		this.dataVencimento = dataVencimento;
 	}
 	
@@ -84,7 +87,7 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 	}
 	
 	public String toString() {
-		return "Vencimento: " + this.dataVencimento + " - " + 
+		return "Vencimento: " + formatar.format(this.dataVencimento)  + " - " + 
 				"Inquilino: " + this.contrato.getInquilino().getNome() + " - " + 
 				"Imóvel: " + this.contrato.getImovel().toString();
 	}

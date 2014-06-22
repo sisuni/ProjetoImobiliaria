@@ -177,7 +177,7 @@ public class JanelaSalvaContrato extends JFrame implements IViewerSalvaContrato{
 		try {
 			 dataI = formatar.parse(txtDataInicial.getText());
 		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null, "Deu ruim nessa data ai");
+			JOptionPane.showMessageDialog(null, "Data Inválida!");
 			e.printStackTrace();
 		}
 		int percent = (int) txtPerc.getValue();
@@ -205,8 +205,8 @@ public class JanelaSalvaContrato extends JFrame implements IViewerSalvaContrato{
 	public void atualizarCampos(int duracao, Date dataInicio, int percentProprietario, float valorAluguel, Imovel imo, Inquilino inq) {
 		this.txtDuracao.setValue(duracao);
 		this.txtDataInicial.setText(formatar.format(dataInicio));
-		this.txtPerc.setValue(Integer.toString(percentProprietario));
-		this.txtValAluguel.setText(Float.toString(valorAluguel));
+		this.txtPerc.setValue(percentProprietario);
+		this.txtValAluguel.setText(format.format(valorAluguel));
 		this.cmbImoveis.setSelectedItem(imo);
 		this.cmbInquilinos.setSelectedItem(inq);
 		this.ehAlteracao=true;

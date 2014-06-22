@@ -140,7 +140,13 @@ public class CtrlManterContratos implements ICtrlManterContratos {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.jContrato.atualizarCampos(this.contratoAtual.getDuracao(), this.contratoAtual.getDataInicio(), this.contratoAtual.getPercentProprietario(), this.contratoAtual.getValorAluguel(), this.contratoAtual.getImovel(), this.contratoAtual.getInquilino());
+		this.jContrato.atualizarCampos(
+				this.contratoAtual.getDuracao(), 
+				this.contratoAtual.getDataInicio(), 
+				this.contratoAtual.getPercentProprietario(), 
+				this.contratoAtual.getValorAluguel(), 
+				this.contratoAtual.getImovel(), 
+				this.contratoAtual.getInquilino());
 		return true;
 	}
 

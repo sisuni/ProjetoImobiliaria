@@ -46,12 +46,13 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 		JMenu cliente = new JMenu("Cliente");
 		menuBar.add(menu);
 		
-		JMenuItem cargo = new JMenuItem("Cargo");
-		JMenuItem func = new JMenuItem("Funcionário");
-		JMenuItem proprietario = new JMenuItem("Proprietário");
-		JMenuItem inquilino = new JMenuItem("Inquilino");
-		JMenuItem imovel = new JMenuItem("Imóvel");
+		JMenuItem cargo = new JMenuItem("Cargos");
+		JMenuItem func = new JMenuItem("Funcionários");
+		JMenuItem proprietario = new JMenuItem("Proprietários");
+		JMenuItem inquilino = new JMenuItem("Inquilinos");
+		JMenuItem imovel = new JMenuItem("Imóveis");
 		JMenuItem contra = new JMenuItem("Contratos");
+		JMenuItem boleto = new JMenuItem("Boletos");
 		JMenuItem sair = new JMenuItem("Sair");
 		ButtonGroup bg = new ButtonGroup();
 		
@@ -62,6 +63,7 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 		cliente.add(inquilino);
 		menu.add(imovel);
 		menu.add(contra);
+		menu.add(boleto);
 		menu.addSeparator();
 		menu.add(sair);
 				
@@ -107,6 +109,13 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal{
 			public void actionPerformed(ActionEvent arg0) {
 				// Método de Callback).
 				ctrlPrg.terminar();
+			}
+		});
+		
+		boleto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Método de Callback).
+				ctrlPrg.iniciarCasoDeUsoManterBoleto();
 			}
 		});
 		

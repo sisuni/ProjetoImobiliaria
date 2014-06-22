@@ -30,13 +30,15 @@ public class JanelaBoletos extends JFrame implements IViewer{
 		this.ctrl = c;
 		setTitle("Boletos - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 419, 300);
+		setBounds(100, 100, 525, 300);
 		contentPane = new JPanel();
 		setLocationRelativeTo(null);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null); //centralizar janela
 		setResizable(false); //não maximizar, aumentar		
+		
+		
 		/*Inicio dos Botões*/
 		JButton btnIncluir = new JButton("Incluir");
 		btnIncluir.addActionListener(new ActionListener() {
@@ -44,7 +46,7 @@ public class JanelaBoletos extends JFrame implements IViewer{
 				executarIncluir();
 			}
 		});
-		btnIncluir.setBounds(10, 232, 89, 23);
+		btnIncluir.setBounds(70, 232, 89, 23);
 		contentPane.add(btnIncluir);
 		
 		JButton btnExcluir = new JButton("Excluir");
@@ -53,7 +55,7 @@ public class JanelaBoletos extends JFrame implements IViewer{
 				executarExcluir();
 			}
 		});
-		btnExcluir.setBounds(109, 232, 89, 23);
+		btnExcluir.setBounds(170, 232, 89, 23);
 		contentPane.add(btnExcluir);
 		
 		JButton btnAlterar = new JButton("Alterar");
@@ -62,7 +64,7 @@ public class JanelaBoletos extends JFrame implements IViewer{
 				executarAlterar();
 			}
 		});
-		btnAlterar.setBounds(208, 232, 89, 23);
+		btnAlterar.setBounds(270, 232, 89, 23);
 		contentPane.add(btnAlterar);
 		
 		JButton btnSair = new JButton("Sair");
@@ -71,13 +73,13 @@ public class JanelaBoletos extends JFrame implements IViewer{
 				executarTerminar();
 			}
 		});
-		btnSair.setBounds(307, 232, 89, 23);
+		btnSair.setBounds(370, 232, 89, 23);
 		contentPane.add(btnSair);
 		/*Fim dos Botões*/
 		
 		/*Inicio da Table*/
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 386, 212);
+		scrollPane.setBounds(10, 11, 500, 212);
 		contentPane.add(scrollPane);
 		
 		
@@ -88,12 +90,13 @@ public class JanelaBoletos extends JFrame implements IViewer{
 			new Object[][] {
 			},
 			new String[] {
-				"Nome", "Nível", "NºFunc"
+				"Contrato", "Data Vencimento", "Taxas", "Valor Total"
 			}
 		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(300);
-		table.getColumnModel().getColumn(1).setPreferredWidth(60);
+		table.getColumnModel().getColumn(0).setPreferredWidth(250);
+		table.getColumnModel().getColumn(1).setPreferredWidth(120);
 		table.getColumnModel().getColumn(2).setPreferredWidth(60);
+		table.getColumnModel().getColumn(3).setPreferredWidth(120);
 		
 		// monitorando o evento através de TableModelListener
 				table.getModel().addTableModelListener(new TableModelListener() {

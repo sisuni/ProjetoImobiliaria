@@ -1,6 +1,10 @@
 package model;
 
-public class Cobra {
+import java.io.Serializable;
+
+import control.ITabelavel;
+
+public class Cobra implements Serializable, ITabelavel, Comparable<Cobra>{
 	private float valor;
 	private Taxa taxa;
 	private Boleto boleto;
@@ -57,5 +61,16 @@ public class Cobra {
 			this.boleto = boleto;
 			boleto.addCobranca(this);
 		}
+	}
+
+	@Override
+	public int compareTo(Cobra c) {
+		return this.getTaxa().compareTo(c.getTaxa());
+	}
+
+	@Override
+	public Object[] getData() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
