@@ -30,8 +30,7 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 	public boolean validarData(Date data) throws ModelException{
 		if(data == null)
 			throw new ModelException("Data de Vencimento está em branco!");
-		else
-			
+				
 		return true;
 	}
 	
@@ -44,7 +43,7 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 		return this.contrato;
 	}
 
-	public void setContrato(Contrato contrato) {
+	public void setContrato(Contrato contrato) throws ModelException {
 		if (this.contrato == contrato)
 			return;
 		if(contrato==null){
@@ -89,15 +88,7 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 
 	@Override
 	public int compareTo(Boleto b) {
-		if (this.contrato.compareTo(b.contrato) == 0) {
-			if (this.dataVencimento.equals(b.dataVencimento)) {
-				return 0;
-			} else {
-				return 1;
-			}
-		} else {
-			return 1;
-		}
+		return (this.dataVencimento.compareTo(b.dataVencimento));
 	}
 
 	@Override

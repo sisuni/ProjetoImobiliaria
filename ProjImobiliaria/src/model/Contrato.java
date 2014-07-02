@@ -105,7 +105,8 @@ public class Contrato implements Serializable, ITabelavel, Comparable<Contrato> 
 		return this.listaBoletos;
 	}
 	
-	public void addBoleto(Boleto novoBoleto){
+	public void addBoleto(Boleto novoBoleto) throws ModelException{
+		validarAddBoleto(novoBoleto);
 		if (this.listaBoletos.contains(novoBoleto))
 			return;
 		this.listaBoletos.add(novoBoleto);
@@ -116,7 +117,12 @@ public class Contrato implements Serializable, ITabelavel, Comparable<Contrato> 
 		if(! this.listaBoletos.contains(exBoleto))
 			return;
 		this.listaBoletos.remove(exBoleto);
-		exBoleto.setContrato(null);
+		try {
+			exBoleto.setContrato(null);
+		} catch (ModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void disponivel(boolean status){
@@ -141,6 +147,14 @@ public class Contrato implements Serializable, ITabelavel, Comparable<Contrato> 
 	
 	public String toString() {
 		return "Imóvel: " + this.imovel.toString() + " -- " + "Inquilino: " + this.inquilino.toString();
+	}
+	
+	public boolean validarAddBoleto(Boleto b) throws ModelException{
+		for(Boleto boleto : this.listaBoletos){
+			if(boleto.compareTo(b) == 0)
+				throw new ModelException("Este boleto está em uma data igual ao outro boleto do contrato!");
+		}
+		return true;
 	}
 
 }
