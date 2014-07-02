@@ -69,6 +69,7 @@ public class CtrlManterProprietarios extends CtrlManterClientes implements ICtrl
 			return false;
 		
 		this.operacao = Operacao.INCLUSAO;
+		this.setCliente(null);
 		try {
 			this.jProprietario = new JanelaSalvaProprietario(this);
 		} catch (ParseException e) {

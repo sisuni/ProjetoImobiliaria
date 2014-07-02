@@ -22,7 +22,7 @@ public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlMan
 	}
 	
 	private ICtrlPrograma ctrlPrg;
-		
+			
 	private IViewer jCadastro;
 	
 	private IViewerSalvaInquilino jInquilino;
@@ -69,6 +69,7 @@ public class CtrlManterInquilinos extends CtrlManterClientes implements ICtrlMan
 			return false;
 
 		this.operacao = Operacao.INCLUSAO;
+		this.setCliente(null);
 		try {
 			this.jInquilino = new JanelaSalvaInquilino(this);
 		} catch (ParseException e) {
