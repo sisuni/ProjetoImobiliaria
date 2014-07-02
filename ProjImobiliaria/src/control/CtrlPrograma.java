@@ -31,6 +31,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 	private ICtrlManter ctrlInquilino;
 	private ICtrlManter ctrlProprietario;
 	private ICtrlManter ctrlBoleto;
+	private ICtrlManter ctrlTaxa;
 	private IViewerPrincipal jPrincipal;
 	
 	public CtrlPrograma() {
@@ -41,6 +42,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 		this.ctrlInquilino		= new CtrlManterInquilinos(this);
 		this.ctrlProprietario	= new CtrlManterProprietarios(this);
 		this.ctrlBoleto			= new CtrlManterBoletos(this);
+		this.ctrlTaxa			= new CtrlManterTaxas(this);
 
 	}
 	
@@ -193,8 +195,7 @@ public class CtrlPrograma implements ICtrlPrograma{
 
 	@Override
 	public boolean iniciarCasoDeUsoManterTaxas() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.ctrlTaxa.iniciar();
 	}
 
 	@Override

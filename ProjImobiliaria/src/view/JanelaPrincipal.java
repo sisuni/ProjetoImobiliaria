@@ -55,6 +55,7 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal {
 		JMenuItem inquilino = new JMenuItem("Inquilinos");
 		JMenuItem imovel = new JMenuItem("Imóveis");
 		JMenuItem contra = new JMenuItem("Contratos");
+		JMenuItem taxa = new JMenuItem("Taxas");
 		JMenuItem boleto = new JMenuItem("Boletos");
 		JMenuItem sair = new JMenuItem("Sair");
 		ButtonGroup bg = new ButtonGroup();
@@ -65,6 +66,7 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal {
 		cliente.add(proprietario);
 		cliente.add(inquilino);
 		menu.add(imovel);
+		menu.add(taxa);
 		menu.add(contra);
 		menu.add(boleto);
 		menu.addSeparator();
@@ -108,13 +110,12 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal {
 			}
 		});
 		
-		sair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				// Método de Callback).
-				ctrlPrg.terminar();
+		taxa.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				ctrlPrg.iniciarCasoDeUsoManterTaxas();
 			}
 		});
-		
+	
 		boleto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Método de Callback).
@@ -122,13 +123,22 @@ public class JanelaPrincipal extends JFrame implements  IViewerPrincipal {
 			}
 		});
 		
-		this.setVisible(true);
-		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e){
+		sair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Método de Callback).
 				ctrlPrg.terminar();
-				
 			}
 		});
+		
+		
+		
+		this.setVisible(true);
+//		this.addWindowListener(new WindowAdapter() {
+//			public void windowClosing(WindowEvent e){
+//				ctrlPrg.terminar();
+//				
+//			}
+//		});
 	}
 
 }

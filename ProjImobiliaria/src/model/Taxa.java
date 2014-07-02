@@ -58,11 +58,15 @@ public class Taxa implements Serializable, ITabelavel, Comparable<Taxa>{
 
 	@Override
 	public Object[] getData() {
-		return null;
+		return new Object[]{
+				this.getNome(),
+				this.getDescricao(),
+				this.getCobrancas().size()
+		};
 	}
 
 	public String toString(){
-		return this.getNome();
+		return "Taxa: " + this.getNome() + " - Boletos:" + this.getCobrancas().size();
 	}
 }
 
