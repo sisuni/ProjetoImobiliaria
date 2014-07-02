@@ -65,8 +65,10 @@ public class JanelaSalvaTaxa extends JFrame implements IViewerSalvaTaxa{
 					
 					public void focusLost(FocusEvent e){
 						if (!e.isTemporary() && isEnabled() ) {
-							Float valor  = Float.parseFloat(txtValor.getText());
-							txtValor.setText(format.format(valor));
+							if(!(txtValor.getText().isEmpty())){
+								Float valor  = Float.parseFloat(txtValor.getText());
+								txtValor.setText(format.format(valor));
+							}
 						}
 					}
 				});
@@ -119,7 +121,7 @@ public class JanelaSalvaTaxa extends JFrame implements IViewerSalvaTaxa{
 		// e notifico ao controlador
 		try {
 			if(!ehAlteracao)
-				ctrl.incluir(nome,descricao,valor);
+				ctrl.incluir(nome.toUpperCase(),descricao,valor);
 			else
 				ctrl.alterar(nome,descricao,valor);
 		} catch(ModelException e) {

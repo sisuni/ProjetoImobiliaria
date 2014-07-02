@@ -65,12 +65,26 @@ public class Cobra implements Serializable, ITabelavel, Comparable<Cobra>{
 
 	@Override
 	public int compareTo(Cobra c) {
-		return this.getTaxa().compareTo(c.getTaxa());
+		if(c.getBoleto() == null || this.getBoleto() == null)	
+			return 1;
+		else{
+			if((this.getBoleto().compareTo(c.getBoleto())) == 0){
+				if(this.getTaxa() == c.getTaxa())
+					return 0;
+				else
+					return 1;			
+			}else{
+				return 1;
+			}
+		}
 	}
 
 	@Override
 	public Object[] getData() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Object[]{this.taxa.getNome() ,this.taxa.getDescricao(),this.valor};
+	}
+	
+	public String toString(){
+		return this.taxa.toString() + this.valor;
 	}
 }

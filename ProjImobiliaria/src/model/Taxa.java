@@ -58,15 +58,11 @@ public class Taxa implements Serializable, ITabelavel, Comparable<Taxa>{
 
 	@Override
 	public Object[] getData() {
-		float valor = 0;
-		for(Cobra c : this.listaCobrancas){
-			if(c.getTaxa() == this){
-				valor = c.getValor();
-			}
-		}
-		
-		return new Object[]{this.nome,this.descricao,valor};
+		return null;
 	}
 
+	public String toString(){
+		return this.getNome();
+	}
 }
 

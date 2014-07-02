@@ -3,15 +3,13 @@ package control;
 import java.util.Set;
 import java.util.TreeSet;
 
-import model.Boleto;
 import model.Cobra;
-import model.Contrato;
 import model.DAOTaxa;
 import model.ModelException;
 import model.Taxa;
 import view.IViewerSalvaBoleto;
 import view.IViewerSalvaTaxa;
-import view.JanelaExcluirFuncionario;
+import view.JanelaExcluirTaxa;
 import view.JanelaSalvaTaxa;
 
 public class CtrlManterTaxas implements ICtrlManterTaxas{
@@ -22,7 +20,7 @@ public class CtrlManterTaxas implements ICtrlManterTaxas{
 		INCLUSAO, EXCLUSAO, ALTERACAO, DISPONIVEL;
 	}
 	
-	private ICtrlManterBoletos ctrlBol;
+	private ICtrlManterCobrancas ctrlCobra;
 	
 	private IViewerSalvaBoleto jBoleto;
 	
@@ -39,8 +37,8 @@ public class CtrlManterTaxas implements ICtrlManterTaxas{
 	private Operacao operacao;
 	
 
-	public CtrlManterTaxas(ICtrlManterBoletos b) {
-		this.ctrlBol = b;
+	public CtrlManterTaxas(ICtrlManterCobrancas c) {
+		this.ctrlCobra = c;
 	}
 	
 	@Override
@@ -49,8 +47,7 @@ public class CtrlManterTaxas implements ICtrlManterTaxas{
 			return false;
 
 		this.recuperarDAO();
-		this.jBoleto = this.ctrlBol.getJanela();
-		this.atualizarInterface();
+		this.jBoleto = this.ctrlCobra.getJanela();
 		this.emExecucao = true;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
@@ -60,10 +57,9 @@ public class CtrlManterTaxas implements ICtrlManterTaxas{
 	public boolean terminar() {
 		if(!this.emExecucao)
 			return false;
-
+	
 		this.persisteDAO();
 		this.jBoleto = null;
-		this.ctrlBol = null;
 		this.emExecucao = false;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
@@ -78,7 +74,38 @@ public class CtrlManterTaxas implements ICtrlManterTaxas{
 		this.jTaxa = new JanelaSalvaTaxa(this);
 		return true;
 	}
-
+	
+	@Override
+	public boolean incluir(String nome, String descricao, float valor) throws ModelException {
+		if(this.operacao != Operacao.INCLUSAO)
+			return false;
+	
+		if(! this.procurarTaxa(nome))
+			this.taxaAtual = new Taxa(nome,descricao);	
+		
+		
+		if(! this.listaTaxas.contains(this.taxaAtual))
+			this.listaTaxas.add(this.taxaAtual);
+		
+			
+		this.jTaxa.setVisible(false);
+		this.ctrlCobra.iniciarIncluir();
+		this.ctrlCobra.incluir(valor, this.taxaAtual);
+		this.taxaAtual = null;
+		this.operacao = Operacao.DISPONIVEL;
+		return true;
+	}
+	
+	public boolean procurarTaxa(String nome){
+		for(Taxa t : this.getTaxas()){
+			if(t.getNome().equals(nome)){
+				this.taxaAtual = t;
+				return true;
+			}
+		}
+		return false;
+	}
+		
 	@Override
 	public void cancelarIncluir() {
 		if(this.operacao == Operacao.INCLUSAO) {
@@ -87,44 +114,14 @@ public class CtrlManterTaxas implements ICtrlManterTaxas{
 		}
 	}
 
-	public boolean incluir(String nome, String descricao, float valor) throws ModelException {
-		if(this.operacao != Operacao.INCLUSAO)
-			return false;
-		Cobra cobranca = null;
-		Taxa taxa = new Taxa(nome, descricao);
-		if(ctrlBol.getBoleto() == null)
-			cobranca = new Cobra(valor, taxa, null);
-		else{
-			cobranca = new Cobra(valor,taxa,ctrlBol.getBoleto());
-		}
-		
-		
-		listaTaxas.add(taxa);
-		this.jTaxa.setVisible(false);
-		this.atualizarInterface();
-		this.operacao = Operacao.DISPONIVEL;
-		return true;
-	}
-
 	@Override
-	public boolean iniciarAlterar(int pos) {
+	public boolean iniciarAlterar(Cobra c) {
 		if(this.operacao != Operacao.DISPONIVEL)
 			return false;
 
 		this.operacao = Operacao.ALTERACAO;
-		Set<Taxa> lista = this.recuperarPeloBoleto(this.ctrlBol.getBoleto());
-		int i = 0;
-		for(Taxa t : lista){
-			if(i++ == pos)
-				this.taxaAtual = t;
-		}
-		
-		float valor = 0;
-		for(Cobra c : this.taxaAtual.getCobrancas()){
-			if(c.getTaxa() == this.taxaAtual)
-				valor = c.getValor();
-		}
-							
+		this.taxaAtual = c.getTaxa();
+		float valor = c.getValor();
 		this.jTaxa = new JanelaSalvaTaxa(this);	
 		this.jTaxa.atualizarCampos(
 				this.taxaAtual.getNome(),
@@ -138,6 +135,7 @@ public class CtrlManterTaxas implements ICtrlManterTaxas{
 		if(this.operacao == Operacao.ALTERACAO) {
 			this.jTaxa.setVisible(false);
 			this.taxaAtual = null;
+			this.ctrlCobra.cancelarAlterar();
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
@@ -148,24 +146,22 @@ public class CtrlManterTaxas implements ICtrlManterTaxas{
 
 		this.taxaAtual.setNome(nome);
 		this.taxaAtual.setDescricao(descricao);
-
-		dao.atualizar(this.taxaAtual);
+		this.ctrlCobra.alterar(valor, taxaAtual);
 
 		this.jTaxa.setVisible(false);
-		this.atualizarInterface();
 		this.taxaAtual = null;
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
 
 	@Override
-	public boolean iniciarExcluir(int pos) {
+	public boolean iniciarExcluir(Cobra c) {
 		if(this.operacao != Operacao.DISPONIVEL)
 			return false;
 
 		this.operacao = Operacao.EXCLUSAO;
-		this.taxaAtual = dao.recuperar(pos);
-		new JanelaExcluirFuncionario(this, this.taxaAtual);
+		this.taxaAtual = c.getTaxa();
+		new JanelaExcluirTaxa(this, this.taxaAtual);
 		return true;
 	}
 
@@ -173,6 +169,7 @@ public class CtrlManterTaxas implements ICtrlManterTaxas{
 	public void cancelarExcluir() {
 		if(this.operacao == Operacao.EXCLUSAO) {
 			this.taxaAtual = null;
+			this.ctrlCobra.cancelarExcluir();
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
@@ -182,64 +179,82 @@ public class CtrlManterTaxas implements ICtrlManterTaxas{
 		if(this.operacao != Operacao.EXCLUSAO)
 			return false;
 
-		dao.remover(this.taxaAtual);
-		
-		this.atualizarInterface();
+		if(this.taxaAtual.getCobrancas().size()<=1)
+			this.listaTaxas.remove(this.taxaAtual);
+	
 		this.taxaAtual = null;
+		this.ctrlCobra.excluir(null);
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
 	
-	@Override
-	public void selecionarContrato(Contrato c){
-		Taxa t = new Taxa("Aluguel", "Aluguel do Imóvel");		
-		Cobra cobra;		
-		
-		if(this.ctrlBol.getBoleto() == null)
-			cobra = new Cobra(c.getValorAluguel(), t, null);
-		else
-			cobra = new Cobra(c.getValorAluguel(), t, this.ctrlBol.getBoleto());
-							
-		this.listaTaxas.add(t);
-		atualizarInterface();
-	}
 	
+	
+	/*******Métodos para o funcionamento do alguel********/
 	@Override
-	public void atualizarInterface() {
-		this.jBoleto.limpar();
+	public boolean iniciarIncluirAluguel(){
+		if(this.operacao != Operacao.DISPONIVEL)
+			return false;
 
-		for(Taxa t : this.getTaxas()){
-			for(Cobra c : t.getCobrancas()){
-				if(c.getBoleto() == this.ctrlBol.getBoleto()){
-					this.jBoleto.setValorTotal(c.getValor());
-					this.jBoleto.incluirLinha(t);
-				}
-			}
-		}
+		this.operacao = Operacao.INCLUSAO;
+		return true;
 	}
 	
-	 public Set<Taxa> getTaxas(){
+	public boolean incluirAluguel(float valor) throws ModelException {
+		if(this.operacao != Operacao.INCLUSAO)
+			return false;
+		Taxa taxa = null;
+			
+		if(!(this.getTaxas().isEmpty())){
+			for(Taxa t : this.getTaxas()){
+				if(t.getNome().equals("ALUGUEL"))
+					taxa = t;
+			}
+		} else {
+			taxa = new Taxa("ALUGUEL","Aluguel do Imóvel");
+			listaTaxas.add(taxa);
+		}
+		
+		
+		this.ctrlCobra.iniciarIncluirAluguel();
+		this.ctrlCobra.incluirAluguel(valor, taxa);
+		this.operacao = Operacao.DISPONIVEL;
+		return true;
+	}
+	/*******Fim dos Métodos para o funcionamento do alguel********/
+	
+	
+	@Override
+	public Set<Taxa> getTaxas(){
 		 return this.listaTaxas;
 	 }
 	
-	public Set<Taxa> recuperarPeloBoleto(Boleto b){
-		Set<Taxa> listaTaxBoletos = new TreeSet<Taxa>();
-		for(Taxa t : this.listaTaxas){
-			if(t.getCobrancas().equals(b.getCobrancas()))
-				listaTaxBoletos.add(t);
-		}
-		return listaTaxBoletos;
-	}
-	
 	public void recuperarDAO(){
-		if(!(dao.getListaObjs().isEmpty())){
-			this.listaTaxas = new TreeSet<Taxa>(dao.getListaObjs());
-		}
+		this.listaTaxas = new TreeSet<Taxa>(dao.getListaObjs());
 	}
 	
 	public void persisteDAO(){
 		this.dao.setListaObjs(this.listaTaxas);
 	}
+
 	
+	/** PRECISO DE POLIMORFISMO DE MÉTODOS COM MUDANÇA NOS PARAMETROS */
+	@Override
+	public boolean iniciarAlterar(int pos) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean iniciarExcluir(int pos) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void atualizarInterface() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

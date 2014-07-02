@@ -165,8 +165,10 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 					
 					public void focusLost(FocusEvent e){
 						if (!e.isTemporary() && isEnabled() ) {
-							Float valor  = Float.parseFloat(txtVB.getText());
-							txtVB.setText(format.format(valor));
+							if(!(txtVB.getText().isEmpty())){
+								Float valor  = Float.parseFloat(txtVB.getText());
+								txtVB.setText(format.format(valor));
+							}
 						}
 					}
 				});

@@ -38,7 +38,7 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 	
 	
 	public CtrlManterTelefones(ICtrlManterClientes c){
-		this.ctrlCli = c;	
+		this.ctrlCli = c;
 	}
 	
 	@Override
@@ -202,8 +202,13 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 		this.jCliente.limpar();
 		
 		for(Telefone t : this.getTelefones()){
-			if (t.getCliente() == ctrlCli.getCliente())
-				this.jCliente.incluirLinha(t);
+			if(this.ctrlCli.getCliente() != null){
+				if (t.getCliente() == ctrlCli.getCliente())
+					this.jCliente.incluirLinha(t);
+			}else{
+				if(t.getCliente()==null)
+					this.jCliente.incluirLinha(t);			
+			}
 		}
 	}
 	

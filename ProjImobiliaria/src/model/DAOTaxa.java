@@ -74,7 +74,7 @@ public class DAOTaxa implements IDAO<Taxa>, IDAOSerializavel {
 		this.listaObjs = (Set<Taxa>)ois.readObject();
 	}
 	
-
+	@Override
 	public void salvarObjetos(ObjectOutputStream oos)
 			throws IOException{
 		oos.writeObject(this.listaObjs);

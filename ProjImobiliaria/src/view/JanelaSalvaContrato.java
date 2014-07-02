@@ -71,10 +71,13 @@ public class JanelaSalvaContrato extends JFrame implements IViewerSalvaContrato{
 		
 		cmbImoveis = new JComboBox<Imovel>();
 		cmbImoveis.setBounds(76,15,360,20);
-		for(Imovel imo : imoveis){
-			if(imo != null)
-				cmbImoveis.addItem(imo);
+		if(imoveis != null){
+			for(Imovel imo : imoveis){
+				if(imo != null)
+					cmbImoveis.addItem(imo);
+			}
 		}
+		
 		contentPane.add(cmbImoveis);
 		
 		JLabel lblInquilino = new JLabel("Inquilino:");
@@ -83,9 +86,11 @@ public class JanelaSalvaContrato extends JFrame implements IViewerSalvaContrato{
 			
 		cmbInquilinos = new JComboBox<Inquilino>();
 		cmbInquilinos.setBounds(76,49,360,20);
-		for(Inquilino inq : inquilinos){
-			if(inq != null)
-				cmbInquilinos.addItem(inq);
+		if(inquilinos != null){
+			for(Inquilino inq : inquilinos){
+				if(inq != null)
+					cmbInquilinos.addItem(inq);
+			}
 		}
 		
 		contentPane.add(cmbInquilinos);
@@ -128,8 +133,10 @@ public class JanelaSalvaContrato extends JFrame implements IViewerSalvaContrato{
 					
 					public void focusLost(FocusEvent e){
 						if (!e.isTemporary() && isEnabled() ) {
-							Float valor  = Float.parseFloat(txtValAluguel.getText());
-							txtValAluguel.setText(format.format(valor));
+							if(txtValAluguel.getText() !=null){
+								Float valor  = Float.parseFloat(txtValAluguel.getText());
+								txtValAluguel.setText(format.format(valor));
+							}
 						}
 					}
 				});
@@ -210,6 +217,8 @@ public class JanelaSalvaContrato extends JFrame implements IViewerSalvaContrato{
 		this.cmbImoveis.setSelectedItem(imo);
 		this.cmbInquilinos.setSelectedItem(inq);
 		this.ehAlteracao=true;
+		this.cmbImoveis.enable(false);
+		this.cmbInquilinos.enable(false);
 	}
 
 }

@@ -36,11 +36,11 @@ import control.ICtrlManterBoletos;
 import control.ITabelavel;
 
 public class JanelaSalvaBoleto extends JFrame implements IViewerSalvaBoleto {
-	
+
 	private ICtrlManterBoletos ctrl;
 
 	private boolean ehAlteracao;
-	
+
 	private JPanel contentPane;
 	private JComboBox<Contrato> cmbContrato;
 	private JFormattedTextField txtDataVenc;
@@ -48,8 +48,11 @@ public class JanelaSalvaBoleto extends JFrame implements IViewerSalvaBoleto {
 	private JTable tableTax;
 	private SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
 	private DecimalFormat formatValor = new DecimalFormat("#,###.00");
-	public JanelaSalvaBoleto(ICtrlManterBoletos sc, Set<Contrato> contratos) throws ParseException{
+
+	public JanelaSalvaBoleto(ICtrlManterBoletos sc, Set<Contrato> contratos, boolean e_alteracao)
+			throws ParseException {
 		this.ctrl = sc;
+		this.setEhAlteracao(e_alteracao);
 		setTitle("Salvar Boletos - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 417, 400);
@@ -58,48 +61,43 @@ public class JanelaSalvaBoleto extends JFrame implements IViewerSalvaBoleto {
 		setContentPane(contentPane);
 		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
-		setResizable(false); //não maximizar, aumentar	
-		
-		/*Inicio da Table*/
+		setResizable(false); // não maximizar, aumentar
+
+		/* Inicio da Table */
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 160, 380, 120);
 		contentPane.add(scrollPane);
-		
+
 		tableTax = new JTable();
-		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableTax.getDefaultRenderer(JLabel.class);  
-        renderer.setHorizontalAlignment(SwingConstants.CENTER); 
-        tableTax.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nome", "Descrição", "Valor"
+		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableTax
+				.getDefaultRenderer(JLabel.class);
+		renderer.setHorizontalAlignment(SwingConstants.CENTER);
+		tableTax.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Nome", "Descrição", "Valor" }));
+		tableTax.getColumnModel().getColumn(0).setPreferredWidth(60);
+		tableTax.getColumnModel().getColumn(1).setPreferredWidth(150);
+		tableTax.getColumnModel().getColumn(2).setPreferredWidth(60);
+
+		// monitorando o evento através de TableModelListener
+		tableTax.getModel().addTableModelListener(new TableModelListener() {
+			public void tableChanged(TableModelEvent e) {
+				tratarModificacaoNaTabela(e);
 			}
-		));
-        tableTax.getColumnModel().getColumn(0).setPreferredWidth(60);
-        tableTax.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tableTax.getColumnModel().getColumn(2).setPreferredWidth(60);
-			
-     // monitorando o evento através de TableModelListener
-        tableTax.getModel().addTableModelListener(new TableModelListener() {
-		    public void tableChanged(TableModelEvent e) {
-		    	tratarModificacaoNaTabela(e);
-		    }
 		});
-		
+
 		scrollPane.setViewportView(tableTax);
 		this.setVisible(true);
-		/************Fim da Table***********/
-		
-		
+		/************ Fim da Table ***********/
+
 		JLabel lblContrato = new JLabel("Contrato:");
 		lblContrato.setBounds(20, 11, 150, 14);
 		lblContrato.setFont(lblContrato.getFont().deriveFont(15.0f));
 		contentPane.add(lblContrato);
-		
+
 		cmbContrato = new JComboBox<Contrato>();
 		cmbContrato.setBounds(100, 11, 300, 18);
-		for(Contrato c : contratos){
-			if(c != null)
+		for (Contrato c : contratos) {
+			if (c != null)
 				cmbContrato.addItem(c);
 		}
 		cmbContrato.addActionListener(new ActionListener() {
@@ -108,69 +106,68 @@ public class JanelaSalvaBoleto extends JFrame implements IViewerSalvaBoleto {
 			}
 		});
 		contentPane.add(cmbContrato);
-					
+
 		JLabel lblDadosC = new JLabel("Dados do Boleto");
 		lblDadosC.setBounds(20, 48, 150, 20);
 		lblDadosC.setFont(lblDadosC.getFont().deriveFont(15.0f));
 		contentPane.add(lblDadosC);
-		
+
 		JLabel lblData = new JLabel("<html>Data de<br>Vencimento:</html>");
 		lblData.setBounds(22, 42, 100, 100);
 		contentPane.add(lblData);
-		
+
 		txtDataVenc = new JFormattedTextField(new MaskFormatter("##/##/####"));
-		txtDataVenc.setBounds(100,90,75,20);
+		txtDataVenc.setBounds(100, 90, 75, 20);
 		contentPane.add(txtDataVenc);
-		
+
 		JLabel lblValorT = new JLabel("<html>Valor<br>Total:</html>");
 		lblValorT.setBounds(220, 42, 100, 100);
 		contentPane.add(lblValorT);
-		
+
 		txtValorT = new JLabel();
 		txtValorT.setBounds(260, 85, 140, 20);
 		txtValorT.setForeground(Color.blue);
 		txtValorT.setFont(txtValorT.getFont().deriveFont(20.0f));
 		contentPane.add(txtValorT);
-		
+
 		JLabel lblTaxas = new JLabel("Taxas");
 		lblTaxas.setBounds(20, 135, 150, 14);
 		lblTaxas.setFont(lblTaxas.getFont().deriveFont(15.0f));
 		contentPane.add(lblTaxas);
-			
-		/*****************Inicio dos Botões Taxas*******************/
+
+		/***************** Inicio dos Botões Taxas *******************/
 		JButton btnIncluir = new JButton("Incluir");
 		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				executarIncluirTaxa();
+				executarIncluirCobranca();
 			}
 		});
 		btnIncluir.setBounds(60, 290, 89, 23);
 		btnIncluir.setToolTipText("Incluir Nova Taxa");
 		contentPane.add(btnIncluir);
-			
+
 		JButton btnAlterar = new JButton("Alterar");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				executarAlterarTaxa();
+				executarAlterarCobranca();
 			}
 		});
 		btnAlterar.setBounds(162, 290, 89, 23);
 		btnAlterar.setToolTipText("Alterar Taxa Selecionada");
 		contentPane.add(btnAlterar);
-		
+
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				executarExcluirTaxa();
+				executarExcluirCobranca();
 			}
 		});
 		btnExcluir.setBounds(263, 290, 89, 23);
 		btnExcluir.setToolTipText("Excluir Taxa Selecionada");
 		contentPane.add(btnExcluir);
-		/***********Fim dos Botões Taxas****************/
-		
-		
-		/*****************Inicio dos Botões Boleto*******************/
+		/*********** Fim dos Botões Taxas ****************/
+
+		/***************** Inicio dos Botões Boleto *******************/
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -179,7 +176,7 @@ public class JanelaSalvaBoleto extends JFrame implements IViewerSalvaBoleto {
 		});
 		btnSalvar.setBounds(20, 340, 143, 23);
 		contentPane.add(btnSalvar);
-		
+
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -188,119 +185,140 @@ public class JanelaSalvaBoleto extends JFrame implements IViewerSalvaBoleto {
 		});
 		btnCancelar.setBounds(245, 340, 154, 23);
 		contentPane.add(btnCancelar);
-		/*****************Fim dos Botões Boleto*******************/
-		this.setVisible(true);	
+		/***************** Fim dos Botões Boleto *******************/
+		this.setVisible(true);
 	}
-	
-	/********Métodos do Boleto *******************/
+
+	/******** Métodos do Boleto *******************/
 	public void executarSalvar() {
 		// Recupero os valores digitados nos textfields
-		
-		Date dataVencimento=null;
+
+		Date dataVencimento = null;
 		Contrato contrato = (Contrato) cmbContrato.getSelectedItem();
-		
-		try{
+
+		try {
 			dataVencimento = formatData.parse(txtDataVenc.getText());
-		}catch(ParseException e){
-			JOptionPane.showMessageDialog(null, "Data Inválida!");
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
 		try {
-			if(!ehAlteracao)
-				ctrl.incluir(dataVencimento,contrato);
+			if (!ehAlteracao)
+				ctrl.incluir(dataVencimento, contrato);
 			else
-				ctrl.alterar(dataVencimento,contrato);
-		} catch(ModelException e) {
+				ctrl.alterar(dataVencimento);
+		} catch (ModelException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void executarCancelar() {
-		if(!ehAlteracao)
+		if (!ehAlteracao)
 			ctrl.cancelarIncluir();
 		else
 			ctrl.cancelarAlterar();
 	}
 	
-	
-	public void selecionaContrato(){
-		if(cmbContrato.getSelectedItem() != null){
-			Contrato c = (Contrato) cmbContrato.getSelectedItem();
-			this.ctrl.selecionarContrato(c);
-		}
+	public boolean isEhAlteracao() {
+		return ehAlteracao;
 	}
-	
-	public void setValorTotal(float valor){
-		float valorTotal;
-		if(txtValorT.getText().isEmpty()){
-			valorTotal = 0;
-		}else{
-			valorTotal = Float.parseFloat(txtValorT.getText().replace(".", "").replace(",", "."));
-			
+
+	public void setEhAlteracao(boolean ehAlteracao) {
+		this.ehAlteracao = ehAlteracao;
+	}
+
+	public void selecionaContrato() {
+		if(!ehAlteracao){
+			if (cmbContrato.getSelectedItem() != null) {
+				Contrato c = (Contrato) cmbContrato.getSelectedItem();
+				try {
+					this.ctrl.selecionarContrato(c);
+				} catch (ModelException e) {
+					JOptionPane.showMessageDialog(null,
+							"Algo de errado aconteceu com este contrato!");
+					e.printStackTrace();
+				}
+			}
 		}
-		valorTotal += valor;
+
+	}
+
+	public Contrato getContrato() {
+		return (Contrato) this.cmbContrato.getSelectedItem();
+	}
+
+	public void setValorTotal(float valorTotal) {
 		txtValorT.setText(formatValor.format(valorTotal));
 	}
 
+	public float getValorTotal() {
+		if (!(this.txtValorT.getText().isEmpty()))
+			return Float.parseFloat(txtValorT.getText().replace(".", "")
+					.replace(",", "."));
+		return 0;
+	}
+
 	@Override
-	public void atualizarCampos(Date dataVencimento, Contrato contrato) {
+	public void atualizarCampos(Date dataVencimento, Contrato contrato,
+			float valorT) {
 		this.cmbContrato.setSelectedItem(contrato);
 		this.txtDataVenc.setText(formatData.format(dataVencimento));
-		this.ehAlteracao=true;
+		this.txtValorT.setText(formatValor.format(valorT));
+		this.cmbContrato.enable(false);
+
 	}
-	
-	
-	/********Fim dos Métodos do Boleto *******************/
-	
-	
-	/********Métodos da Taxa *******************/
+
+	/******** Fim dos Métodos do Boleto *******************/
+
+	/******** Métodos da Taxa *******************/
 	public void limpar() {
-		DefaultTableModel dtm = (DefaultTableModel)this.tableTax.getModel();
-		while(dtm.getRowCount() > 0)
-				dtm.removeRow(0);
+		DefaultTableModel dtm = (DefaultTableModel) this.tableTax.getModel();
+		while (dtm.getRowCount() > 0)
+			dtm.removeRow(0);
 	}
-	
+
 	public void incluirLinha(ITabelavel objeto) {
-		DefaultTableModel dtm = (DefaultTableModel)this.tableTax.getModel();
+		DefaultTableModel dtm = (DefaultTableModel) this.tableTax.getModel();
 		dtm.addRow(objeto.getData());
 	}
 
 	public void tratarModificacaoNaTabela(TableModelEvent e) {
-        if(e.getType() != TableModelEvent.UPDATE)
-        	return;
+		if (e.getType() != TableModelEvent.UPDATE)
+			return;
 		int linha = e.getFirstRow();
-        int coluna = e.getColumn();
- 
-        TableModel model = (TableModel) e.getSource();
- 
-        System.out.println("Você alterou a linha " + linha + ", coluna " + coluna);
-        System.out.println("Valor da célula alterada: " + model.getValueAt(linha, coluna));
-	}
-	
-	@Override
-	public void executarIncluirTaxa() {
-		ctrl.iniciarIncluirTaxa();		
+		int coluna = e.getColumn();
+
+		TableModel model = (TableModel) e.getSource();
+
+		System.out.println("Você alterou a linha " + linha + ", coluna "
+				+ coluna);
+		System.out.println("Valor da célula alterada: "
+				+ model.getValueAt(linha, coluna));
 	}
 
 	@Override
-	public void executarExcluirTaxa() {
-		int pos = tableTax.getSelectedRow();
-		if(pos < 0)
-			return;
-		
-		ctrl.iniciarExcluirTaxa(pos);	
+	public void executarIncluirCobranca() {
+		ctrl.iniciarIncluirCobranca();
 	}
 
 	@Override
-	public void executarAlterarTaxa() {
+	public void executarExcluirCobranca() {
 		int pos = tableTax.getSelectedRow();
-		if(pos < 0)
+		if (pos < 0)
 			return;
-		
-		ctrl.iniciarAlterarTaxa(pos);	
+
+		ctrl.iniciarExcluirCobranca(pos);
 	}
-	
-	/********Fim dos Métodos da Taxa *******************/
+
+	@Override
+	public void executarAlterarCobranca() {
+		int pos = tableTax.getSelectedRow();
+		if (pos < 0)
+			return;
+
+		ctrl.iniciarAlterarCobranca(pos);
+	}
+
+	/******** Fim dos Métodos da Taxa *******************/
 }

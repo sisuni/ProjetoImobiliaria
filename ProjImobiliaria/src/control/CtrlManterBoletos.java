@@ -26,23 +26,27 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 	private enum Operacao {
 		INCLUSAO, EXCLUSAO, ALTERACAO, DISPONIVEL;
 	}
-	
+
 	private ICtrlPrograma ctrlPrg;
-	
-	private ICtrlManterTaxas ctrlTax;
-	
+
+	private ICtrlManterCobrancas ctrlCobra;
+
 	private IViewer jCadastro;
-	
+
 	private IViewerSalvaBoleto jBoleto;
-	
+
 	private Boleto boletoAtual;
-	
+
 	private IDAO<Boleto> dao = DAOBoleto.getSingleton();
 
+	private IDAO<Contrato> daoContrato = DAOContrato.getSingleton();
+
 	private boolean emExecucao;
-	
+
 	private Operacao operacao;
-	
+
+	private float valorTotal = 0;
+
 	//
 	// MÉTODOS
 	//
@@ -52,13 +56,14 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 	public CtrlManterBoletos(ICtrlPrograma p) {
 		this.ctrlPrg = p;
 	}
-	
+
 	@Override
 	public boolean iniciar() {
-		if(this.emExecucao)
+		if (this.emExecucao)
 			return false;
 
 		this.jCadastro = new JanelaBoletos(this);
+		// this.dao.getListaObjs().removeAll(this.dao.getListaObjs());
 		this.atualizarInterface();
 		this.emExecucao = true;
 		this.operacao = Operacao.DISPONIVEL;
@@ -67,7 +72,7 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 
 	@Override
 	public boolean terminar() {
-		if(!this.emExecucao)
+		if (!this.emExecucao)
 			return false;
 
 		this.jCadastro.setVisible(false);
@@ -79,100 +84,100 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 
 	@Override
 	public boolean iniciarIncluir() {
-		if(this.operacao != Operacao.DISPONIVEL)
+		if (this.operacao != Operacao.DISPONIVEL)
 			return false;
 
 		this.operacao = Operacao.INCLUSAO;
-		IDAO<Contrato> daoContrato = DAOContrato.getSingleton();
+
 		Set<Contrato> contratos = daoContrato.getListaObjs();
-		
+
 		try {
-			this.jBoleto = new JanelaSalvaBoleto(this, contratos);
+			this.jBoleto = new JanelaSalvaBoleto(this, contratos,false);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.iniciarCasoDeUsoManterTaxas();
+		this.iniciarCasoDeUsoManterCobrancas();
 		this.jBoleto.selecionaContrato();
 		return true;
 	}
-	
+
 	@Override
-	public boolean incluir(Date dataVencimento, Contrato contrato) throws ModelException {
-		if(this.operacao != Operacao.INCLUSAO)
+	public boolean incluir(Date dataVencimento, Contrato contrato)
+			throws ModelException {
+		if (this.operacao != Operacao.INCLUSAO)
 			return false;
 
 		Boleto novo = new Boleto(dataVencimento, contrato);
 
-		for (Taxa t : this.ctrlTax.getTaxas()){
-			for(Cobra c : t.getCobrancas()){
-				if(c.getBoleto() == null);
+		for (Cobra c : this.ctrlCobra.getCobrancas()) {
+			if (c.getBoleto() == null) {
 				novo.addCobranca(c);
 			}
 		}
-		
+
 		dao.salvar(novo);
+		this.terminarCasoDeUsoManterCobrancas();
 		this.jBoleto.setVisible(false);
 		this.atualizarInterface();
 		this.operacao = Operacao.DISPONIVEL;
-		this.terminarCasoDeUsoManterTaxas();
 		return true;
 	}
 
 	@Override
 	public void cancelarIncluir() {
-		if(this.operacao == Operacao.INCLUSAO) {
+		if (this.operacao == Operacao.INCLUSAO) {
 			this.jBoleto.setVisible(false);
+			this.ctrlCobra = null;
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
 
 	@Override
 	public boolean iniciarAlterar(int pos) {
-		if(this.operacao != Operacao.DISPONIVEL)
+		if (this.operacao != Operacao.DISPONIVEL)
 			return false;
 
 		this.operacao = Operacao.ALTERACAO;
 		this.boletoAtual = dao.recuperar(pos);
-		IDAO<Contrato> daoContrato = DAOContrato.getSingleton();
+
 		Set<Contrato> contratos = daoContrato.getListaObjs();
 		try {
-			this.jBoleto = new JanelaSalvaBoleto(this,contratos);
+			this.jBoleto = new JanelaSalvaBoleto(this, contratos,true);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.iniciarCasoDeUsoManterTaxas();
-		this.jBoleto.atualizarCampos(
-				this.boletoAtual.getDataVencimento(),
-				this.boletoAtual.getContrato());
+		this.jBoleto.atualizarCampos(this.boletoAtual.getDataVencimento(),
+				this.boletoAtual.getContrato(),
+				this.boletoAtual.getValorTotal());
+		this.iniciarCasoDeUsoManterCobrancas();
 		return true;
 	}
 
 	@Override
 	public void cancelarAlterar() {
-		if(this.operacao == Operacao.ALTERACAO) {
+		if (this.operacao == Operacao.ALTERACAO) {
 			this.jBoleto.setVisible(false);
 			this.boletoAtual = null;
+			this.ctrlCobra = null;
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
 
 	@Override
-	public boolean alterar(Date dataVencimento, Contrato contrato) throws ModelException {
-		if(this.operacao != Operacao.ALTERACAO)
+	public boolean alterar(Date dataVencimento) throws ModelException {
+		if (this.operacao != Operacao.ALTERACAO)
 			return false;
 
 		this.boletoAtual.setDataVencimento(dataVencimento);
-		this.boletoAtual.setContrato(contrato);
 
 		dao.atualizar(this.boletoAtual);
 
+		this.terminarCasoDeUsoManterCobrancas();
 		this.jBoleto.setVisible(false);
 		this.atualizarInterface();
 		this.boletoAtual = null;
-		
-		this.terminarCasoDeUsoManterTaxas();
 		this.operacao = Operacao.DISPONIVEL;
 		return true;
 	}
@@ -182,6 +187,7 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 		if (this.operacao != Operacao.DISPONIVEL)
 			return false;
 
+		this.iniciarExclusaoCobrancas();
 		this.operacao = Operacao.EXCLUSAO;
 		this.boletoAtual = dao.recuperar(pos);
 		new JanelaExcluirBoleto(this, this.boletoAtual);
@@ -190,27 +196,29 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 
 	@Override
 	public void cancelarExcluir() {
-		if(this.operacao == Operacao.EXCLUSAO) {
+		if (this.operacao == Operacao.EXCLUSAO) {
+
 			this.boletoAtual = null;
+			this.ctrlCobra = null;
 			this.operacao = Operacao.DISPONIVEL;
 		}
 	}
 
 	@Override
 	public boolean excluir() throws ModelException {
-		if(this.operacao != Operacao.EXCLUSAO)
+		if (this.operacao != Operacao.EXCLUSAO)
 			return false;
 
-		if(!(this.ctrlTax.getTaxas().isEmpty())){
-			for(Taxa t : this.ctrlTax.getTaxas()){
-				for(Cobra c : t.getCobrancas()){
-					if(c.getBoleto() == this.boletoAtual)
-						this.boletoAtual.removeCobranca(c);
+		if (!(this.ctrlCobra.getCobrancas().isEmpty())) {
+			for (Cobra c : this.ctrlCobra.getCobrancas()) {
+				if (c.getBoleto() == this.boletoAtual) {
+					c.setBoleto(null);
+					this.boletoAtual.removeCobranca(c);
 				}
 			}
 		}
-		
 		dao.remover(this.boletoAtual);
+		this.boletoAtual.setContrato(null);
 		this.atualizarInterface();
 		this.boletoAtual = null;
 		this.operacao = Operacao.DISPONIVEL;
@@ -221,57 +229,77 @@ public class CtrlManterBoletos implements ICtrlManterBoletos {
 	public void atualizarInterface() {
 		this.jCadastro.limpar();
 
-		for(int i = 0; i < dao.getNumObjs(); i++) {
-			Boleto boleto = dao.recuperar(i);
-			this.jCadastro.incluirLinha(boleto);
+		if (!(dao.getListaObjs().isEmpty())) {
+			for (int i = 0; i < dao.getNumObjs(); i++) {
+				Boleto boleto = dao.recuperar(i);
+				this.jCadastro.incluirLinha(boleto);
+			}
 		}
-	}	
+	}
 
-	/********** Métodos para Controlar Taxas *********/
+	/********** Métodos para Controlar Cobrancas *********/
 	@Override
-	public boolean iniciarCasoDeUsoManterTaxas(){
-		this.ctrlTax = new CtrlManterTaxas(this);
-		return this.ctrlTax.iniciar();
+	public boolean iniciarCasoDeUsoManterCobrancas() {
+		this.ctrlCobra = new CtrlManterCobrancas(this);
+		return this.ctrlCobra.iniciar();
 	}
+
 	@Override
-	public boolean iniciarIncluirTaxa(){
-		return this.ctrlTax.iniciarIncluir();
+	public boolean iniciarIncluirCobranca() {
+		return this.ctrlCobra.iniciarIncluir();
 	}
+
 	@Override
-	public void cancelarIncluirTaxa(){
-		this.ctrlTax.cancelarIncluir();
+	public boolean iniciarAlterarCobranca(int pos) {
+		return this.ctrlCobra.iniciarAlterar(pos);
 	}
+
 	@Override
-	public boolean iniciarAlterarTaxa(int pos){
-		return this.ctrlTax.iniciarAlterar(pos);
+	public boolean iniciarExcluirCobranca(int pos) {
+		return this.ctrlCobra.iniciarExcluir(pos);
 	}
+
 	@Override
-	public void cancelarAlterarTaxa(){
-		this.ctrlTax.cancelarAlterar();
-	}
-	@Override
-	public boolean iniciarExcluirTaxa(int pos){
-		return this.ctrlTax.iniciarExcluir(pos);
-	}
-	@Override
-	public void cancelarExcluirTaxa(){
-		this.ctrlTax.cancelarExcluir();
-	}
-	@Override
-	public IViewerSalvaBoleto getJanela(){
+	public IViewerSalvaBoleto getJanela() {
 		return this.jBoleto;
 	}
+
 	@Override
-	public Boleto getBoleto(){
+	public Boleto getBoleto() {
 		return this.boletoAtual;
-	}
-	@Override
-	public boolean terminarCasoDeUsoManterTaxas(){
-		return this.ctrlTax.terminar();
 	}
 
 	@Override
-	public void selecionarContrato(Contrato contrato) {
-		this.ctrlTax.selecionarContrato(contrato);
+	public boolean terminarCasoDeUsoManterCobrancas() {
+		return this.ctrlCobra.terminar();
+	}
+
+	public void iniciarExclusaoCobrancas() {
+		this.ctrlCobra = new CtrlManterCobrancas(this);
+		this.ctrlCobra.recuperarDAO();
+	}
+
+	/********** Fim dos Métodos para Controlar Cobrancas *********/
+
+	@Override
+	public void selecionarContrato(Contrato c) throws ModelException {
+
+		this.iniciarCasoDeUsoManterCobrancas();
+		this.ctrlCobra.removerCobrancasBoletosNulos();
+		
+		if (this.dao.getListaObjs().isEmpty()) {
+			this.ctrlCobra.iniciarCasoDeUsoIncluirAluguel(c.getValorAluguel());
+		} else {
+			this.ctrlCobra.iniciarCasoDeUsoIncluirAluguel(c.getValorAluguel());
+		}
+	}
+
+	public void atribuirValor(float valor) {
+		if (!(valor == 0))
+			valorTotal += valor;
+		else
+			valorTotal = 0;
+
+		this.jBoleto.setValorTotal(valorTotal);
 	}
 }

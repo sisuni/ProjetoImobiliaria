@@ -9,11 +9,13 @@ import java.io.ObjectOutputStream;
 
 import model.DAOBoleto;
 import model.DAOCargo;
+import model.DAOCobra;
 import model.DAOContrato;
 import model.DAOFuncionario;
 import model.DAOImovel;
 import model.DAOInquilino;
 import model.DAOProprietario;
+import model.DAOTaxa;
 import model.DAOTelefone;
 import model.IDAOSerializavel;
 import view.IViewerPrincipal;
@@ -52,7 +54,8 @@ public class CtrlPrograma implements ICtrlPrograma{
 		IDAOSerializavel daoProprietario	= (IDAOSerializavel) DAOProprietario.getSingleton();
 		IDAOSerializavel daoTelefone 		= (IDAOSerializavel) DAOTelefone.getSingleton();
 		IDAOSerializavel daoBoleto			= (IDAOSerializavel) DAOBoleto.getSingleton();
-		
+		IDAOSerializavel daoTaxa			= (IDAOSerializavel) DAOTaxa.getSingleton();
+		IDAOSerializavel daoCobra			= (IDAOSerializavel) DAOCobra.getSingleton();
 		//
 		// Recuperação dos objetos serializados no arquivo c:/base.bin
 		//
@@ -68,6 +71,8 @@ public class CtrlPrograma implements ICtrlPrograma{
 			daoProprietario.recuperarObjetos(ois);
 			daoTelefone.recuperarObjetos(ois);
 			daoBoleto.recuperarObjetos(ois);
+			daoTaxa.recuperarObjetos(ois);
+			daoCobra.recuperarObjetos(ois);
 			
 			ois.close();
 		} catch (FileNotFoundException e) {
@@ -88,7 +93,9 @@ public class CtrlPrograma implements ICtrlPrograma{
 		IDAOSerializavel daoProprietario	= (IDAOSerializavel)DAOProprietario.getSingleton();
 		IDAOSerializavel daoTelefone 		= (IDAOSerializavel) DAOTelefone.getSingleton();
 		IDAOSerializavel daoBoleto			= (IDAOSerializavel)DAOBoleto.getSingleton();
-
+		IDAOSerializavel daoTaxa			= (IDAOSerializavel) DAOTaxa.getSingleton();
+		IDAOSerializavel daoCobra			= (IDAOSerializavel) DAOCobra.getSingleton();
+		
 		try {
 			FileOutputStream fos = new FileOutputStream("base.bin");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -102,7 +109,8 @@ public class CtrlPrograma implements ICtrlPrograma{
 			daoProprietario.salvarObjetos(oos);
 			daoTelefone.salvarObjetos(oos);
 			daoBoleto.salvarObjetos(oos);
-			
+			daoTaxa.salvarObjetos(oos);
+			daoCobra.salvarObjetos(oos);
 			oos.close();
 		} catch (IOException e) {
 			e.printStackTrace();

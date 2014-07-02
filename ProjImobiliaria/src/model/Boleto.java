@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
@@ -11,11 +12,12 @@ import control.ITabelavel;
 public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 	
 	private Date dataVencimento;
-	private SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+	private SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
 	private Contrato contrato;
 	private Set<Cobra> listaCobrancas;
+	private DecimalFormat formatValor = new DecimalFormat("#,###.00"); 
 	
-	public Boleto(Date dataVencimento, Contrato contrato){
+	public Boleto(Date dataVencimento, Contrato contrato) throws ModelException{
 		this.setDataVencimento(dataVencimento);
 		this.setContrato(contrato);
 		this.listaCobrancas = new TreeSet<Cobra>();
@@ -25,8 +27,17 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 		return this.dataVencimento;
 	}
 
-	public void setDataVencimento(Date dataVencimento) {
-		this.dataVencimento = dataVencimento;
+	public boolean validarData(Date data) throws ModelException{
+		if(data == null)
+			throw new ModelException("Data de Vencimento está em branco!");
+		else
+			
+		return true;
+	}
+	
+	public void setDataVencimento(Date dataVencimento) throws ModelException {
+		if(validarData(dataVencimento))
+			this.dataVencimento = dataVencimento;
 	}
 	
 	public Contrato getContrato() {
@@ -67,7 +78,7 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 	}
 	
 	public float getValorTotal() {
-		float total = this.contrato.getValorAluguel();
+		float total = 0;
 		
 		for (Cobra taxa : this.listaCobrancas) {
 			total += taxa.getValor();
@@ -78,16 +89,34 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 
 	@Override
 	public int compareTo(Boleto b) {
-		return this.contrato.compareTo(b.contrato);
+		if (this.contrato.compareTo(b.contrato) == 0) {
+			if (this.dataVencimento.equals(b.dataVencimento)) {
+				return 0;
+			} else {
+				return 1;
+			}
+		} else {
+			return 1;
+		}
 	}
 
 	@Override
 	public Object[] getData() {
-		return new Object[]{this.dataVencimento, this.contrato.getInquilino().getNome(), this.getValorTotal()};
+		int num=0;
+		for(Cobra cobra :this.listaCobrancas){
+			if(cobra.getBoleto() == this)
+				num+=1;
+		}
+		
+		return new Object[]{
+				this.contrato.toString(),
+				formatData.format(this.dataVencimento), 
+				num,
+				"R$ " + formatValor.format(this.getValorTotal())};
 	}
 	
 	public String toString() {
-		return "Vencimento: " + formatar.format(this.dataVencimento)  + " - " + 
+		return "Vencimento: " + formatData.format(this.dataVencimento)  + " - " + 
 				"Inquilino: " + this.contrato.getInquilino().getNome() + " - " + 
 				"Imóvel: " + this.contrato.getImovel().toString();
 	}

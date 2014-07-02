@@ -3,6 +3,7 @@ package control;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Set;
+import java.util.TreeSet;
 
 import model.Contrato;
 import model.DAOContrato;
@@ -82,7 +83,11 @@ public class CtrlManterContratos implements ICtrlManterContratos {
 		this.operacao = Operacao.INCLUSAO;
 		
 		IDAO<Imovel> daoImovel = DAOImovel.getSingleton();
-		Set<Imovel> imoveis = daoImovel.getListaObjs();
+		Set<Imovel> imoveis = new TreeSet<Imovel>();
+				for(Imovel i: daoImovel.getListaObjs()){
+					if(i.isStatus()==true)
+						imoveis.add(i);
+				}
 		
 		IDAO<Inquilino> daoInquilino = DAOInquilino.getSingleton();
 		Set<Inquilino> inquilinos = daoInquilino.getListaObjs();
@@ -102,6 +107,7 @@ public class CtrlManterContratos implements ICtrlManterContratos {
 			return false;
 
 		Contrato novo = new Contrato(duracao, dataInicio, percentProprietario, valorAluguel,imo,inqui);
+		imo.setStatus(false);
 		novo.disponivel(false);
 		
 		dao.salvar(novo);
@@ -127,13 +133,12 @@ public class CtrlManterContratos implements ICtrlManterContratos {
 
 		this.operacao = Operacao.ALTERACAO;
 		this.contratoAtual = dao.recuperar(pos);
+	
+		Set<Imovel> imoveis = new TreeSet<Imovel>();
+		imoveis.add(this.contratoAtual.getImovel());
+		Set<Inquilino> inquilinos = new TreeSet<Inquilino>();
+		inquilinos.add(this.contratoAtual.getInquilino());
 		
-
-		IDAO<Imovel> daoImovel = DAOImovel.getSingleton();
-		Set<Imovel> imoveis = daoImovel.getListaObjs();
-		
-		IDAO<Inquilino> daoInquilino = DAOInquilino.getSingleton();
-		Set<Inquilino> inquilinos = daoInquilino.getListaObjs();
 		try {
 			this.jContrato = new JanelaSalvaContrato(this,imoveis,inquilinos);
 		} catch (ParseException e) {
@@ -204,9 +209,9 @@ public class CtrlManterContratos implements ICtrlManterContratos {
 			return false;
 
 		dao.remover(this.contratoAtual);
-		this.contratoAtual.setImovel(null);
 		this.contratoAtual.setInquilino(null);
 		this.contratoAtual.disponivel(true);
+		this.contratoAtual.setImovel(null);
 
 		this.atualizarInterface();
 		this.contratoAtual = null;
