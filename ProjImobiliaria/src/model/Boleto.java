@@ -65,6 +65,7 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 	public void addCobranca(Cobra novaCobranca){
 		if(this.listaCobrancas.contains(novaCobranca))
 			return;
+		
 		this.listaCobrancas.add(novaCobranca);
 		novaCobranca.setBoleto(this);
 	}
@@ -73,7 +74,7 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 		if(! this.listaCobrancas.contains(exCobranca))
 			return;
 		this.listaCobrancas.remove(exCobranca);
-		exCobranca.setBoleto(null);
+		exCobranca.setBoleto(null);		
 	}
 	
 	public float getValorTotal() {
@@ -88,7 +89,7 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 
 	@Override
 	public int compareTo(Boleto b) {
-		return (this.dataVencimento.compareTo(b.dataVencimento));
+		return this.dataVencimento.compareTo(b.dataVencimento);
 	}
 
 	@Override
@@ -111,6 +112,16 @@ public class Boleto implements Serializable, ITabelavel, Comparable<Boleto> {
 				"Inquilino: " + this.contrato.getInquilino().getNome() + " - " + 
 				"Imóvel: " + this.contrato.getImovel().toString();
 	}
-
+	
+	public boolean validarCobranca(Cobra cobra) throws ModelException{
+		if(cobra.getBoleto() != null){
+			for(Cobra c : this.listaCobrancas){
+				if(c == cobra)
+					throw new ModelException("Essa cobrança já existe!");
+			}
+		}
+		
+		return true;
+	}
 }
 

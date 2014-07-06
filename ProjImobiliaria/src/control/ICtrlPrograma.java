@@ -14,10 +14,6 @@ public interface ICtrlPrograma {
 
 	public abstract boolean terminarCasoDeUsoManterCargo();
 
-	public abstract boolean iniciarCasoDeUsoManterCobra();
-
-	public abstract boolean terminarCasoDeUsoManterCobra();
-
 	public abstract boolean iniciarCasoDeUsoManterContrato();
 	
 	public abstract boolean terminarCasoDeUsoManterContrato();

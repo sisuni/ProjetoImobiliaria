@@ -161,16 +161,6 @@ public class CtrlManterTaxas implements ICtrlManterTaxas {
 		return true;
 	}
 
-//	/******* Métodos para o funcionamento do alguel ********/
-//	@Override
-//	public boolean iniciarIncluirAluguel() {
-//		if (this.operacao != Operacao.DISPONIVEL)
-//			return false;
-//
-//		this.operacao = Operacao.INCLUSAO;
-//		return true;
-//	}
-
 	@Override
 	public void atualizarInterface() {
 		this.jCadastro.limpar();
@@ -180,5 +170,4 @@ public class CtrlManterTaxas implements ICtrlManterTaxas {
 			this.jCadastro.incluirLinha(taxa);
 		}
 	}
-
 }

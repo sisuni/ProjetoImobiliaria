@@ -9,25 +9,33 @@ public class Cobra implements Serializable, ITabelavel, Comparable<Cobra>{
 	private Taxa taxa;
 	private Boleto boleto;
 
-	public Cobra(float valor, Taxa taxa, Boleto boleto) {
+	public Cobra(float valor, Taxa taxa, Boleto boleto) throws ModelException {
 		this.setTaxa(taxa);
 		this.setValor(valor);
 		this.setBoleto(boleto);
 	}
 
+	public boolean validarValor(float v) throws ModelException{
+		if(v == 0)
+			throw new ModelException("O valor não pode estar vazio ou zerado!");
+		
+		return true;
+	}
+	
 	public float getValor() {
 		return this.valor;
 	}
 
-	public void setValor(float valor) {
-		this.valor = valor;
+	public void setValor(float valor) throws ModelException {
+		if(validarValor(valor))
+			this.valor = valor;
 	}
-
+			
 	public Taxa getTaxa() {
 		return this.taxa;
 	}
 
-	public void setTaxa(Taxa taxa) {
+	public void setTaxa(Taxa taxa){
 		if(this.taxa == taxa)
 			return;
 		
@@ -65,18 +73,7 @@ public class Cobra implements Serializable, ITabelavel, Comparable<Cobra>{
 
 	@Override
 	public int compareTo(Cobra c) {
-		if(c.getBoleto() == null || this.getBoleto() == null)	
-			return 1;
-		else{
-			if((this.getBoleto().compareTo(c.getBoleto())) == 0){
-				if(this.getTaxa() == c.getTaxa())
-					return 0;
-				else
-					return 1;			
-			}else{
-				return 1;
-			}
-		}
+		return c.getTaxa().compareTo(this.getTaxa());
 	}
 
 	@Override

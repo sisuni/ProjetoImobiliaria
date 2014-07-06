@@ -66,7 +66,16 @@ public class Taxa implements Serializable, ITabelavel, Comparable<Taxa>{
 	}
 
 	public String toString(){
-		return "Taxa: " + this.getNome() + " - Boletos:" + this.getCobrancas().size();
+		return this.getNome() + " - Cobranças: " + this.listaCobrancas.size();
+	}
+	
+	public boolean validarCobranca(Cobra cobra) throws ModelException{
+		for(Cobra c : this.listaCobrancas){
+			if(c == cobra)
+				throw new ModelException("Esta cobrança já existe!");
+		}
+		
+		return true;
 	}
 }
 

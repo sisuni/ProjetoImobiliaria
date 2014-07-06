@@ -132,18 +132,6 @@ public class CtrlPrograma implements ICtrlPrograma{
 	}
 
 	@Override
-	public boolean iniciarCasoDeUsoManterCobra() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean terminarCasoDeUsoManterCobra() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean iniciarCasoDeUsoManterContrato() {
 		return this.ctrlContrato.iniciar();
 	}
