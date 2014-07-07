@@ -188,6 +188,30 @@ public class CtrlManterCargos implements ICtrlManterCargos{
 		}
 	}
 
-	
+	public void procurar(String campo, String valor){
+		if(valor.length() >0){
+			for(Cargo c : dao.getListaObjs()){
+				switch(campo){
+					case "Nome":
+						if(c.getNome().toUpperCase().equals(valor.toUpperCase())){
+							this.jCadastro.limpar();
+							this.jCadastro.incluirLinha(c);
+						}break;				
+					case "Nível":
+						if(c.getNivel() == Integer.parseInt(valor)){
+							this.jCadastro.limpar();
+							this.jCadastro.incluirLinha(c);
+						}break;
+					
+					case "Nº Func":
+						if(c.getFuncionarios().size() == Integer.parseInt(valor)){
+							this.jCadastro.limpar();
+							this.jCadastro.incluirLinha(c);
+						}break;		
+				}	
+			}	
+		} else
+			this.atualizarInterface();
+	}
 
 }

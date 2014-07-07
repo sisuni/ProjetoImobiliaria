@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,7 +37,9 @@ public class JanelaTaxas extends JFrame implements IViewer{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null); //centralizar janela
-		setResizable(false); //não maximizar, aumentar		
+		setResizable(false); //não maximizar, aumentar
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png"));
+		
 		/*Inicio dos Botões*/
 		JButton btnIncluir = new JButton("Incluir");
 		btnIncluir.addActionListener(new ActionListener() {

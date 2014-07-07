@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,6 +38,7 @@ public class JanelaFuncionario extends JFrame implements IViewer{
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png"));
 		
 		/*Inicio dos Botões*/
 		JButton btnIncluir = new JButton("Incluir");

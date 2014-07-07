@@ -1,14 +1,22 @@
 package view;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelEvent;
@@ -17,26 +25,72 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import control.ICtrlManter;
+import control.ICtrlManterCargos;
 import control.ITabelavel;
 
 public class JanelaCargos extends JFrame implements IViewer{
 	private JPanel contentPane;
-	private ICtrlManter ctrl;
+	private ICtrlManterCargos ctrl;
 	private JTable table;
+	private JTextField txtPesquisa;
+	private JComboBox<String> cmbCampo;
+	private String pesquisa = "";
 	
-	
-	public JanelaCargos(ICtrlManter c){
+	public JanelaCargos(ICtrlManterCargos c){
 		this.ctrl = c;
 		setTitle("Cargos - Imobiliária");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 419, 300);
+		setBounds(100, 100, 410, 380);
 		contentPane = new JPanel();
 		setLocationRelativeTo(null);//centralizar janela
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null); 
-		setResizable(false); //não maximizar, aumentar		
+		setResizable(false); //não maximizar, aumentar	
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png"));
+		
+		
+		JLabel lblCampo = new JLabel("Campo:");
+		lblCampo.setBounds(28,11,100,20);
+		add(lblCampo);
+		
+		cmbCampo = new JComboBox<String>();
+		cmbCampo.addItem("Nome");
+		cmbCampo.addItem("Nível");
+		cmbCampo.addItem("Nº Func");
+		cmbCampo.setBounds(75,13,60,20);
+		add(cmbCampo);
+		
+		JLabel lblPesquisa = new JLabel("Pesquisar:");
+		lblPesquisa.setBounds(10,41,100,20);
+		add(lblPesquisa);
+		
+		txtPesquisa = new JTextField();
+		txtPesquisa.setBounds(75,43,318,20);
+		add(txtPesquisa);
+		
+		txtPesquisa.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				String valor = Character.toString(c);
+				
+				if(valor.equals("\b")){
+					if(pesquisa.length() > 0)
+						pesquisa = pesquisa.substring(0,pesquisa.length()-1);
+				}else{
+					if(cmbCampo.getSelectedItem().equals("Nível") || cmbCampo.getSelectedItem().equals("Nº Func")){
+						if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+							getToolkit().beep();
+							e.consume();
+						}else
+							pesquisa += valor;	
+					}else
+						pesquisa += valor;
+				}
+				
+				procurar((String)cmbCampo.getSelectedItem(), pesquisa);
+			}});
+			
 		/*Inicio dos Botões*/
 		JButton btnIncluir = new JButton("Incluir");
 		btnIncluir.addActionListener(new ActionListener() {
@@ -44,7 +98,7 @@ public class JanelaCargos extends JFrame implements IViewer{
 				executarIncluir();
 			}
 		});
-		btnIncluir.setBounds(10, 232, 89, 23);
+		btnIncluir.setBounds(10, 312, 89, 23);
 		contentPane.add(btnIncluir);
 		
 		JButton btnAlterar = new JButton("Alterar");
@@ -53,7 +107,7 @@ public class JanelaCargos extends JFrame implements IViewer{
 				executarAlterar();
 			}
 		});
-		btnAlterar.setBounds(109, 232, 89, 23);
+		btnAlterar.setBounds(109, 312, 89, 23);
 		contentPane.add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir");
@@ -62,7 +116,7 @@ public class JanelaCargos extends JFrame implements IViewer{
 				executarExcluir();
 			}
 		});
-		btnExcluir.setBounds(208, 232, 89, 23);
+		btnExcluir.setBounds(208, 312, 89, 23);
 		contentPane.add(btnExcluir);
 		
 		JButton btnSair = new JButton("Sair");
@@ -71,13 +125,13 @@ public class JanelaCargos extends JFrame implements IViewer{
 				executarTerminar();
 			}
 		});
-		btnSair.setBounds(307, 232, 89, 23);
+		btnSair.setBounds(307, 312, 89, 23);
 		contentPane.add(btnSair);
 		/*Fim dos Botões*/
 		
 		/*Inicio da Table*/
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 386, 212);
+		scrollPane.setBounds(10, 81, 386, 212);
 		contentPane.add(scrollPane);
 		
 		
@@ -146,6 +200,10 @@ public class JanelaCargos extends JFrame implements IViewer{
 	
 	public void executarTerminar() {
 		ctrl.terminar();
+	}
+	
+	public void procurar(String campo, String valor){
+		ctrl.procurar(campo, valor);
 	}
 	
 	public void tratarModificacaoNaTabela(TableModelEvent e) {

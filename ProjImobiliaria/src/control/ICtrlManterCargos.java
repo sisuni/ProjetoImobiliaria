@@ -8,5 +8,6 @@ public interface ICtrlManterCargos extends ICtrlManter {
 
 	 public abstract boolean alterar(int nivel, String nome) throws ModelException;
 
+	 public abstract void procurar(String campo, String valor);
 
 }
