@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -55,6 +56,7 @@ public class JanelaSalvaProprietario extends JFrame implements
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png")); //colocando icone
 
 		JLabel lblDadosC = new JLabel("Dados Cadastrais");
 		lblDadosC.setBounds(20, 13, 150, 14);

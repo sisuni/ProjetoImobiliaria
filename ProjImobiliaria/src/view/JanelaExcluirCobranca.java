@@ -3,7 +3,6 @@ package view;
 import javax.swing.JOptionPane;
 
 import model.ModelException;
-import control.ICtrlManter;
 import control.ICtrlManterBoletos;
 
 public class JanelaExcluirCobranca {

@@ -167,7 +167,7 @@ public class CtrlManterTelefones implements ICtrlManterTelefones {
 		
 		Set<Telefone> lista = this.recuperarPeloCliente(ctrlCli.getCliente());
 		int i = 0;
-		for(Telefone t : listaTelefones){
+		for(Telefone t : lista){
 			if(i++ == pos)
 				this.telefoneAtual = t;
 		}

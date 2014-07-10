@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -62,6 +63,7 @@ public class JanelaSalvaBoleto extends JFrame implements IViewerSalvaBoleto {
 		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
 		setResizable(false); // não maximizar, aumentar
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png")); //colocando icone
 
 		/* Inicio da Table */
 		JScrollPane scrollPane = new JScrollPane();

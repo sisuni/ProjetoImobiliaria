@@ -17,6 +17,7 @@ import model.DAOInquilino;
 import model.DAOProprietario;
 import model.DAOTaxa;
 import model.DAOTelefone;
+import model.Funcionario;
 import model.IDAOSerializavel;
 import view.IViewerPrincipal;
 import view.JanelaPrincipal;
@@ -26,13 +27,14 @@ public class CtrlPrograma implements ICtrlPrograma{
 	
 	private ICtrlManter ctrlCargo;
 	private ICtrlManter ctrlContrato;
-	private ICtrlManter ctrlFuncionario;
+	private ICtrlManterFuncionarios ctrlFuncionario;
 	private ICtrlManter ctrlImovel;
 	private ICtrlManter ctrlInquilino;
 	private ICtrlManter ctrlProprietario;
 	private ICtrlManter ctrlBoleto;
 	private ICtrlManter ctrlTaxa;
 	private IViewerPrincipal jPrincipal;
+	private Funcionario funcionarioLogado;
 	
 	public CtrlPrograma() {
 		this.ctrlCargo			= new CtrlManterCargos(this);
@@ -47,7 +49,8 @@ public class CtrlPrograma implements ICtrlPrograma{
 	}
 	
 	public void iniciar(){
-		this.jPrincipal = new JanelaPrincipal(this);
+
+		this.iniciarAcesso();
 		IDAOSerializavel daoCargo			= (IDAOSerializavel) DAOCargo.getSingleton();
 		IDAOSerializavel daoContrato		= (IDAOSerializavel) DAOContrato.getSingleton();
 		IDAOSerializavel daoFuncionario		= (IDAOSerializavel) DAOFuncionario.getSingleton();
@@ -200,7 +203,25 @@ public class CtrlPrograma implements ICtrlPrograma{
 	public boolean terminarCasoDeUsoManterBoleto() {
 		return true;
 	}
+	
 
+	public boolean iniciarAcesso(){
+		funcionarioLogado = null;
+		return this.ctrlFuncionario.iniciarAcesso();
+	}
+	
+	public boolean terminarAcesso(){
+		System.exit(0);
+		return true;
+	}
+	
+	public boolean iniciarMenu(Funcionario usuario){
+		funcionarioLogado = usuario;
+		this.jPrincipal = new JanelaPrincipal(this);
+		this.jPrincipal.setUsuario(funcionarioLogado);
+		return true;
+	}
+	
 	/**
 	 * vamos apagar esta classe para criar o model depois
 	 */

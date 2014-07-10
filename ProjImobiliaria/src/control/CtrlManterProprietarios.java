@@ -2,7 +2,6 @@ package control;
 
 import java.text.ParseException;
 
-import model.Cliente;
 import model.DAOProprietario;
 import model.IDAO;
 import model.ModelException;

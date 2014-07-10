@@ -3,10 +3,9 @@ package control;
 import java.util.Set;
 
 import model.Cliente;
-import model.ModelException;
 import model.Telefone;
 import view.IViewerSalvaCliente;
-import view.JanelaSalvaTelefone;
+
 
 public abstract class CtrlManterClientes implements ICtrlManterClientes {
 	

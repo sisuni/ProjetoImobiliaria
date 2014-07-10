@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -39,6 +40,7 @@ public class JanelaSalvaTelefone extends JFrame implements IViewerSalvaTelefone{
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png")); //colocando icone
 		
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setBounds(61, 11, 46, 14);

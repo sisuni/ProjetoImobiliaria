@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -64,6 +65,7 @@ public class JanelaSalvaContrato extends JFrame implements IViewerSalvaContrato{
 		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
 		setResizable(false); //não maximizar, aumentar	
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png")); //colocando icone
 		
 		JLabel lblImovel = new JLabel("Imóvel:");
 		lblImovel.setBounds(20, 18, 50, 14);

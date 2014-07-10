@@ -20,4 +20,7 @@ public abstract class Pessoa implements Serializable, ITabelavel {
 		this.nome = nome;
 	}
 
+	public int compareTo(Pessoa p) {
+		return this.getNome().compareTo(p.getNome());
+	}
 }

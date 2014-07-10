@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,6 +37,7 @@ public class JanelaSalvaCargo extends JFrame implements IViewerSalvaCargo{
 		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
 		setResizable(false); //não maximizar, aumentar	
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png")); //colocando icone
 		
 		JLabel lblNivel = new JLabel("Nível:");
 		lblNivel.setBounds(20, 11, 46, 14);

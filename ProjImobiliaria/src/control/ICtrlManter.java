@@ -1,9 +1,6 @@
 package control;
 
-import java.util.Date;
 
-import model.Imovel;
-import model.Inquilino;
 import model.ModelException;
 
 public interface ICtrlManter {

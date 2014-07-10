@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Toolkit;
+
 import javax.swing.JOptionPane;
 
 import model.ModelException;
@@ -32,6 +34,7 @@ public class JanelaExcluirBoleto {
 		this.ctrl = ct;
 		// Pergunto ao usuário o que ele deseja fazer
 		this.opcao = JOptionPane.showConfirmDialog(null, "Deseja remover o Boleto " + selecionado + "?");
+		
 		// Verifica o que o usuário indicou para ser feito
 		if(this.opcao == JOptionPane.YES_OPTION)
 			try {

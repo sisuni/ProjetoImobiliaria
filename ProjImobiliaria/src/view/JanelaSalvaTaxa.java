@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -39,6 +40,7 @@ public class JanelaSalvaTaxa extends JFrame implements IViewerSalvaTaxa{
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png")); //colocando icone
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(30, 11, 46, 14);

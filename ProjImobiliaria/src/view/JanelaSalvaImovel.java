@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -79,6 +80,7 @@ public class JanelaSalvaImovel extends JFrame implements IViewerSalvaImovel{
 		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
 		setResizable(false); //não maximizar, aumentar	
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png")); //colocando icone
 		
 		JLabel lblPro = new JLabel("Proprietário:");
 		lblPro.setBounds(20, 11, 150, 20);

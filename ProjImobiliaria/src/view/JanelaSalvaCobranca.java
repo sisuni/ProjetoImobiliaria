@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -42,6 +43,7 @@ public class JanelaSalvaCobranca extends JFrame implements IViewerSalvaCobranca{
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png")); //colocando icone
 		
 		JLabel lblTaxa = new JLabel("Taxa:");
 		lblTaxa.setBounds(30, 11, 46, 14);

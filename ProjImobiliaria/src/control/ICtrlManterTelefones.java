@@ -2,7 +2,6 @@ package control;
 
 import java.util.Set;
 
-import model.Cliente;
 import model.ModelException;
 import model.Telefone;
 

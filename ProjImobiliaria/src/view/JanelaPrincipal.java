@@ -4,26 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import javax.imageio.ImageIO;
-import javax.net.ssl.SSLEngineResult.Status;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -31,14 +24,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.MenuSelectionManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
-import control.CtrlPrograma;
+import model.Funcionario;
 import control.ICtrlPrograma;
 
 public class JanelaPrincipal extends JFrame implements IViewerPrincipal {
@@ -128,8 +117,8 @@ public class JanelaPrincipal extends JFrame implements IViewerPrincipal {
 		JMenu ajuda = new JMenu("Ajuda");
 		JMenuItem sair = new JMenuItem("Encerrar Sistema");
 		
-		sair.setMinimumSize(new Dimension(50,20));
-		sair.setMaximumSize(new Dimension(115,20));
+		sair.setMinimumSize(new Dimension(50,22));
+		sair.setMaximumSize(new Dimension(115,22));
 		
 		menuBar.add(controle);
 		menuBar.add(relat);
@@ -272,8 +261,9 @@ public class JanelaPrincipal extends JFrame implements IViewerPrincipal {
 		return df.format(num);
 	}
 	
-	public void setUsuario(String usuario){
-		this.usuario.setText(usuario);
+	@Override
+	public void setUsuario(Funcionario usuario){
+		this.usuario.setText(usuario.getCargo().toString()+" : "+usuario.getLogin().toUpperCase());
 	}
 
 }

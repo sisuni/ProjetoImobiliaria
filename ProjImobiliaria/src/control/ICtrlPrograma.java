@@ -1,5 +1,7 @@
 package control;
 
+import model.Funcionario;
+
 public interface ICtrlPrograma {
 
 	public abstract void iniciar();
@@ -37,5 +39,11 @@ public interface ICtrlPrograma {
 	public abstract boolean iniciarCasoDeUsoManterTaxas();
 	
 	public abstract boolean terminarCasoDeUsoManterTaxas();
+	
+	public abstract boolean iniciarAcesso();
+	
+	public abstract boolean terminarAcesso();
+	
+	public abstract boolean iniciarMenu(Funcionario usuario);
 	
 }

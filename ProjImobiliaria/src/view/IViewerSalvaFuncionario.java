@@ -1,6 +1,5 @@
 package view;
 
-import model.Cargo;
 
 public interface IViewerSalvaFuncionario {
 	

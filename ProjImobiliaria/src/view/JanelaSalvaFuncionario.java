@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -47,6 +48,7 @@ public class JanelaSalvaFuncionario extends JFrame implements IViewerSalvaFuncio
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png")); //colocando icone
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(20, 13, 46, 14);

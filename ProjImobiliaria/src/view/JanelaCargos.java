@@ -58,7 +58,7 @@ public class JanelaCargos extends JFrame implements IViewer{
 		cmbCampo.addItem("Nome");
 		cmbCampo.addItem("Nível");
 		cmbCampo.addItem("Nº Func");
-		cmbCampo.setBounds(75,13,60,20);
+		cmbCampo.setBounds(75,13,100,20);
 		add(cmbCampo);
 		
 		JLabel lblPesquisa = new JLabel("Pesquisar:");
