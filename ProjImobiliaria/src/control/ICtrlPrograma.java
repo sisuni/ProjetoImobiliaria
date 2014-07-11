@@ -46,4 +46,8 @@ public interface ICtrlPrograma {
 	
 	public abstract boolean iniciarMenu(Funcionario usuario);
 	
+	public abstract boolean iniciarAlterarSenha();
+	
+	public abstract boolean terminarAlterarSenha();
+	
 }

@@ -216,9 +216,17 @@ public class CtrlPrograma implements ICtrlPrograma{
 	}
 	
 	public boolean iniciarMenu(Funcionario usuario){
-		funcionarioLogado = usuario;
+		this.funcionarioLogado = usuario;
 		this.jPrincipal = new JanelaPrincipal(this);
-		this.jPrincipal.setUsuario(funcionarioLogado);
+		this.jPrincipal.setUsuario(this.funcionarioLogado);
+		return true;
+	}
+	
+	public boolean iniciarAlterarSenha(){
+		return this.ctrlFuncionario.iniciarAlterarSenha(this.funcionarioLogado);
+	}
+	
+	public boolean terminarAlterarSenha(){
 		return true;
 	}
 	

@@ -10,8 +10,10 @@ import model.IDAO;
 import model.ModelException;
 import view.IViewer;
 import view.IViewerAcesso;
+import view.IViewerAltSenha;
 import view.IViewerSalvaFuncionario;
 import view.JanelaAcesso;
+import view.JanelaAlterarSenha;
 import view.JanelaExcluirFuncionario;
 import view.JanelaFuncionario;
 import view.JanelaSalvaFuncionario;
@@ -21,7 +23,7 @@ public class CtrlManterFuncionarios implements ICtrlManterFuncionarios{
 	// ATRIBUTOS
 	//
 	private enum Operacao {
-		INCLUSAO, EXCLUSAO, ALTERACAO, DISPONIVEL, ACESSO;
+		INCLUSAO, EXCLUSAO, ALTERACAO, DISPONIVEL, ACESSO, ALTERAR_SENHA;
 	}
 	
 	private ICtrlPrograma ctrlPrg;
@@ -29,6 +31,8 @@ public class CtrlManterFuncionarios implements ICtrlManterFuncionarios{
 	private IViewer jCadastro;
 	
 	private IViewerAcesso jAcesso;
+	
+	private IViewerAltSenha jAltSenha;
 	
 	private IViewerSalvaFuncionario jFuncionario;
 	
@@ -279,6 +283,48 @@ public class CtrlManterFuncionarios implements ICtrlManterFuncionarios{
 			this.jAcesso.setVisible(false);
 			this.operacao = Operacao.DISPONIVEL;
 			this.ctrlPrg.terminarAcesso();
+		}
+	}
+	
+	public boolean iniciarAlterarSenha(Funcionario func){
+		if(this.emExecucao)
+			return false;
+		
+		this.operacao = Operacao.ALTERAR_SENHA;
+		this.jAltSenha = new JanelaAlterarSenha(this,func);
+		return true;
+	}
+	
+	public boolean alterarSenha(Funcionario func, String senhaAtual, String novaSenha, String repNovaSenha) throws ModelException{
+		if(this.operacao != Operacao.ALTERAR_SENHA)
+			return false;
+		
+		this.validarSenhaIgual(func, senhaAtual, novaSenha, repNovaSenha);
+		func.setSenha(novaSenha);
+		dao.atualizar(func);
+		this.jAltSenha.setVisible(false);
+		this.operacao = Operacao.DISPONIVEL;
+		return true;
+	}
+	
+	public boolean validarSenhaIgual(Funcionario func, String senhaAtual, String novaSenha, String repNovaSenha) throws ModelException{
+		if(func.getSenha().equals(senhaAtual)){
+			if(! novaSenha.equals(repNovaSenha)){
+				this.jAltSenha.focusSenhaNova();
+				throw new ModelException("As senhas não coincidem !");
+			}
+		}else{
+			this.jAltSenha.focusSenhaAtual();
+			throw new ModelException("A senha informada não confere com a Base de Dados!");
+		}
+		return true;
+	}
+	
+	public void cancelarAlterarSenha(){
+		if(this.operacao == Operacao.ALTERAR_SENHA){
+			this.jAltSenha.setVisible(false);
+			this.operacao = Operacao.DISPONIVEL;
+			this.ctrlPrg.terminarAlterarSenha();
 		}
 	}
 

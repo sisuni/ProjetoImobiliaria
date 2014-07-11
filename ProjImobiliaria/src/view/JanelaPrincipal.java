@@ -219,6 +219,12 @@ public class JanelaPrincipal extends JFrame implements IViewerPrincipal {
 				ctrlPrg.terminar();
 			}
 		});
+		
+		alt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ctrlPrg.iniciarAlterarSenha();
+			}
+		});
 
 		
 		 this.addWindowListener(new WindowAdapter() {
